@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="site/layouts/header :: header"></head>
+<body>
+
+<div th:replace="site/layouts/navbar :: navbar"></div>
+
+<div class="home-sec" id="home" >
+    <div class="overlay">
+        <div class="container">
+            <div class="row text-center " >
+
+                <div class="col-lg-12  col-md-12 col-sm-12">
+
+                    <div class="flexslider set-flexi" id="main-section" >
+                        <ul class="slides move-me">
+
+                            <li>
+                                <h3>Delivering Quality Education</h3>
+                                <h1>THE UNIQUE METHOD</h1>
+<!--                                <a th:href="@{/registration}" class="btn btn-info btn-lg" >-->
+<!--                                    APPLY FOR REGISTRATION-->
+<!--                                </a>-->
+                            </li>
+                            <li>
+                                <h3>Delivering Quality Education</h3>
+                                <h1>UNMATCHED APPROACH</h1>
+<!--                                <a th:href="@{/registration}" class="btn btn-info btn-lg" >-->
+<!--                                    APPLY FOR REGISTRATION-->
+<!--                                </a>-->
+                            </li>
+                            <li>
+                                <h3>Delivering Quality Education</h3>
+                                <h1>AWESOME FACULTY PANEL</h1>
+<!--                                <a th:href="@{/registration}" class="btn btn-info btn-lg" >-->
+<!--                                    APPLY FOR REGISTRATION-->
+<!--                                </a>-->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--HOME SECTION END-->
+<div  class="tag-line" >
+    <div class="container">
+        <div class="row  text-center" >
+
+            <div class="col-lg-12  col-md-12 col-sm-12">
+
+                <h2 data-scroll-reveal="enter from the bottom after 0.1s" ><i class="fa fa-circle-o-notch"></i> WELCOME TO THE EDU-CENTER <i class="fa fa-circle-o-notch"></i> </h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="features-sec" class="container set-pad" >
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+            <h1 data-scroll-reveal="enter from the bottom after 0.2s"  class="header-line">FEATURE LIST </h1>
+        </div>
+
+    </div>
+
+    <div class="row" >
+        <div class="col-lg-4  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.4s">
+            <div class="about-div">
+                <i class="fa fa-paper-plane-o fa-4x icon-round-border" ></i>
+                <h3 >Quality Education</h3>
+                <hr />
+                <hr />
+            </div>
+        </div>
+        <div class="col-lg-4  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.5s">
+            <div class="about-div">
+                <i class="fa fa-bolt fa-4x icon-round-border" ></i>
+                <h3 >SYSTEMATIC APPROACH</h3>
+                <hr />
+                <hr />
+            </div>
+        </div>
+        <div class="col-lg-4  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.6s">
+            <div class="about-div">
+                <i class="fa fa-magic fa-4x icon-round-border" ></i>
+                <h3 >ONE TO ONE STUDY</h3>
+                <hr />
+                <hr />
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div id="course-sec" class="container set-pad">
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+            <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line">OUR INSTITUTE</h1>
+        </div>
+
+    </div>
+
+    <div class="row set-row-pad">
+        <div class="col-lg-6 col-md-6 col-sm-6 " data-scroll-reveal="enter from the bottom after 0.4s" >
+            <img src="/site/img/building.jpg" class="img-thumbnail" />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" data-scroll-reveal="enter from the bottom after 0.5s">
+                    <div class="panel-heading" >
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="collapsed">
+                                <strong th:text="${majors.size()}"></strong> Majors
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body">
+                            <ul>
+                                <li th:each="major: ${majors}" th:text="${major.name}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" data-scroll-reveal="enter from the bottom after 0.5s">
+                    <div class="panel-heading" >
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="collapsed">
+                                <strong th:text="${faculties.size()}"></strong> Faculty Members
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body">
+                            <ul>
+                                <li th:each="faculty: ${faculties}" th:text="${faculty.name}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row set-row-pad"  >
+        <div class="col-lg-4 col-md-4 col-sm-4   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 " data-scroll-reveal="enter from the bottom after 0.4s">
+
+            <h2 ><strong>Our Location </strong></h2>
+            <hr />
+            <div>
+            <h4>IIT BHU Varanasi</h4>
+            <h4>Uttar Pradesh, India</h4>
+            <h4><strong>Call:</strong>  +910000000000 </h4>
+            <h4><strong>Email: </strong>admin@nishantwrp.com</h4>
+        </div>
+
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4   col-lg-offset-1 col-md-offset-1 col-sm-offset-1" data-scroll-reveal="enter from the bottom after 0.4s">
+
+        <h2 ><strong>Social Conectivity </strong></h2>
+        <hr />
+        <div >
+            <a href="#">  <img src="/site/img/Social/facebook.png" alt="" /> </a>
+            <a href="#"> <img src="/site/img/Social/google-plus.png" alt="" /></a>
+            <a href="#"> <img src="/site/img/Social/twitter.png" alt="" /></a>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<div th:replace="site/layouts/footer :: footer"></div>
+<script th:replace="site/layouts/toast :: toast"></script>
+
+</body>
+</html>

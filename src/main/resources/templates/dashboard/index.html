@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+
+<body id="page-top">
+
+<h1> Landed on Dashboard page</h1>
+
+	<div th:switch="${user.role}">
+	  <p th:case="admin">User is an administrator</p>
+	  <p th:case="student" th:text="${student.username+' '+student.name+' '+student.address}">User is a student</p>
+	  <p th:case="*">User is some other thing</p>
+	</div>
+		<a href="/logout" class="btn btn-primary">Logout</a>
+<!--  <div id="wrapper">-->
+<!--    <ul th:replace="dashboard/layouts/sidebar :: sidebar"></ul>-->
+<!--    <div id="content-wrapper" class="d-flex flex-column">-->
+<!--      <div id="content">-->
+<!--        <nav th:replace="dashboard/layouts/navbar :: navbar"></nav>-->
+
+<!--        <div class="container-fluid">-->
+<!--          <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
+<!--            <h1 th:if="${userRole == 'admin'}" class="h3 mb-0 text-gray-800">Admin Dashboard</h1>-->
+<!--            <h1 th:if="${userRole == 'faculty'}" class="h3 mb-0 text-gray-800">Faculty Dashboard</h1>-->
+<!--            <h1 th:if="${userRole == 'student'}" class="h3 mb-0 text-gray-800">Student Dashboard</h1>-->
+<!--          </div>-->
+
+<!--          <div th:if="${userRole == 'admin'}" class="row">-->
+
+<!--            <div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-primary shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Sessions</div>-->
+<!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">-->
+<!--                        <a th:href="@{/dashboard/manage/sessions}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Manage</a>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-success shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Faculty</div>-->
+<!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">-->
+<!--                        <a th:href="@{/dashboard/manage/faculty}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Manage</a>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-info shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Subjects</div>-->
+<!--                      <div class="row no-gutters align-items-center">-->
+<!--                        <div class="col-auto">-->
+<!--                          <div class="h5 mb-0 font-weight-bold text-gray-800">-->
+<!--                            <a th:href="@{/dashboard/manage/subjects}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Manage</a>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-warning shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Majors</div>-->
+<!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">-->
+<!--                        <a th:href="@{/dashboard/manage/majors}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Manage</a>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div th:if="${userRole == 'student'}" class="card shadow mb-4">-->
+<!--            <div class="card-header py-3">-->
+<!--              <h6 class="m-0 font-weight-bold text-primary">Profile</h6>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--              <form method="post" th:action="@{/dashboard/studentUpdate}" th:object="${userProfile}">-->
+<!--                <div class="form-group">-->
+<!--                  <label for="rollNo">Roll No.</label>-->
+<!--                  <input type="text" id="rollNo" disabled="disabled" class="form-control" th:value="${userProfile.rollNo}" th:field="*{rollNo}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="session">Session</label>-->
+<!--                  <select id="session" disabled="disabled" class="form-control" th:field="*{sessionId}">-->
+<!--                    <option th:value="${userProfile.sessionId}" th:text="${userProfile.session.startYear}"></option>-->
+<!--                  </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="major">Major</label>-->
+<!--                  <select id="major" disabled="disabled" class="form-control" th:field="*{majorId}">-->
+<!--                    <option th:value="${userProfile.majorId}" th:text="${userProfile.major.name}"></option>-->
+<!--                  </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="name">Name</label>-->
+<!--                  <input type="text" id="name" class="form-control" required="required" th:value="${userProfile.name}" th:field="*{name}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="email">Email</label>-->
+<!--                  <input type="email" id="email" class="form-control" required="required" th:value="${userProfile.email}" th:field="*{email}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="phoneNo">Phone no.</label>-->
+<!--                  <input type="number" id="phoneNo" class="form-control" required="required" th:value="${userProfile.phone}" th:field="*{phone}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="dateOfBirth">Date of Birth</label>-->
+<!--                  <input type="date" class="form-control" id="dateOfBirth" required="required" th:value="${userProfile.dob}" th:field="*{dob}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="bio">Bio</label>-->
+<!--                  <textarea id="bio" required="required" class="form-control" rows="2" th:value="${userProfile.bio}" th:field="*{bio}"></textarea>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="address">Address</label>-->
+<!--                  <textarea id="address" required="required" class="form-control" rows="3" th:value="${userProfile.address}" th:field="*{address}"></textarea>-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-primary">Update Info</button>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div th:if="${userRole == 'faculty'}" class="card shadow mb-4">-->
+<!--            <div class="card-header py-3">-->
+<!--              <h6 class="m-0 font-weight-bold text-primary">Profile</h6>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--              <form method="post" th:action="@{/dashboard/facultyUpdate}" th:object="${userProfile}">-->
+<!--                <div class="form-group">-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="email">Email</label>-->
+<!--                    <input type="email" id="email" disabled="disabled" class="form-control" required="required" th:value="${userProfile.email}" th:field="*{email}">-->
+<!--                  </div>-->
+<!--                  <label for="name">Name</label>-->
+<!--                  <input type="text" id="name" class="form-control" required="required" th:value="${userProfile.name}" th:field="*{name}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="phoneNo">Phone no.</label>-->
+<!--                  <input type="number" id="phoneNo" class="form-control" required="required" th:value="${userProfile.phone}" th:field="*{phone}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="dateOfBirth">Date of Birth</label>-->
+<!--                  <input type="date" class="form-control" id="dateOfBirth" required="required" th:value="${userProfile.dob}" th:field="*{dob}">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="bio">Bio</label>-->
+<!--                  <textarea id="bio" required="required" class="form-control" rows="2" th:value="${userProfile.bio}" th:field="*{bio}"></textarea>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label for="address">Address</label>-->
+<!--                  <textarea id="address" required="required" class="form-control" rows="3" th:value="${userProfile.address}" th:field="*{address}"></textarea>-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-primary">Update Info</button>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <footer th:replace="dashboard/layouts/footer :: footer"></footer>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <a th:replace="dashboard/layouts/scrollToTop :: scrollToTop"> </a>-->
+<!--  <div th:replace="dashboard/layouts/logoutModal :: logoutModal"></div>-->
+<!--  <script th:replace="site/layouts/toast :: toast"></script>-->
+
+<!--  &lt;!&ndash; Page level plugins &ndash;&gt;-->
+<!--  <script src="/dashboard/vendor/chart.js/Chart.min.js"></script>-->
+
+<!--  &lt;!&ndash; Page level custom scripts &ndash;&gt;-->
+<!--  <script src="/dashboard/js/demo/chart-area-demo.js"></script>-->
+<!--  <script src="/dashboard/js/demo/chart-pie-demo.js"></script>-->
+</body>
+
+</html>
