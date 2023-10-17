@@ -8,11 +8,11 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nishantwrp</groupId>
+	<groupId>com.hostel</groupId>
 	<artifactId>hms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>institute-management</name>
-	<description>A web application for institute management.</description>
+	<name>hostel-management</name>
+	<description>A web application for Hostel management.</description>
 
 	<properties>
 		<java.version>1.8</java.version>
