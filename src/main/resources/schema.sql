@@ -1,9 +1,14 @@
 
-use hostel_management;
+use hms;
 
 show tables;
 
+Insert into hostel values("1","Visweswaraya","IIT BHU HG");
+Insert into hostel values("2","SC DEY","IIT BHU Lanka");
 
+select * from hostel;
+select * from User;
+Insert into User values("admin1","1234","admin");
 
 CREATE TABLE IF NOT EXISTS User (
                                     username varchar(55) PRIMARY KEY,
@@ -133,14 +138,6 @@ CREATE TABLE IF NOT EXISTS Transaction (
    description VARCHAR(255),
    FOREIGN KEY (Roll) REFERENCES Student(Roll) ON DELETE SET NULL
 );
-
-Insert into hostel values(1,"Visweswaraya","IIT BHU HG");
-Insert into hostel values(2,"SC DEY","IIT BHU Lanka");
-
-select * from hostel;
-select * from User;
-
-Insert into User values("admin1","1234","admin");
 
 # CREATE TABLE IF NOT EXISTS Visitor (
 #                                        visitor_id INT AUTO_INCREMENT PRIMARY KEY,
