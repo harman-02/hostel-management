@@ -1,6 +1,6 @@
 package com.hms.HostelManagement.controller;
 
-import com.hms.HostelManagement.service.*;
+import com.hms.HostelManagement.service.ToastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -22,10 +22,15 @@ public class HomeController extends BaseController {
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
-
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
         addDefaultAttributes(model, session);
         return  "site/home";
+    }
+
+    @GetMapping("/registration")
+    public String registration(Model model, HttpSession session)
+    {
+        return "site/signup";
     }
 }

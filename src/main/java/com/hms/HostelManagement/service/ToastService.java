@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
-public class ToastService {
+public class  ToastService {
     public void displayErrorToast(Model model, String message) {
         model.addAttribute("errorToast", message);
     }

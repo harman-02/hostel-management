@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Registration </title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins',sans-serif;
+        }
+        body{
+            display: flex;
+            height: 100vh;
+            padding: 15px;
+            background: linear-gradient(140deg, #72b7e5, #9c59b7);
+            justify-content: center;
+            align-items: center;
+        }
+        form .user-details .input-box{
+            margin-bottom: 10px;
+            width: calc(100%);
+        }
+        form .input-box span.details{
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .user-details .input-box input{
+            height: 50px;
+            width: 99%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 10px;
+            padding-left: 14px;
+            border: 2px solid #ccc;
+            border-bottom-width: 3px;
+            transition: all 0.3s ease;
+        }
+        .container .title::before{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid{
+            border-color:#9b59b6;
+        }
+        form .category label{
+            cursor: pointer;
+            align-items: center;
+            display: flex;
+        }
+        form .button{
+            height: 45px;
+            margin: 35px 0;
+        }
+        /*.content form .user-details{*/
+        /*    display: flex;*/
+        /*    flex-wrap: wrap;*/
+        /*    justify-content: space-between;*/
+        /*    margin: 20px 0 12px 0;*/
+        /*}*/
+        form .button input{
+            border-radius: 6px;
+            height: 100%;
+            width: 100%;
+            color: #fff;
+            font-weight: 525;
+            border: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            letter-spacing: 1px;
+            background: linear-gradient(140deg, #1A94C4, #9b59b6);
+        }
+        form .button input:hover{
+            background: linear-gradient(140deg,#9b59b6, #17a673);
+        }
+
+        .container{
+            background-color:#b7d7f1;
+            max-width: 450px;
+            border-radius: 4px;
+            width: 100%;
+            padding: 26px 31px;
+            box-shadow: 0 5px 10px rgba(0.01,0.01,0.01,0.15);
+        }
+        .container .title{
+            font-weight: 510;
+            font-size: 26px;
+            position: relative;
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container" >
+    <div class="title" style="margin-bottom: 20px;">Registration </div>
+    <div class="content">
+        <form action="#">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">User Name</span>
+                    <input type="text" placeholder="Enter your username" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Roll Number</span>
+                    <input type="text" placeholder="Enter your roll number" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="session" style="display: block;">Choose your session</label>
+                    <select th:field="*{session}" class="select-box" style="width: calc(99% ); padding: 10px; border: 2px solid #9b59b6; border-radius: 7px; font-size: 18px;">
+                        <option th:each="i : ${session}" th:value="${i.id}" th:text="${i.name}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="hostel" style="display: block">Choose your hostel</label>
+                    <select th:field="*{hostel}" class="select-box" style="width : calc(98% );padding: 10px; border: 2px solid #9b59b6; border-radius: 7px; font-size: 18px;">
+                        <option th:each="i : ${hostel}" th:value="${i.id}" th:text="${i.name}">
+                        </option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="password" placeholder="Enter your password" required id="password">
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Confirm Password</span>
+                    <input type="password" placeholder="Confirm your password" required id="confirmPassword">
+                </div>
+
+
+            </div>
+            <div class="button">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
