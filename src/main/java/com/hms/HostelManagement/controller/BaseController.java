@@ -37,7 +37,7 @@ abstract class BaseController {
             String currRole=user.getRole();
 
             if (currRole.equals("student")) {
-                model.addAttribute("student", studentService.getStudentByRollNo(currentUser));
+//                model.addAttribute("student", studentService.getStudentByRollNo(currentUser));
             }
         }
     }
