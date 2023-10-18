@@ -1,14 +1,6 @@
-
-use hms;
+use ${MYSQL_DATABASE};
 
 show tables;
-
-Insert into hostel values("1","Visweswaraya","IIT BHU HG");
-Insert into hostel values("2","SC DEY","IIT BHU Lanka");
-
-select * from hostel;
-select * from User;
-Insert into User values("admin1","1234","admin");
 
 CREATE TABLE IF NOT EXISTS User (
                                     username varchar(55) PRIMARY KEY,
@@ -101,7 +93,7 @@ CREATE TABLE IF NOT EXISTS Employee (
                                         employee_id INT AUTO_INCREMENT PRIMARY KEY,
                                         employee_name CHAR(255),
                                         employee_type VARCHAR(255),
-                                        employee_details VARCHAR(255),
+                                        employee_details VARCHAR(255)
 );
 CREATE TABLE IF NOT EXISTS EmployeeUserMapping (
     username varchar(55) primary key,
