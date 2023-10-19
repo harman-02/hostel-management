@@ -13,9 +13,6 @@ import java.util.List;
 public class HostelRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
-//    RowMapper = (rs, rownum){
-//
-//    };
     public void createHostel(Hostel hostel){
         String sql = "insert into Hostel(hostel_name, hostel_address) values (?, ?)";
         jdbcTemplate.update(sql, hostel.getHostelName(), hostel.getHostelAddress());
@@ -25,11 +22,11 @@ public class HostelRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Hostel.class));
     }
     public void deleteHostel(int HostelId){
-            String sql = "delete from Hostel where HostelId=?";
+            String sql = "delete from Hostel where Hostel_Id=?";
             jdbcTemplate.update(sql,HostelId);
     }
     public void updateHostel( Hostel hostel){
-        String sql = "UPDATE Hostel SET HostelName=?,HostelAddress =? WHERE HostelId = ?";
+        String sql = "UPDATE Hostel SET Hostel_Name=?,Hostel_Address =? WHERE Hostel_Id = ?";
         jdbcTemplate.update(
                 sql,hostel.getHostelName(),hostel.getHostelAddress(),hostel.getHostelId());
     }
