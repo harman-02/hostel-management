@@ -32,14 +32,13 @@ public class ComplaintRepository {
     }
 
     public void deleteComplaint(int complaintID){
-        String sql = "delete from Complaint where complaintID=?";
+        String sql = "delete from Complaint where complaint_id=?";
         jdbcTemplate.update(sql,complaintID);
     }
 
-    public void updateComplaintStatus(int complaintID)
-    {
-        String sql = "update Complaint SET status=? WHERE complaintID=?";
-                jdbcTemplate.update(sql,complaintID);
+    public void updateComplaintStatus(int complaintId) {
+        String sql = "UPDATE Complaint SET status = ? WHERE complaint_id = ?";
+        jdbcTemplate.update(sql, "Completed", complaintId);
     }
 
 }

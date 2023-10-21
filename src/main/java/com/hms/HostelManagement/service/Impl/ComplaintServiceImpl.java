@@ -35,8 +35,9 @@ public class ComplaintServiceImpl implements ComplaintService {
         complaintRepository.createComplaint(complaint);
     }
 
-    public void updateComplaintStatus(Complaint complaint)
+    @Override
+    public void updateComplaintStatus(int complaintID)
     {
-        complaintRepository.updateComplaintStatus(complaint.getComplaintId());
+        complaintRepository.updateComplaintStatus(complaintID);
     }
 }

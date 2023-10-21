@@ -8,5 +8,6 @@ public interface ComplaintService {
     List<Complaint> getAllComplaint();
     List<Complaint> getParticularComplaint(int studentID);
     public void createComplaint(Complaint complaint);
-    public void updateComplaintStatus(Complaint complaint);
+
+    public void updateComplaintStatus(int complaintID);
 }

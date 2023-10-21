@@ -17,15 +17,22 @@
         <th> Complaint Description </th>
         <th> Complaint Time </th>
         <th> Status </th>
+        <th> Action </th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each = "complaint: ${complaints}">
+    <tr th:each="complaint: ${complaints}">
         <td th:text="${complaint.rollNo}"></td>
         <td th:text="${complaint.description}"></td>
         <td th:text="${complaint.date_of_complain}"></td>
         <td th:text="${complaint.status}"></td>
+        <td>
+            <form th:action="@{/updateStatus}" method="post">
+                <input type="hidden" th:name="complaintID" th:value="${complaint.complaintId}" />
+                <button type="submit">Mark Complete</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 
