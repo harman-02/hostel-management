@@ -40,4 +40,10 @@ public class ComplaintServiceImpl implements ComplaintService {
     {
         complaintRepository.updateComplaintStatus(complaintID);
     }
+
+    @Override
+    public List<Complaint> getComplaintByRollNo(int rollNo)
+    {
+        return complaintRepository.getComplaintByRollNo(rollNo);
+    }
 }

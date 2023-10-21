@@ -52,13 +52,21 @@ public class DashboardController extends BaseController {
         return "dashboard/index";
     }
     @GetMapping("/complaints")
-    public String allcomplaint(Model model, HttpSession session) {
-        if(!isAuthenticated(session))
+    public String allcomplaint(Model model, HttpSession session, Integer keyword) {
+        if (!isAuthenticated(session)) {
             return "redirect:/";
+        }
         addDefaultAttributes(model, session);
-        model.addAttribute("complaints", complaintService.getAllComplaint());
+
+        if (keyword != null) {
+            model.addAttribute("complaints", complaintService.getComplaintByRollNo(keyword));
+        } else {
+            model.addAttribute("complaints", complaintService.getAllComplaint());
+        }
+
         return "dashboard/allComplaint";
     }
+
     @GetMapping("/mycomplaints")
     public String mycomplaint(Model model, HttpSession session) {
         if(!isAuthenticated(session))
