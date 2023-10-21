@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import java.security.Timestamp;
 
 @Data
-public class Complaints {
+public class Complaint {
     @Id
     private Integer complaintId;
     private Integer rollNo;
