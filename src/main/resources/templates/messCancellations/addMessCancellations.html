@@ -13,33 +13,39 @@
             <div class = "card-body">
                 <form th:action="@{/mess}" th:object = "${messAdd}" method="POST">
                     <div class ="form-group">
-                        <label>  Hostel Registration Id </label>
-                        <input
-                                type = "text"
-                                name = "Hostel "
-                                th:field = "*{hostelRegistrationId}"
-                                class = "form-control"
-                                placeholder="Enter Hostel Registration id"
-                        />
+                        <label>
+                            Hostel Registration Id:
+                            <input
+                                    type = "text"
+                                    name = "Hostel "
+                                    th:field = "*{hostelRegistrationId}"
+                                    class = "form-control"
+                                    placeholder="Enter Hostel Registration id"
+                            />
+                        </label>
                     </div>
                     <div class ="form-group">
-                        <label> Roll No </label>
-                        <input
-                                type = "text"
-                                name = "Roll No"
-                                th:field = "*{rollNo}"
-                                class = "form-control"
-                                placeholder="Enter Roll No"
-                        />
+                        <label>
+                            Roll No:
+                            <input
+                                    type = "text"
+                                    name = "Roll No"
+                                    th:field = "*{rollNo}"
+                                    class = "form-control"
+                                    placeholder="Enter Roll No"
+                            />
+                        </label>
                     </div>
                     <div class ="form-group">
-                        <label> Date of Cancellation </label>
-                        <input
-                                type="date"
-                                name="date"
-                               th:field="*{date}"
-                               placeholder="Enter Mess cancellation Date"
-                                 />
+                        <label>
+                            Date of Cancellation:
+                            <input
+                                    type="date"
+                                    name="date"
+                                   th:field="*{date}"
+                                   placeholder="Enter Mess cancellation Date"
+                                     />
+                        </label>
                     </div>
                     <div class = "box-footer">
                         <button type="submit" class = "btn btn-primary">
