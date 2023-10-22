@@ -5,6 +5,7 @@ import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,14 @@ import java.util.List;
 public class MessCancellationsRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
-
+    RowMapper<MessCancellations> rowMapper = (rs, rowNum) -> {
+        MessCancellations messCancellations = new MessCancellations();
+        messCancellations.setEntryNo(rs.getInt("entryNo"));
+        messCancellations.setRollNo(rs.getInt("rollNo"));
+        messCancellations.setHostelRegistrationId(rs.getInt("hostelRegistrationId"));
+        messCancellations.setDate(rs.getDate("date_"));
+        return messCancellations;
+    };
     public void createMessCancellation (MessCancellations messCancellations) {
         String sql = "insert into MessCancellations(hostelRegistrationId, rollNo, date_) values (?, ?, ?)";
         jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
@@ -20,7 +28,7 @@ public class MessCancellationsRepository {
 
     public List<MessCancellations> getAll() {
         String sql = "select * from MessCancellations";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(MessCancellations.class));
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     public MessCancellations getById(int id) {
