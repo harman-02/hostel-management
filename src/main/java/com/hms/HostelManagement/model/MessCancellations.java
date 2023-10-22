@@ -12,6 +12,6 @@ public class MessCancellations {
     private Integer entryNo;
     private Integer hostelRegistrationId;
     private Integer rollNo;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "-MM-dd")
     private Date date;
 }
