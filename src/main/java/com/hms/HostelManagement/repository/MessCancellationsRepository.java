@@ -31,14 +31,14 @@ public class MessCancellationsRepository {
         return jdbcTemplate.query(sql, rowMapper);
     }
 
-    public MessCancellations getById(int id) {
+    public MessCancellations getById(Integer id) {
         String sql = "select * from MessCancellations where entryNo = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>());
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
     }
 
     public void updateMessCancellations(MessCancellations messCancellations) {
-        String sql = "update MessCancellations set hostelRegistrationId = ?, rollNo = ?, date_ = ? where entryNo = ?";
-        jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate(), messCancellations.getEntryNo());
+        String sql = "update MessCancellations set date_ = ? where entryNo = ?";
+        jdbcTemplate.update(sql, messCancellations.getDate(), messCancellations.getEntryNo());
     }
 
     public void deleteMessCancellations(Integer entryNo) {

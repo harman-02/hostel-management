@@ -13,9 +13,10 @@
 <table class = "table table-striped table-bordered">
     <thead class = "table-dark">
     <tr>
-        <th> Hostel Registration Id</th>
-        <th> Roll No</th>
-        <th> Date </th>
+        <th>Hostel Registration Id</th>
+        <th>Roll No</th>
+        <th>Date</th>
+        <th>Actions</th>
     </tr>
     </thead>
 
@@ -23,7 +24,11 @@
     <tr th:each = "entry: ${cancellation}">
         <td th:text="${entry.hostelRegistrationId}"></td>
         <td th:text="${entry.rollNo}"></td>
-        <td><time th:text="${entry.date}"></time></td>
+        <td><time th:text="${#dates.format(entry.date, 'dd/MM/yyyy')}"></time></td>
+        <td>
+            <a th:href = "@{'/mess/update/'+ ${entry.entryNo}}" class = "btn btn-primary btn-sm mb-3">Update</a>
+            <a th:href = "@{'/mess/delete/'+ ${entry.entryNo}}" class = "btn btn-primary btn-sm mb-3">Delete</a>
+        </td>
     </tr>
     </tbody>
 

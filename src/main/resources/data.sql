@@ -12,3 +12,4 @@ insert into hostel_registration(hostel_id, session) values (1,1);
 insert into messcancellations(hostelRegistrationId, rollNo, date_) values (1,1, '2020-07-12');
 insert into messcancellations(hostelRegistrationId, rollNo, date_) values (1,1, '2020-07-01');
 select * from messcancellations;
+update messcancellations set date_ = '2014-03-16 00:00:00.000'  where entryNo = 2;

@@ -4,6 +4,7 @@ import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.repository.MessCancellationsRepository;
 import com.hms.HostelManagement.service.MessCancellationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,33 +25,22 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public void addMessCancellation(MessCancellations messCancellations) {
+    public void createMessCancellation(MessCancellations messCancellations) {
         messCancellationsRepository.createMessCancellation(messCancellations);
     }
+
+    @Override
+    public void updateMessCancellation(MessCancellations messCancellations) {
+        messCancellationsRepository.updateMessCancellations(messCancellations);
+    }
+
+    @Override
+    public MessCancellations getById(Integer id) {
+        return messCancellationsRepository.getById(id);
+    }
+
+    @Override
+    public void deleteMessCancellations(Integer id) {
+        messCancellationsRepository.deleteMessCancellations(id);
+    }
 }
-
-
-
-//@Service
-//public class HostelServiceImpl implements HostelService {
-//    @Autowired
-//    HostelRepository hostelRepository;
-//
-//    public HostelServiceImpl(HostelRepository hostelRepository) {
-//        super();
-//        this.hostelRepository = hostelRepository;
-//    }
-//
-//    @Override
-//    public List<Hostel> getAllHostel() {
-//        return hostelRepository.getAllHostels();
-//    }
-//
-//    @Override
-//    public void createHostel(Hostel h) {
-//        hostelRepository.createHostel(h);
-//    }
-//
-//
-//}
-
