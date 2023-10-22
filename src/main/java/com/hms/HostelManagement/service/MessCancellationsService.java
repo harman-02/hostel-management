@@ -1,7 +1,6 @@
 package com.hms.HostelManagement.service;
 
 import com.hms.HostelManagement.model.MessCancellations;
-import org.springframework.data.relational.core.sql.In;
 
 import java.util.List;
 
