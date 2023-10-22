@@ -1,4 +1,4 @@
 package com.hms.HostelManagement.controller;
 
-public class adminController {
+public class AdminController {
 }
