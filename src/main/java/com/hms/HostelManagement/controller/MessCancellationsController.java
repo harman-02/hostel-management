@@ -59,7 +59,7 @@ public class MessCancellationsController extends BaseController{
         MessCancellations mess = new MessCancellations();
 
         model.addAttribute("messAdd", mess);
-          String s;
+          String t;
         return    "messCancellations/addMessCancellations";
 
     }
