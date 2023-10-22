@@ -65,7 +65,7 @@ public class MessCancellationsController extends BaseController {
 
     @GetMapping("/mess/update/{id}")
     public String updateMess(@PathVariable(value = "id") Integer id, Model model, HttpSession httpSession) {
-        if(!isAuthenticated(httpSession)){
+        if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
@@ -89,7 +89,7 @@ public class MessCancellationsController extends BaseController {
 
     @GetMapping("mess/delete/{id}")
     public String deleteEntry(@PathVariable("id") Integer id, HttpSession httpSession) {
-        if(!isAuthenticated(httpSession)){
+        if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         messCancellationsService.deleteMessCancellations(id);

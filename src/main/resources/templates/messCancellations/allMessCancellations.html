@@ -5,13 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<div class = "row">
-    <div class = "col-lg-3">
-        <a th:href = "@{/mess/add}" class = "btn btn-primary btn-sm mb-3"> Add Cancellation</a>
+<div class="row">
+    <div class="col-lg-3">
+        <a th:href="@{/mess/add}" class="btn btn-primary btn-sm mb-3"> Add Cancellation</a>
     </div>
 </div>
-<table class = "table table-striped table-bordered">
-    <thead class = "table-dark">
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
     <tr>
         <th>Hostel Registration Id</th>
         <th>Roll No</th>
@@ -21,13 +21,15 @@
     </thead>
 
     <tbody>
-    <tr th:each = "entry: ${cancellation}">
+    <tr th:each="entry: ${cancellation}">
         <td th:text="${entry.hostelRegistrationId}"></td>
         <td th:text="${entry.rollNo}"></td>
-        <td><time th:text="${#dates.format(entry.date, 'dd/MM/yyyy')}"></time></td>
         <td>
-            <a th:href = "@{'/mess/update/'+ ${entry.entryNo}}" class = "btn btn-primary btn-sm mb-3">Update</a>
-            <a th:href = "@{'/mess/delete/'+ ${entry.entryNo}}" class = "btn btn-primary btn-sm mb-3">Delete</a>
+            <time th:text="${#dates.format(entry.date, 'dd/MM/yyyy')}"></time>
+        </td>
+        <td>
+            <a th:href="@{'/mess/update/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Update</a>
+            <a th:href="@{'/mess/delete/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Delete</a>
         </td>
     </tr>
     </tbody>

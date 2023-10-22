@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public class MessCancellationsRepository {
     @Autowired
@@ -19,7 +20,8 @@ public class MessCancellationsRepository {
         messCancellations.setDate(rs.getDate("date_"));
         return messCancellations;
     };
-    public void createMessCancellation (MessCancellations messCancellations) {
+
+    public void createMessCancellation(MessCancellations messCancellations) {
         String sql = "insert into MessCancellations(hostelRegistrationId, rollNo, date_) values (?, ?, ?)";
         jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
     }
