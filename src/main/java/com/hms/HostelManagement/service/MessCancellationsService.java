@@ -5,7 +5,11 @@ import com.hms.HostelManagement.model.MessCancellations;
 import java.util.List;
 
 public interface MessCancellationsService {
+
+
     List<MessCancellations> getAll();
 
-    public void addMessCancellation(MessCancellations messCancellations);
+
+
+    public void createMessCancellation(MessCancellations m);
 }
