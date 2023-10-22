@@ -1,6 +1,5 @@
 package com.hms.HostelManagement.controller;
 
-import com.hms.HostelManagement.model.Hostel;
 import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +15,6 @@ import java.util.Date;
 
 @Controller
 public class MessCancellationsController extends BaseController {
-    @Autowired
-    private ToastService toastService;
-
-    @Autowired
-    private StudentService studentService;
-
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private HostelService hostelService;
 
     @Autowired
     private MessCancellationsService messCancellationsService;
@@ -69,8 +56,7 @@ public class MessCancellationsController extends BaseController {
         System.out.println(messCancellationsService);
         addDefaultAttributes(model, session);
 //        model.addAttribute(m);
-        Date utildate = null;
-        utildate = m.getDate();
+        Date utildate = m.getDate();
         java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
         m.setDate(sqlDate);
         messCancellationsService.createMessCancellation(m);
@@ -102,7 +88,7 @@ public class MessCancellationsController extends BaseController {
     }
 
     @GetMapping("mess/delete/{id}")
-    public String deleteEntry(@PathVariable("id") Integer id, Model model, HttpSession httpSession) {
+    public String deleteEntry(@PathVariable("id") Integer id, HttpSession httpSession) {
         if(!isAuthenticated(httpSession)){
             return "redirect:/";
         }

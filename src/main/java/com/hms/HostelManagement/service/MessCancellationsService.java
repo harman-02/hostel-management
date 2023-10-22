@@ -12,8 +12,8 @@ public interface MessCancellationsService {
 
 
 
-    public void createMessCancellation(MessCancellations m);
-    public void updateMessCancellation(MessCancellations messCancellations);
-    public MessCancellations getById(Integer id);
-    public void deleteMessCancellations(Integer id);
+    void createMessCancellation(MessCancellations m);
+    void updateMessCancellation(MessCancellations messCancellations);
+    MessCancellations getById(Integer id);
+    void deleteMessCancellations(Integer id);
 }

@@ -4,7 +4,6 @@ import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.repository.MessCancellationsRepository;
 import com.hms.HostelManagement.service.MessCancellationsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
