@@ -2,6 +2,7 @@ package com.hms.HostelManagement.repository;
 
 import com.hms.HostelManagement.model.Complaint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,11 @@ public class ComplaintRepository {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Complaint.class));
     }
 
+    public List<Complaint> getComplaintByRollNo(int rollNo) {
+        String sql = "SELECT * FROM COMPLAINT WHERE rollNo LIKE ?";
+        String rollNoPattern = rollNo + "%";
+        return jdbcTemplate.query(sql, new Object[]{rollNoPattern}, new BeanPropertyRowMapper<>(Complaint.class));
+    }
     public List<Complaint> getParticularComplaint(int studentID)
     {
         String sql = "SELECT * FROM COMPLAINT WHERE rollNo = ?";
@@ -32,14 +38,13 @@ public class ComplaintRepository {
     }
 
     public void deleteComplaint(int complaintID){
-        String sql = "delete from Complaint where complaintID=?";
+        String sql = "delete from Complaint where complaint_id=?";
         jdbcTemplate.update(sql,complaintID);
     }
 
-    public void updateComplaintStatus(int complaintID)
-    {
-        String sql = "update Complaint SET status=? WHERE complaintID=?";
-                jdbcTemplate.update(sql,complaintID);
+    public void updateComplaintStatus(int complaintId) {
+        String sql = "UPDATE Complaint SET status = ? WHERE complaint_id = ?";
+        jdbcTemplate.update(sql, "Completed", complaintId);
     }
 
 }
