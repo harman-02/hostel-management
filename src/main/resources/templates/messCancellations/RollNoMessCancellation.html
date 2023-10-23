@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form th:action="@{/mess/postFilterByRollNo}" th:object="${filter}" method="POST">
                     <label for="rollNo">enter the roll No</label>
-                    <input type="text" name="rollNo" id="rollNo" th:field="*{rollNo}" required>
+                    <input type="number" name="rollNo" id="rollNo" th:field="*{rollNo}" required>
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">
