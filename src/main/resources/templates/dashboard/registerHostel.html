@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Add Hostel </h1>
+            <div class = "card-body">
+                <form th:action="@{/hostel/register}" th:object="${hostelRegistration}" method="POST">
+                    <label>  Hostel Name </label>
+
+
+                    <select name="hostel" id="hostelID" th:field="*{hostelId}">
+                        <option th:each="hostel: ${hostels}" th:value="${hostel.hostelId}" th:text="${hostel.hostelName}"/>
+                    </select>
+                    <label>  Session Name </label>
+                    <select name="session" id="sessionID" th:field="*{session}">
+                        <option th:each="sess: ${sessions}" th:value="${sess.sessionId}" th:text="${sess.sessionName}"/>
+                    </select>
+                    <label>  Warden Name </label>
+                    <select name="warden" id="wardenID" th:field="*{hostelWardenId}">
+                        <option th:each="warden: ${wardens}" th:value="${warden.username}" th:text="${warden.username}"/>
+                    </select>
+
+                    <button type="submit" class = "btn btn-primary">
+                        Submit
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

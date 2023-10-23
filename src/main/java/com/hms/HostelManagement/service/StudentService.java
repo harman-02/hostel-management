@@ -7,5 +7,6 @@ public interface StudentService {
 //
 //    public void deleteStudent(Student student);
 //
-//    public void updateStudent(Student student) ;
+//    public void updateStudent(Student stude;nt) ;
+    public void addStudent(Student student);
 }

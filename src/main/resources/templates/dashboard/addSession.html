@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins',sans-serif;
+    }
+    body{
+        display: flex;
+        height: 100vh;
+        padding: 15px;
+        background: linear-gradient(140deg, #72b7e5, #9c59b7);
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        background-color:#b7d7f1;
+        max-width: 450px;
+        border-radius: 4px;
+        width: 100%;
+        padding: 26px 31px;
+        box-shadow: 0 5px 10px rgba(0.01,0.01,0.01,0.15);
+    }
+</style>
+</head>
+<body>
+
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Add Complaint </h1>
+            <div class = "card-body">
+                <form th:action="@{/session/add}" th:object = "${session}" method="POST">
+                    <div>
+                        <label> Session Name </label>
+                        <input
+                                type="text"
+                                name="Session Name"
+                                th:field="*{sessionName}"
+                                class="form-control"
+                                placeholder="Enter Session Name"
+                        />
+
+                        <label> Session Start Date </label>
+                        <input
+                                type="date"
+                                name="Session Start Date"
+                                th:field="*{startDate}"
+                                class="form-control"
+                                placeholder="Enter Session Start Date"
+                        />
+                    </div>
+
+
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

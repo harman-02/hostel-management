@@ -23,6 +23,10 @@ abstract class BaseController {
     public Boolean isAuthenticated(HttpSession session) {
         return authenticationService.isAuthenticated(session);
     }
+    public Boolean isAdmin(HttpSession session){
+        return true;
+//        return authenticationService.isAdmin(session);
+    }
 
     public void addDefaultAttributes(Model model, HttpSession session) {
         String currentUser = authenticationService.getCurrentUser(session);

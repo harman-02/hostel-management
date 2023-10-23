@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-//    @Autowired
-//    private StudentRepository studentRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 //
 //    public StudentServiceImpl(StudentRepository studentRepository) {
 //        super();
@@ -31,4 +31,9 @@ public class StudentServiceImpl implements StudentService {
 //    public void updateStudent(Student student) {
 //        studentRepository.update(student);
 //    }
+
+    public void addStudent(Student student)
+    {
+        studentRepository.createStudent(student);
+    }
 }

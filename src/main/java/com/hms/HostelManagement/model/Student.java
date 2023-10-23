@@ -15,4 +15,5 @@ public class Student{
     private String branch;
     private Integer balance;
     private String dob;
+    private String username;
 }

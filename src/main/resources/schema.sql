@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS Hostel (
 
 CREATE TABLE IF NOT EXISTS Session (
                                      session_id INT AUTO_INCREMENT PRIMARY KEY,
+                                     session_name VARCHAR(255),
                                      start_date Date
 );
 
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Hostel_registration (
                                                    hostel_registration_id INT AUTO_INCREMENT PRIMARY KEY,
                                                    hostel_id INT,
                                                    session INT,
-                                                   hostel_warden_id INT,
+                                                   hostel_warden_id VARCHAR(255),
                                                    FOREIGN KEY (hostel_id) REFERENCES Hostel(hostel_id) ON DELETE CASCADE ,
                                                    FOREIGN KEY (hostel_warden_id) REFERENCES User(username) ON DELETE SET NULL,
                                                    FOREIGN KEY (session) REFERENCES Session(session_id)  ON DELETE SET NULL
@@ -49,7 +50,9 @@ CREATE TABLE IF NOT EXISTS Student (
                                        phone INT,
                                        branch VARCHAR(255),
                                        balance INT,
-                                       Dob INT
+                                       Dob INT,
+                                       userID varchar(255),
+                                        foreign key (userID) references User(username) on delete set null
 );
 CREATE TABLE IF NOT EXISTS StudentUserMapping (
     username varchar(55) primary key,

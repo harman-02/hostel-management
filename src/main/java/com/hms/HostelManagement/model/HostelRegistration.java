@@ -10,5 +10,5 @@ public class HostelRegistration {
     private Integer hostelRegistrationId;
     private Integer hostelId;
     private Integer session;
-    private Integer hostelWardenId;
+    private String hostelWardenId;
 }

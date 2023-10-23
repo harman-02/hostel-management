@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRepository {
     @Autowired
@@ -28,6 +30,9 @@ public class UserRepository {
         template.update(sql, user.getPassword(), user.getUsername(),user.getRole());
     }
 
-
+    public List<User> getUserWithRoles(String role) {
+        String sql = "SELECT * FROM user WHERE role = ?";
+        return template.query(sql, new Object[]{role}, new BeanPropertyRowMapper<>(User.class));
+    }
 
 }

@@ -11,13 +11,14 @@ public class StudentRepository {
     @Autowired
     private JdbcTemplate template;
 
-//
-//    public void createStudent(Student student) {
-//        String sql = "INSERT INTO student (username,password,role,rollNo, name, phone, dob, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    public void createStudent(Student student) {
+        String sql = "INSERT INTO student (userID,roll, name, phone, dob, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        Make a random user Function in repository adn service then use the feature to implement in createStudent
 //        template.update(
-//                sql, student.getUsername(), student.getPassword(), student.getRole(), student.getRollNo(),
+//                sql, student.getRoll(),
 //                student.getName(), student.getPhone(), student.getDob(),student.getEmail());
-//    }
+    }
 //
 ////    public List<Student> getAllInSession(int sessionId) {
 ////        String sql = "SELECT * FROM student WHERE sessionId = ?";

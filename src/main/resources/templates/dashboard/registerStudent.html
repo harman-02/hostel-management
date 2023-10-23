@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins',sans-serif;
+    }
+    body{
+        display: flex;
+        height: 100vh;
+        padding: 15px;
+        background: linear-gradient(140deg, #72b7e5, #9c59b7);
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        background-color:#b7d7f1;
+        max-width: 450px;
+        border-radius: 4px;
+        width: 100%;
+        padding: 26px 31px;
+        box-shadow: 0 5px 10px rgba(0.01,0.01,0.01,0.15);
+    }
+</style>
+</head>
+<body>
+
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Register Student </h1>
+            <div class = "card-body">
+                <form th:action="@{/student/register}" th:object = "${student}" method="POST">
+                    <div>
+                        <label>Roll</label>
+                        <input
+                                type="number"
+                                name="Roll"
+                                th:field="*{roll}"
+                                class="form-control"
+                                placeholder="Enter Roll"
+                        />
+                        <label>name</label>
+                        <input
+                                type="text"
+                                name="name"
+                                th:field="*{name}"
+                                class="form-control"
+                                placeholder="Enter name"
+                        />
+                        <label>email</label>
+                        <input
+                                type="text"
+                                name="email"
+                                th:field="*{email}"
+                                class="form-control"
+                                placeholder="Enter email"
+                        />
+                        <label>phone</label>
+                        <input
+                                type="number"
+                                name="phone"
+                                th:field="*{phone}"
+                                class="form-control"
+                                placeholder="Enter phone"
+                        />
+                        <label>branch</label>
+                        <input
+                                type="text"
+                                name="branch"
+                                th:field="*{branch}"
+                                class="form-control"
+                                placeholder="Enter branch"
+                        />
+                        <label>Dob</label>
+                        <input
+                            type="date"
+                            name="dob"
+                            th:field="*{dob}"
+                            class="form-control"
+                            placeholder="Enter dob"
+                            />
+                    </div>
+
+
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
