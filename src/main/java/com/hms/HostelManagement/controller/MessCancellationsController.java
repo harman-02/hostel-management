@@ -1,5 +1,4 @@
 package com.hms.HostelManagement.controller;
-
 import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.model.RangeDateModel;
 import com.hms.HostelManagement.model.SessionAndRollNo;
@@ -15,18 +14,14 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 @Controller
 public class MessCancellationsController extends BaseController {
-
     @Autowired
     private MessCancellationsService messCancellationsService;
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
-
     @GetMapping("/mess")
     public String allCancellations(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
@@ -75,7 +70,7 @@ public class MessCancellationsController extends BaseController {
         return "messCancellations/updateMessCancellation";
     }
 
-    @GetMapping("/mess/filterhostel")
+    @GetMapping("/mess/filterByHostel")
     public String filterMess(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
@@ -87,18 +82,18 @@ public class MessCancellationsController extends BaseController {
         return "messCancellations/filterMessCancellation";
     }
 
-    @GetMapping("/mess/filtersession")
+    @GetMapping("/mess/filterBySession")
     public String filterSession(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
         MessCancellations mess = new MessCancellations();
-        model.addAttribute("session", mess);
-        return "messCancellations/sessionMessCancellation";
+        model.addAttribute("filter", mess);
+        return "messCancellations/SessionMessCancellation";
     }
 
-    @GetMapping("/mess/filtersessionandhostel")
+    @GetMapping("/mess/filterBySessionAndHostel")
     public String filterSessionandHostel(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
@@ -106,7 +101,7 @@ public class MessCancellationsController extends BaseController {
         addDefaultAttributes(model, httpSession);
         MessCancellations mess = new MessCancellations();
         model.addAttribute("sessionsandhostel", mess);
-        return "messCancellations/sessionandhostelMessCancellation";
+        return "messCancellations/SessionAndHostelMessCancellation";
     }
 
     @GetMapping("/mess/filterByRollNo")
@@ -134,12 +129,10 @@ public class MessCancellationsController extends BaseController {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
-        addDefaultAttributes(model, httpSession);
+        addDefaultAttributes(model,httpSession);
         model.addAttribute("filter", new SessionAndRollNo());
         return "messCancellations/RollNoAndSessionMessCancellation";
     }
-
-
     @PostMapping("/update")
     public String PostUpdateMess(@ModelAttribute("cancellation") MessCancellations m, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
@@ -153,7 +146,7 @@ public class MessCancellationsController extends BaseController {
         return "redirect:/mess";
     }
 
-    @PostMapping("/filterhostel")
+    @PostMapping("/filterByHostel")
     public String PostFilterMess(@ModelAttribute("filter") MessCancellations m, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
@@ -168,7 +161,6 @@ public class MessCancellationsController extends BaseController {
         model.addAttribute("filter", mi);
         return "messCancellations/allHostelFilter";
     }
-
     @PostMapping("/mess/postFilterByRollNo")
     public String PostFilterByRollNo(@ModelAttribute("filter") MessCancellations messCancellations, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
@@ -217,26 +209,25 @@ public class MessCancellationsController extends BaseController {
         return "messCancellations/allRollNoAndSessionFilter";
     }
 
-    @PostMapping("/filtersession")
-    public String PostFilterMessSession(@ModelAttribute("session") MessCancellations m, @RequestParam("year") int year, Model model, HttpSession httpSession) {
+    @PostMapping("/filterBySession")
+    public String PostFilterMessSession(@ModelAttribute("filter") MessCancellations m, @RequestParam("year") int year, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
         List<MessCancellations> mi = messCancellationsService.filterBysession((year));
         model.addAttribute("filter", mi);
-        return "messCancellations/allHostelFiltersession";
+        return "messCancellations/allSessionFilter";
     }
-
-    @PostMapping("/filtersessionandhostel")
-    public String PostFilterMessSessionandHostel(@ModelAttribute("sessionandhostel") MessCancellations m, @RequestParam("hostelregistrationid") Integer hostelregistrationid, @RequestParam("year") int year, Model model, HttpSession httpSession) {
+    @PostMapping("/filterBySessionAndHostel")
+    public String PostFilterMessSessionandHostel(@ModelAttribute("filter") MessCancellations m, @RequestParam("hostelregistrationid") Integer hostelregistrationid, @RequestParam("year") int year, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
         List<MessCancellations> mi = messCancellationsService.filterBysessionandhostel(hostelregistrationid, year);
         model.addAttribute("filter", mi);
-        return "messCancellations/allHostelFiltersessionandhostel";
+        return "messCancellations/allHostelAndSessionFilter";
     }
 
     @GetMapping("mess/delete/{id}")

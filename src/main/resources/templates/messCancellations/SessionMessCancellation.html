@@ -11,7 +11,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add required hostel id </h1>
             <div class="card-body">
-                <form th:action="@{/filtersession}" th:object="${session}" method="POST">
+                <form th:action="@{/filterBySession}" th:object="${filter}" method="POST">
                     <label for="year">Enter a year:</label>
                     <input type="number" name="year" id="year" required>
                     <br>

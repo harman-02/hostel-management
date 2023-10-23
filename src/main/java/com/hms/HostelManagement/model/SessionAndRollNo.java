@@ -6,4 +6,5 @@ import lombok.Data;
 public class SessionAndRollNo {
     private int session;
     private int rollNo;
+
 }
