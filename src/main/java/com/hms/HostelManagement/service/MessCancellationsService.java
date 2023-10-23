@@ -20,9 +20,9 @@ public interface MessCancellationsService {
 
     List<MessCancellations> filterById(Integer hostelRegistrationid);
 
-    List<MessCancellations> filterBysession(int year);
+    List<MessCancellations> filterBySession(int year);
 
-    List<MessCancellations> filterBysessionandhostel(Integer hostelRegistrationid, int year);
+    List<MessCancellations> filterBySessionAndHostel(Integer hostelRegistrationid, int year);
     List<MessCancellations> filterByRollNo(Integer rollNo);
     List<MessCancellations> filterByDate(Date start, Date end);
     List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year);

@@ -53,12 +53,11 @@ public class MessCancellationsRepository {
         return jdbcTemplate.query(sql, new Object[]{hostelRegistrationid}, rowMapper);
     }
 
-    public List<MessCancellations> filterBysession(int year) {
+    public List<MessCancellations> filterBySession(int year) {
         String sql = "select * from MessCancellations where YEAR(date_)= ?";
         return jdbcTemplate.query(sql, new Object[]{year}, rowMapper);
     }
-
-    public List<MessCancellations> filterBysessionandhostel(Integer hostelRegistrationid, int year) {
+    public List<MessCancellations> filterBySessionAndhostel(Integer hostelRegistrationid, int year) {
         String sql = "select * from MessCancellations where hostelRegistrationid=? and YEAR(date_)= ?";
         return jdbcTemplate.query(sql, new Object[]{hostelRegistrationid, year}, rowMapper);
     }
