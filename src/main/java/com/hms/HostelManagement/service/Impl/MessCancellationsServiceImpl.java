@@ -6,6 +6,7 @@ import com.hms.HostelManagement.service.MessCancellationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,4 +43,25 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     public void deleteMessCancellations(Integer id) {
         messCancellationsRepository.deleteMessCancellations(id);
     }
+
+    @Override
+    public List<MessCancellations> filterbyId(Integer hostelRegistrationid) {
+        return null;
+    }
+
+
+    @Override
+    public  List<MessCancellations> filterById(Integer hostelRegistrationid){
+       return messCancellationsRepository.filterById(hostelRegistrationid);
+    }
+    @Override
+    public List<MessCancellations> filterBysession(int year){
+        return messCancellationsRepository.filterBysession(year);
+    }
+
+    @Override
+    public List<MessCancellations> filterBysessionandhostel(Integer hostelRegistrationid,int year){
+        return messCancellationsRepository.filterBysessionandhostel(hostelRegistrationid,year);
+    }
+
 }

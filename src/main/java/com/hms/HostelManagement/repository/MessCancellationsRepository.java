@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -21,11 +23,11 @@ public class MessCancellationsRepository {
         return messCancellations;
     };
 
+
     public void createMessCancellation(MessCancellations messCancellations) {
         String sql = "insert into MessCancellations(hostelRegistrationId, rollNo, date_) values (?, ?, ?)";
         jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
     }
-
     public List<MessCancellations> getAll() {
         String sql = "select * from MessCancellations";
         return jdbcTemplate.query(sql, rowMapper);
@@ -45,4 +47,17 @@ public class MessCancellationsRepository {
         String sql = "delete from MessCancellations where entryNo = ?";
         jdbcTemplate.update(sql, entryNo);
     }
+    public List<MessCancellations> filterById(Integer hostelRegistrationid){
+        String sql = "select * from MessCancellations where hostelRegistrationId = ?";
+        return  jdbcTemplate.query(sql, new Object[]{hostelRegistrationid}, rowMapper);
+    }
+    public List<MessCancellations> filterBysession(int year){
+        String sql = "select * from MessCancellations where YEAR(date_)= ?";
+        return  jdbcTemplate.query(sql, new Object[]{year}, rowMapper);
+    }
+    public List<MessCancellations> filterBysessionandhostel(Integer hostelRegistrationid,int year){
+        String sql = "select * from MessCancellations where hostelRegistrationid=? and YEAR(date_)= ?";
+        return  jdbcTemplate.query(sql, new Object[]{hostelRegistrationid,year}, rowMapper);
+    }
+
 }
