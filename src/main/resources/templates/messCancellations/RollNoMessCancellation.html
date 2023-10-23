@@ -9,15 +9,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center"> Add required hostel id </h1>
+            <h1 class="text-center"> Add required Roll No </h1>
             <div class="card-body">
-                <form th:action="@{/filtersessionandhostel}" th:object="${sessionsandhostel}" method="POST">
-                    <label for="hostelregistrationid">enter hostel registration id</label>
-                    <input type="text" name="hostelregistrationid" id="hostelregistrationid" required>
-                    <br>
-                    <label for="year">Enter a year:</label>
-                    <input type="number" name="year" id="year" required>
-                    <br>
+                <form th:action="@{/mess/postFilterByRollNo}" th:object="${filter}" method="POST">
+                    <label for="rollNo">enter the roll No</label>
+                    <input type="text" name="rollNo" id="rollNo" th:field="*{rollNo}" required>
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">

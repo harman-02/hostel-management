@@ -51,17 +51,33 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
 
 
     @Override
-    public  List<MessCancellations> filterById(Integer hostelRegistrationid){
-       return messCancellationsRepository.filterById(hostelRegistrationid);
+    public List<MessCancellations> filterById(Integer hostelRegistrationid) {
+        return messCancellationsRepository.filterById(hostelRegistrationid);
     }
+
     @Override
-    public List<MessCancellations> filterBysession(int year){
+    public List<MessCancellations> filterBysession(int year) {
         return messCancellationsRepository.filterBysession(year);
     }
 
     @Override
-    public List<MessCancellations> filterBysessionandhostel(Integer hostelRegistrationid,int year){
-        return messCancellationsRepository.filterBysessionandhostel(hostelRegistrationid,year);
+    public List<MessCancellations> filterBysessionandhostel(Integer hostelRegistrationid, int year) {
+        return messCancellationsRepository.filterBysessionandhostel(hostelRegistrationid, year);
+    }
+
+    @Override
+    public List<MessCancellations> filterByRollNo(Integer rollNo) {
+        return messCancellationsRepository.filterByRollNo(rollNo);
+    }
+
+    @Override
+    public List<MessCancellations> filterByDate(Date start, Date end) {
+        return messCancellationsRepository.filterByDate(start, end);
+    }
+
+    @Override
+    public List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
+        return messCancellationsRepository.filterByRollNoAndSession(rollNo, year);
     }
 
 }

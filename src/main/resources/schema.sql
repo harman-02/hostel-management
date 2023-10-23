@@ -1,4 +1,4 @@
-use ${MYSQL_DATABASE};
+use hostel_management;
 
 show tables;
 
