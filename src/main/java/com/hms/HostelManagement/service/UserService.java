@@ -12,6 +12,8 @@ public interface UserService {
 
     public void changePassword(String username, User user);
     public List<User> getUserWithRoles(String role);
+    public User makeRandomUser(String role);
+    public void createUser(User user);
 }
 
 

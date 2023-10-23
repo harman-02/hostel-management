@@ -1,6 +1,7 @@
 package com.hms.HostelManagement.repository;
 
 import com.hms.HostelManagement.model.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,9 +14,10 @@ public class UserRepository {
     @Autowired
     private JdbcTemplate template;
 
-    public void createUser(String username, String password,String Role) {
-        String sql = "INSERT INTO user (username, password, Role) VALUES (?, ?, ?)";
-        template.update(sql, username, password,Role);
+
+    public void createUser(@NotNull User user) {
+        String sql = "INSERT INTO User(username, password, role) VALUES (?, ?, ?)";
+        template.update(sql, user.getUsername(), user.getPassword(), user.getRole());
     }
 
 

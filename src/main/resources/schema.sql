@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Student (
                                        phone INT,
                                        branch VARCHAR(255),
                                        balance INT,
-                                       Dob INT,
+                                       Dob date,
                                        userID varchar(255),
                                         foreign key (userID) references User(username) on delete set null
 );

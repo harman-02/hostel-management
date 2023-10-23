@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void createUser(User user) {
+        userRepository.createUser(user);
+    }
+
+    @Override
     public void changePassword(String username, User user) {
         user.setUsername(username);
         userRepository.update(user);
@@ -32,5 +37,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserWithRoles(String role) {
         return userRepository.getUserWithRoles(role);
+    }
+
+    @Override
+    public User makeRandomUser(String role){
+        User user=new User();
+        user.setUsername("user"+(int)(Math.random()*100000));
+        user.setPassword("pass"+(int)(Math.random()*100000));
+        user.setRole(role);
+        userRepository.createUser(user);
+        return user;
     }
 }

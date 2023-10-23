@@ -192,7 +192,7 @@ public class DashboardController extends BaseController {
         addDefaultAttributes(model,session);
         s.setBalance(0);
 
-//        studentService.createStudent(s);
+        studentService.addStudent(s);
         return "redirect:/";
     }
 
