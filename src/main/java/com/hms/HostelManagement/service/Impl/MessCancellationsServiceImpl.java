@@ -1,5 +1,6 @@
 package com.hms.HostelManagement.service.Impl;
 
+import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.repository.MessCancellationsRepository;
@@ -15,6 +16,7 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     @Autowired
     MessCancellationsRepository messCancellationsRepository;
 
+
     public MessCancellationsServiceImpl(MessCancellationsRepository messCancellationsRepository) {
         super();
         this.messCancellationsRepository = messCancellationsRepository;
@@ -26,15 +28,13 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public void createMessCancellation(MessCancellations messCancellations) {
-        messCancellationsRepository.createMessCancellation(messCancellations);
+    public void createMessCancellation(MessCancellations messCancellations,HostelRegistration hostelRegistration){
+          messCancellationsRepository.createMessCancellation(messCancellations,hostelRegistration);
     }
-
     @Override
     public void updateMessCancellation(MessCancellations messCancellations) {
         messCancellationsRepository.updateMessCancellations(messCancellations);
     }
-
     @Override
     public MessCancellations getById(Integer id) {
         return messCancellationsRepository.getById(id);
@@ -89,6 +89,11 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     @Override
     public List<AllMessCancellations> findByKeywordAndRollNo(String keyword, Integer rollNo) {
         return messCancellationsRepository.findByRollNoAndKeyword(keyword, rollNo);
+    }
+
+    @Override
+    public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo,Integer year){
+         return messCancellationsRepository.balanceByRollNoAndSession(rollNo,year);
     }
 
 }

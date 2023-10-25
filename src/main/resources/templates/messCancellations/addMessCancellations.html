@@ -10,18 +10,18 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add Mess Cancellation </h1>
             <div class="card-body">
-                <form th:action="@{/mess}" th:object="${messAdd}" method="POST">
+                <form th:action="@{/mess}"  method="POST">
                     <div class="form-group">
-                        <label>
-                            Hostel Registration Id:
-                            <input
-                                    type="text"
-                                    name="Hostel "
-                                    th:field="*{hostelRegistrationId}"
+                      <label>-->
+                         Hostel Id:-->
+                          <input
+                                   type="text"
+                                   name="Hostel "
+                                  th:field="*{hostel.hostelId}"
                                     class="form-control"
-                                    placeholder="Enter Hostel Registration id"
-                            />
-                        </label>
+                                   placeholder="Enter Hostel id"
+                          />
+                       </label>
                     </div>
                     <div class="form-group">
                         <label>
@@ -29,7 +29,7 @@
                             <input
                                     type="text"
                                     name="Roll No"
-                                    th:field="*{rollNo}"
+                                    th:field="*{mess.rollNo}"
                                     class="form-control"
                                     placeholder="Enter Roll No"
                             />
@@ -41,7 +41,7 @@
                             <input
                                     type="date"
                                     name="date"
-                                    th:field="*{date}"
+                                    th:field="*{mess.date}"
                                     placeholder="Enter Mess cancellation Date"
                             />
                         </label>
