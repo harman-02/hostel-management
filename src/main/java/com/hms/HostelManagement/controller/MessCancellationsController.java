@@ -1,4 +1,5 @@
 package com.hms.HostelManagement.controller;
+import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.model.RangeDateModel;
 import com.hms.HostelManagement.model.SessionAndRollNo;
@@ -37,17 +38,42 @@ public class MessCancellationsController extends BaseController {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
+        System.out.println(model);
         addDefaultAttributes(model, session);
 
         MessCancellations mess = new MessCancellations();
-
-        model.addAttribute("messAdd", mess);
+        HostelRegistration hostelRegistration = new HostelRegistration();
+        model.addAttribute("mess", mess);
+        model.addAttribute("hostel", hostelRegistration);
         return "messCancellations/addMessCancellations";
+    }
+    @GetMapping("/mess/checkBalance")
+    public String checkBalance(Model model, HttpSession session) {
+        if (!isAuthenticated(session)) {
+            return "redirect:/";
+        }
+        System.out.println(model);
+        addDefaultAttributes(model, session);
 
+        MessCancellations mess = new MessCancellations();
+        model.addAttribute("mess", mess);
+        return "messCancellations/checkMessBalance";
+    }
+    @PostMapping("/myBalance")
+    public String myBalance(@ModelAttribute("mess") MessCancellations m, @RequestParam("year") Integer year, Model model, HttpSession httpSession) {
+        if (!isAuthenticated(httpSession)) {
+            return "redirect:/";
+        }
+        addDefaultAttributes(model, httpSession);
+//        System.out.println(model);
+        List<MessCancellations> mi = messCancellationsService.balanceByRollNoAndSession(m.getRollNo(), year);
+        System.out.println(model);
+        model.addAttribute("mess", mi);
+        return "messCancellations/myBalance";
     }
 
     @PostMapping("/mess")
-    public String PostAddMess(@ModelAttribute("messAdd") MessCancellations m, Model model, HttpSession session) {
+    public String PostAddMess( MessCancellations m,HostelRegistration h, Model model, HttpSession session) {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
@@ -55,7 +81,7 @@ public class MessCancellationsController extends BaseController {
         Date utildate = m.getDate();
         java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
         m.setDate(sqlDate);
-        messCancellationsService.createMessCancellation(m);
+        messCancellationsService.createMessCancellation(m,h);
         return "redirect:/mess";
     }
 

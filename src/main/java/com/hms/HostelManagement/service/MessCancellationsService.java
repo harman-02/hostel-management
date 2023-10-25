@@ -1,5 +1,6 @@
 package com.hms.HostelManagement.service;
 
+import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.MessCancellations;
 
 import java.util.Date;
@@ -8,7 +9,9 @@ import java.util.List;
 public interface MessCancellationsService {
     List<MessCancellations> getAll();
 
-    void createMessCancellation(MessCancellations m);
+
+
+    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration);
 
     void updateMessCancellation(MessCancellations messCancellations);
 
@@ -26,5 +29,7 @@ public interface MessCancellationsService {
     List<MessCancellations> filterByRollNo(Integer rollNo);
     List<MessCancellations> filterByDate(Date start, Date end);
     List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year);
+    List<MessCancellations> balanceByRollNoAndSession(Integer rollNo, Integer year);
+
 
 }

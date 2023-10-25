@@ -1,5 +1,6 @@
 package com.hms.HostelManagement.service.Impl;
 
+import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.repository.MessCancellationsRepository;
 import com.hms.HostelManagement.service.MessCancellationsService;
@@ -24,9 +25,11 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
         return messCancellationsRepository.getAll();
     }
 
+
+
     @Override
-    public void createMessCancellation(MessCancellations messCancellations) {
-        messCancellationsRepository.createMessCancellation(messCancellations);
+    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration){
+        messCancellationsRepository.createMessCancellation(messCancellations,hostelRegistration);
     }
 
     @Override
@@ -46,7 +49,7 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
 
     @Override
     public List<MessCancellations> filterbyId(Integer hostelRegistrationid) {
-        return null;
+        return messCancellationsRepository.filterById(hostelRegistrationid);
     }
 
 
@@ -78,6 +81,10 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     @Override
     public List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
         return messCancellationsRepository.filterByRollNoAndSession(rollNo, year);
+    }
+    @Override
+    public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo,Integer year){
+        return messCancellationsRepository.balanceByRollNoAndSession(rollNo,year);
     }
 
 }
