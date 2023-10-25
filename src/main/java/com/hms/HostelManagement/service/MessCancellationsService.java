@@ -1,12 +1,13 @@
 package com.hms.HostelManagement.service;
 
+import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.MessCancellations;
 
 import java.util.Date;
 import java.util.List;
 
 public interface MessCancellationsService {
-    List<MessCancellations> getAll();
+    List<AllMessCancellations> getAll();
 
     void createMessCancellation(MessCancellations m);
 

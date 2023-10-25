@@ -13,3 +13,10 @@ insert into messcancellations(hostelRegistrationId, rollNo, date_) values (1,1, 
 insert into messcancellations(hostelRegistrationId, rollNo, date_) values (1,1, '2020-07-01');
 select * from messcancellations;
 update messcancellations set date_ = '2014-03-16 00:00:00.000'  where entryNo = 2;
+
+select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date
+from MessCancellations m
+         inner join Student S on m.rollNo = S.roll
+         inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id
+         inner join Hostel H on Hr.hostel_id = H.hostel_id
+         inner join Session S2 on Hr.session = S2.session_id;

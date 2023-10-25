@@ -1,5 +1,6 @@
 package com.hms.HostelManagement.service.Impl;
 
+import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.MessCancellations;
 import com.hms.HostelManagement.repository.MessCancellationsRepository;
 import com.hms.HostelManagement.service.MessCancellationsService;
@@ -20,7 +21,7 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public List<MessCancellations> getAll() {
+    public List<AllMessCancellations> getAll() {
         return messCancellationsRepository.getAll();
     }
 

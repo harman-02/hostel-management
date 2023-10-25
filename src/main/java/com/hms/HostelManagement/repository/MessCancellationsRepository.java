@@ -1,5 +1,6 @@
 package com.hms.HostelManagement.repository;
 
+import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.MessCancellations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,10 +17,23 @@ public class MessCancellationsRepository {
     RowMapper<MessCancellations> rowMapper = (rs, rowNum) -> {
         MessCancellations messCancellations = new MessCancellations();
         messCancellations.setEntryNo(rs.getInt("entryNo"));
-        messCancellations.setRollNo(rs.getInt("rollNo"));
         messCancellations.setHostelRegistrationId(rs.getInt("hostelRegistrationId"));
+        messCancellations.setRollNo(rs.getInt("rollNo"));
         messCancellations.setDate(rs.getDate("date_"));
         return messCancellations;
+    };
+
+    RowMapper<AllMessCancellations> rowMapper1 = (rs, rowNum) -> {
+        AllMessCancellations allMessCancellations = new AllMessCancellations();
+        allMessCancellations.setEntryNo(rs.getInt("entryNo"));
+        allMessCancellations.setHostelId(rs.getInt("hostel_id"));
+        allMessCancellations.setHostelName(rs.getString("hostel_name"));
+        allMessCancellations.setStudentRollNo(rs.getInt("rollNo"));
+        allMessCancellations.setStudentName(rs.getString("name"));
+        allMessCancellations.setDate(rs.getDate("date_"));
+        allMessCancellations.setSessionId(rs.getInt("session_id"));
+        allMessCancellations.setSessionStartDate(rs.getDate("start_date"));
+        return allMessCancellations;
     };
 
 
@@ -28,9 +42,14 @@ public class MessCancellationsRepository {
         jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
     }
 
-    public List<MessCancellations> getAll() {
-        String sql = "select * from MessCancellations";
-        return jdbcTemplate.query(sql, rowMapper);
+    public List<AllMessCancellations> getAll() {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id";
+        return jdbcTemplate.query(sql, rowMapper1);
     }
 
     public MessCancellations getById(Integer id) {

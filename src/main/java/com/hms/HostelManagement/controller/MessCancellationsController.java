@@ -39,9 +39,7 @@ public class MessCancellationsController extends BaseController {
         }
         addDefaultAttributes(model, session);
 
-        MessCancellations mess = new MessCancellations();
-
-        model.addAttribute("messAdd", mess);
+        model.addAttribute("messAdd", new MessCancellations());
         return "messCancellations/addMessCancellations";
 
     }

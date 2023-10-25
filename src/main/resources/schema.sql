@@ -1,4 +1,4 @@
-use hostel_management;
+use ${MYSQL_DATABASE};
 
 show tables;
 
@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS Hostel_registration (
                                                    FOREIGN KEY (session) REFERENCES Session(session_id)  ON DELETE SET NULL
 );
 
+
+
 # CREATE TABLE IF NOT EXISTS HostelFacilities (
 #                                                 facility_id INT AUTO_INCREMENT PRIMARY KEY,
 #                                                 hostel_registration_id INT,
@@ -38,7 +40,8 @@ CREATE TABLE IF NOT EXISTS Hostel_registration (
 CREATE TABLE IF NOT EXISTS Room (
     hostelId int,
     roomNo int,
-    primary key (hostelId, roomNo)
+    primary key (hostelId, roomNo),
+    foreign key (hostelId) references Hostel(hostel_id) on delete set null
 );
 CREATE TABLE IF NOT EXISTS Student (
                                        roll INT AUTO_INCREMENT PRIMARY KEY,
