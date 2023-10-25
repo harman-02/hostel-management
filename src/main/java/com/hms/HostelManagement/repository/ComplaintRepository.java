@@ -39,7 +39,7 @@ public class ComplaintRepository {
 
     public void deleteComplaint(int complaintID){
         String sql = "delete from Complaint where complaint_id=?";
-        jdbcTemplate.update(sql,complaintID);
+        jdbcTemplate.update(sql, complaintID);
     }
 
     public void updateComplaintStatus(int complaintId) {

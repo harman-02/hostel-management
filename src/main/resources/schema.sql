@@ -1,4 +1,4 @@
-use hostel_management;
+use ${MYSQL_DATABASE};
 
 show tables;
 
@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS Hostel_registration (
                                                    FOREIGN KEY (session) REFERENCES Session(session_id)  ON DELETE SET NULL
 );
 
+
+
 # CREATE TABLE IF NOT EXISTS HostelFacilities (
 #                                                 facility_id INT AUTO_INCREMENT PRIMARY KEY,
 #                                                 hostel_registration_id INT,
@@ -38,8 +40,10 @@ CREATE TABLE IF NOT EXISTS Hostel_registration (
 CREATE TABLE IF NOT EXISTS Room (
     hostelId int,
     roomNo int,
-    primary key (hostelId, roomNo)
+    primary key (hostelId, roomNo),
+    foreign key (hostelId) references Hostel(hostel_id) on delete set null
 );
+drop table Student;
 CREATE TABLE IF NOT EXISTS Student (
                                        roll INT AUTO_INCREMENT PRIMARY KEY,
                                        name VARCHAR(255),
@@ -67,16 +71,15 @@ CREATE TABLE IF NOT EXISTS RoomRegistration (
                                     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE CASCADE,
                                     foreign key (rollNo) REFERENCES Student(roll) ON DELETE CASCADE
 );
-
-CREATE TABLE IF NOT EXISTS Complaints (
+CREATE TABLE IF NOT EXISTS Complaint (
                                         complaint_id INT AUTO_INCREMENT PRIMARY KEY,
                                         hostel_registration_id INT NOT NULL,
-                                        Roll INT,
+                                        RollNo INT,
                                         Description VARCHAR(255),
                                         TimeStamp TIMESTAMP,
                                         Status VARCHAR(255),
                                         FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE CASCADE,
-                                        FOREIGN KEY (Roll) REFERENCES Student(Roll) ON DELETE SET NULL
+                                        FOREIGN KEY (RollNo) REFERENCES Student(Roll) ON DELETE SET NULL
 
 );
 

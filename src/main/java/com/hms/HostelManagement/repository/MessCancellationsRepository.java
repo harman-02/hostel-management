@@ -1,15 +1,11 @@
 package com.hms.HostelManagement.repository;
 
-import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.MessCancellations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,31 +21,23 @@ public class MessCancellationsRepository {
         messCancellations.setDate(rs.getDate("date_"));
         return messCancellations;
     };
-    public void createMessCancellation(MessCancellations messCancellations,HostelRegistration hostelRegistration){
-              String sql1= "SELECT hostel_registration_id FROM Hostel_registration " +
-                "WHERE hostel_id = ? AND session = ?";
-              Date date=messCancellations.getDate();
-        System.out.println(date);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int year = calendar.get(Calendar.YEAR);
-        System.out.println("Year: " + year);
-        int hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class,hostelRegistration.getHostelId(),date);
-        System.out.println(hostelRegistrationId);
-        Date utildate = date;
-        java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
-        messCancellations.setDate(sqlDate);
-        String sql2="insert into MessCancellations(hostelRegistrationId,rollno,date_) values (?,?,?)";
-        jdbcTemplate.update(sql2, hostelRegistrationId,messCancellations.getRollNo(),messCancellations.getDate());
+
+
+    public void createMessCancellation(MessCancellations messCancellations) {
+        String sql = "insert into MessCancellations(hostelRegistrationId, rollNo, date_) values (?, ?, ?)";
+        jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
     }
+
     public List<MessCancellations> getAll() {
         String sql = "select * from MessCancellations";
         return jdbcTemplate.query(sql, rowMapper);
     }
+
     public MessCancellations getById(Integer id) {
         String sql = "select * from MessCancellations where entryNo = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
     }
+
     public void updateMessCancellations(MessCancellations messCancellations) {
         String sql = "update MessCancellations set date_ = ? where entryNo = ?";
         jdbcTemplate.update(sql, messCancellations.getDate(), messCancellations.getEntryNo());
@@ -82,10 +70,6 @@ public class MessCancellationsRepository {
         return jdbcTemplate.query(sql, new Object[]{start, end}, rowMapper);
     }
     public List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
-        String sql = "select * from MessCancellations where rollNo = ? and YEAR(date_) = ?";
-        return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper);
-    }
-    public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo,Integer year) {
         String sql = "select * from MessCancellations where rollNo = ? and YEAR(date_) = ?";
         return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper);
     }
