@@ -72,6 +72,19 @@ public class MessCancellationsRepository {
         return jdbcTemplate.query(sql, ar, rowMapper1);
     }
 
+    public List<AllMessCancellations> findByRollNoAndKeyword(String keyword, Integer rollNo) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where (H.hostel_name like ? or convert(H.hostel_id, char) like ? or convert(rollNo, char) like ?\n" +
+                "or name like ? or date_format(date_, '%d/%m/%Y') like ?) and m.rollNo = ?";
+        String key = "%" + keyword + "%";
+        return jdbcTemplate.query(sql, new Object[]{key, key, key, key, key, rollNo}, rowMapper1);
+    }
+
     public void updateMessCancellations(MessCancellations messCancellations) {
         String sql = "update MessCancellations set date_ = ? where entryNo = ?";
         jdbcTemplate.update(sql, messCancellations.getDate(), messCancellations.getEntryNo());
@@ -95,9 +108,15 @@ public class MessCancellationsRepository {
         String sql = "select * from MessCancellations where hostelRegistrationid=? and YEAR(date_)= ?";
         return jdbcTemplate.query(sql, new Object[]{hostelRegistrationid, year}, rowMapper);
     }
-    public List<MessCancellations> filterByRollNo(Integer rollNo) {
-        String sql = "select * from MessCancellations where rollNo = ?";
-        return jdbcTemplate.query(sql, new Object[]{rollNo}, rowMapper);
+    public List<AllMessCancellations> filterByRollNo(Integer rollNo) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where m.rollNo = ?";
+        return jdbcTemplate.query(sql, new Object[]{rollNo}, rowMapper1);
     }
     public List<MessCancellations> filterByDate(Date start, Date end) {
         String sql = "select * from MessCancellations where date_ >= ? and date_ <= ?";

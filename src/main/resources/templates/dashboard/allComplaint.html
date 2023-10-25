@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="dashboard/layouts/header :: header"></head>
-<meta charset="UTF-8">
-<title>Title</title>
+<head th:replace="dashboard/layouts/header :: header">
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<div class = "row">
-    <div class = "col-lg-3">
-        <a th:href = "@{/complaints/add}" class = "btn btn-primary btn-sm mb-3"> Add Complain</a>
+<div class="row">
+    <div class="col-lg-3">
+        <a th:href="@{/complaints/add}" class="btn btn-primary btn-sm mb-3"> Add Complain</a>
     </div>
 </div>
 
 <form th:action="@{/complaints}" method="get">
-        <input id ="txtsearch" type="text" name="keyword">
-        <button type="submit"> Search </button>
+    <label for="txtsearch"></label><input id="txtsearch" type="text" name="keyword">
+    <button type="submit"> Search</button>
 </form>
 
-<table class = "table table-striped table-bordered">
-    <thead class = "table-dark">
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
     <tr>
         <th> Roll Number</th>
-        <th> Complaint Description </th>
-        <th> Complaint Time </th>
-        <th> Status </th>
-        <th> Action </th>
+        <th> Complaint Description</th>
+        <th> Complaint Time</th>
+        <th> Status</th>
+        <th> Action</th>
     </tr>
     </thead>
     <tbody>
@@ -34,8 +34,8 @@
         <td th:text="${complaint.status}"></td>
         <td>
             <form th:action="@{/updateStatus}" method="post">
-                <input type="hidden" th:name="complaintID" th:value="${complaint.complaintId}" />
-                <button type="submit" th:if="${complaint.status == 'Pending'}" >Mark Complete</button>
+                <input type="hidden" th:name="complaintID" th:value="${complaint.complaintId}"/>
+                <button type="submit" th:if="${complaint.status == 'Pending'}">Mark Complete</button>
             </form>
         </td>
     </tr>

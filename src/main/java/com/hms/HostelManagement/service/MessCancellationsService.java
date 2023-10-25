@@ -24,9 +24,10 @@ public interface MessCancellationsService {
     List<MessCancellations> filterBySession(int year);
 
     List<MessCancellations> filterBySessionAndHostel(Integer hostelRegistrationid, int year);
-    List<MessCancellations> filterByRollNo(Integer rollNo);
+    List<AllMessCancellations> filterByRollNo(Integer rollNo);
     List<MessCancellations> filterByDate(Date start, Date end);
     List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year);
     List<AllMessCancellations> findByKeyword(String keyword);
+    List<AllMessCancellations> findByKeywordAndRollNo(String keyword, Integer rollNo);
 
 }

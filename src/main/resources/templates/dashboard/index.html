@@ -9,14 +9,20 @@
 <div th:switch="${user.role}">
 	<p th:case="admin">
 		User is an administrator
-		<a class="btn-block" href="/hostels">
+		<a class="btn btn-primary" href="/hostels">
 			Hostels
+		</a>
+		<a class="btn btn-primary" href="/mess">
+			All Mess Cancellations
 		</a>
 	</p>
 	<p th:case="student">
 		User is a student
-		<a class="btn-block" href="/complaints">
+		<a class="btn btn-primary" href="/complaints">
 			Complaints
+		</a>
+		<a class="btn btn-primary" href="/mymess">
+			My Mess Cancellations
 		</a>
 	</p>
 	<p th:case="*">User is some other thing</p>

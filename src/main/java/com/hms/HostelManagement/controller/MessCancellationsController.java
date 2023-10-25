@@ -1,7 +1,5 @@
 package com.hms.HostelManagement.controller;
-import com.hms.HostelManagement.model.MessCancellations;
-import com.hms.HostelManagement.model.RangeDateModel;
-import com.hms.HostelManagement.model.SessionAndRollNo;
+import com.hms.HostelManagement.model.*;
 import com.hms.HostelManagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,10 +12,18 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 @Controller
 public class MessCancellationsController extends BaseController {
     @Autowired
     private MessCancellationsService messCancellationsService;
+    @Autowired
+    private AuthenticationService authenticationService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private StudentUserMappingService studentUserMappingService;
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
@@ -27,6 +33,7 @@ public class MessCancellationsController extends BaseController {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
+
         addDefaultAttributes(model, httpSession);
         if(keyword == null){
             model.addAttribute("cancellation", messCancellationsService.getAll());
@@ -35,6 +42,29 @@ public class MessCancellationsController extends BaseController {
             model.addAttribute("cancellation", messCancellationsService.findByKeyword(keyword));
         }
         return "messCancellations/allMessCancellations";
+    }
+
+    @GetMapping("/mymess")
+    public String myCancellations(Model model, HttpSession httpSession, String keyword) {
+        if (!isAuthenticated(httpSession)) {
+            return "redirect:/";
+        }
+        String username = authenticationService.getCurrentUser(httpSession);
+        User user = userService.getUser(username);
+        String currRole = user.getRole();
+        if (!Objects.equals(currRole, "student")) {
+            return "redirect:/dashboard";
+        }
+        addDefaultAttributes(model, httpSession);
+        int rollNo = studentUserMappingService.getRollNofromUsername(username);
+        System.out.println(rollNo);
+        if(keyword == null){
+            model.addAttribute("cancellation", messCancellationsService.filterByRollNo(rollNo));
+        }
+        else{
+            model.addAttribute("cancellation", messCancellationsService.findByKeywordAndRollNo(keyword, rollNo));
+        }
+        return "messCancellations/myMessCancellations";
     }
 
     @GetMapping("/mess/add")
@@ -169,8 +199,8 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<MessCancellations> mi = messCancellationsService.filterByRollNo(messCancellations.getRollNo());
-        for (MessCancellations mo : mi) {
+        List<AllMessCancellations> mi = messCancellationsService.filterByRollNo(messCancellations.getRollNo());
+        for (AllMessCancellations mo : mi) {
             Date utildate = mo.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
             mo.setDate(sqlDate);

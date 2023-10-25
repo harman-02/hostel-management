@@ -67,7 +67,7 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public List<MessCancellations> filterByRollNo(Integer rollNo) {
+    public List<AllMessCancellations> filterByRollNo(Integer rollNo) {
         return messCancellationsRepository.filterByRollNo(rollNo);
     }
 
@@ -84,6 +84,11 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     @Override
     public List<AllMessCancellations> findByKeyword(String keyword) {
         return messCancellationsRepository.findByKeyword(keyword);
+    }
+
+    @Override
+    public List<AllMessCancellations> findByKeywordAndRollNo(String keyword, Integer rollNo) {
+        return messCancellationsRepository.findByRollNoAndKeyword(keyword, rollNo);
     }
 
 }

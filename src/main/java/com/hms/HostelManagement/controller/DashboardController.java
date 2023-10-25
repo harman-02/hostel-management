@@ -51,6 +51,7 @@ public class DashboardController extends BaseController {
         addDefaultAttributes(model, session);
         return "dashboard/index";
     }
+
     @GetMapping("/complaints")
     public String allcomplaint(Model model, HttpSession session, Integer keyword) {
         if (!isAuthenticated(session)) {
@@ -69,48 +70,50 @@ public class DashboardController extends BaseController {
 
     @GetMapping("/mycomplaints")
     public String mycomplaint(Model model, HttpSession session) {
-        if(!isAuthenticated(session))
+        if (!isAuthenticated(session))
             return "redirect:/";
         String username = authenticationService.getCurrentUser(session);
-        User user= userService.getUser(username);
+        User user = userService.getUser(username);
         String currRole = user.getRole();
-        if(!Objects.equals(currRole, "student"))
+        if (!Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
+        }
         addDefaultAttributes(model, session);
         int rollNo = studentUserMappingService.getRollNofromUsername(username);
         model.addAttribute("complaints", complaintService.getParticularComplaint(rollNo));
         return "dashboard/myComplaints";
     }
+
     @PostMapping("/complaints")
-    public String PostaddComplaint(@ModelAttribute("complaint") Complaint complaint, Model model, HttpSession session){
+    public String PostaddComplaint(@ModelAttribute("complaint") Complaint complaint, Model model, HttpSession session) {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
-        addDefaultAttributes(model,session);
+        addDefaultAttributes(model, session);
         complaintService.createComplaint(complaint);
         return "redirect:/complaints";
     }
 
     @GetMapping("/complaints/add")
-    public String addComplaint(Model model,HttpSession session){
+    public String addComplaint(Model model, HttpSession session) {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
-        addDefaultAttributes(model,session);
-        Complaint complaint=new Complaint();
-        model.addAttribute("complaint",complaint);
+        addDefaultAttributes(model, session);
+        Complaint complaint = new Complaint();
+        model.addAttribute("complaint", complaint);
         return "dashboard/addComplaint";
 
     }
 
     @GetMapping("/hostels")
-    public String allHostel(Model model,HttpSession session){
+    public String allHostel(Model model, HttpSession session) {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
-        addDefaultAttributes(model,session);
+        addDefaultAttributes(model, session);
 
-        model.addAttribute("hostels",hostelservice.getAllHostel());
+        model.addAttribute("hostels", hostelservice.getAllHostel());
 
         return "dashboard/allHostel";
 
@@ -120,7 +123,7 @@ public class DashboardController extends BaseController {
     // getmapping add hostel , temporaily pass new empty hostel object to form template
 
     @GetMapping("/hostels/add")
-    public String addHostel(Model model, HttpSession session){
+    public String addHostel(Model model, HttpSession session) {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
@@ -135,15 +138,14 @@ public class DashboardController extends BaseController {
     }
 
     @PostMapping("/hostels")
-    public String PostAddHostel(@ModelAttribute("hostel") Hostel h, Model model,HttpSession session){
+    public String PostAddHostel(@ModelAttribute("hostel") Hostel h, Model model, HttpSession session) {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
-        addDefaultAttributes(model,session);
+        addDefaultAttributes(model, session);
         hostelservice.createHostel(h);
         return "redirect:/hostels";
     }
-
 
 
 }
