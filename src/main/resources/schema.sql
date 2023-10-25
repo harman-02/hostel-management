@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS RoomRegistration (
                                     foreign key (rollNo) REFERENCES Student(roll) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Complaints (
+CREATE TABLE IF NOT EXISTS Complaint (
                                         complaint_id INT AUTO_INCREMENT PRIMARY KEY,
                                         hostel_registration_id INT NOT NULL,
                                         Roll INT,
