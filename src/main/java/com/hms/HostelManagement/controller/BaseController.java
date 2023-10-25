@@ -31,14 +31,14 @@ abstract class BaseController {
             model.addAttribute("username", currentUser);
             model.addAttribute("userImageUrl", "https://ui-avatars.com/api/?name=" + currentUser);
 
-            User user= userService.getUser(currentUser);
+            User user = userService.getUser(currentUser);
             model.addAttribute("user", user);
 //
-            String currRole=user.getRole();
+            String currRole = user.getRole();
 
-            if (currRole.equals("student")) {
+//            if (currRole.equals("student")) {
 //                model.addAttribute("student", studentService.getStudentByRollNo(currentUser));
-            }
+//            }
         }
     }
 }

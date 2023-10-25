@@ -41,26 +41,22 @@ public class MessCancellationsRepository {
         return allMessCancellations;
     };
 
-
-    public void createMessCancellation(MessCancellations messCancellations) {
-        String sql = "insert into MessCancellations(hostelRegistrationId, rollNo, date_) values (?, ?, ?)";
-        jdbcTemplate.update(sql, messCancellations.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
-    public void createMessCancellation(MessCancellations messCancellations,HostelRegistration hostelRegistration){
-              String sql1= "SELECT hostel_registration_id FROM Hostel_registration " +
+    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration) {
+        String sql1 = "SELECT hostel_registration_id FROM Hostel_registration\n" +
                 "WHERE hostel_id = ? AND session = ?";
-              Date date=messCancellations.getDate();
+        Date date = messCancellations.getDate();
         System.out.println(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
         System.out.println("Year: " + year);
-        int hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class,hostelRegistration.getHostelId(),date);
+        int hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class, hostelRegistration.getHostelId(), date);
         System.out.println(hostelRegistrationId);
         Date utildate = date;
         java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
         messCancellations.setDate(sqlDate);
-        String sql2="insert into MessCancellations(hostelRegistrationId,rollno,date_) values (?,?,?)";
-        jdbcTemplate.update(sql2, hostelRegistrationId,messCancellations.getRollNo(),messCancellations.getDate());
+        String sql2 = "insert into MessCancellations(hostelRegistrationId, rollno, date_) values (?,?,?)";
+        jdbcTemplate.update(sql2, hostelRegistrationId, messCancellations.getRollNo(), messCancellations.getDate());
     }
 
     public List<AllMessCancellations> getAll() {
@@ -124,10 +120,12 @@ public class MessCancellationsRepository {
         String sql = "select * from MessCancellations where YEAR(date_)= ?";
         return jdbcTemplate.query(sql, new Object[]{year}, rowMapper);
     }
+
     public List<MessCancellations> filterBySessionAndhostel(Integer hostelRegistrationid, int year) {
         String sql = "select * from MessCancellations where hostelRegistrationid=? and YEAR(date_)= ?";
         return jdbcTemplate.query(sql, new Object[]{hostelRegistrationid, year}, rowMapper);
     }
+
     public List<AllMessCancellations> filterByRollNo(Integer rollNo) {
         String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
                 "from MessCancellations m\n" +
@@ -138,16 +136,20 @@ public class MessCancellationsRepository {
                 "where m.rollNo = ?";
         return jdbcTemplate.query(sql, new Object[]{rollNo}, rowMapper1);
     }
+
     public List<MessCancellations> filterByDate(Date start, Date end) {
         String sql = "select * from MessCancellations where date_ >= ? and date_ <= ?";
         return jdbcTemplate.query(sql, new Object[]{start, end}, rowMapper);
     }
+
     public List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
         String sql = "select * from MessCancellations where rollNo = ? and YEAR(date_) = ?";
         return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper);
     }
-    public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo,Integer year) {
+
+    public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo, Integer year) {
         String sql = "select * from MessCancellations where rollNo = ? and YEAR(date_) = ?";
         return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper);
     }
 }
+//    }
