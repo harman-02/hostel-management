@@ -81,4 +81,9 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
         return messCancellationsRepository.filterByRollNoAndSession(rollNo, year);
     }
 
+    @Override
+    public List<AllMessCancellations> findByKeyword(String keyword) {
+        return messCancellationsRepository.findByKeyword(keyword);
+    }
+
 }

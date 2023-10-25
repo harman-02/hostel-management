@@ -27,5 +27,6 @@ public interface MessCancellationsService {
     List<MessCancellations> filterByRollNo(Integer rollNo);
     List<MessCancellations> filterByDate(Date start, Date end);
     List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year);
+    List<AllMessCancellations> findByKeyword(String keyword);
 
 }

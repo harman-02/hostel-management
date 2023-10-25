@@ -23,12 +23,17 @@ public class MessCancellationsController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
     @GetMapping("/mess")
-    public String allCancellations(Model model, HttpSession httpSession) {
+    public String allCancellations(Model model, HttpSession httpSession, String keyword) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        model.addAttribute("cancellation", messCancellationsService.getAll());
+        if(keyword == null){
+            model.addAttribute("cancellation", messCancellationsService.getAll());
+        }
+        else{
+            model.addAttribute("cancellation", messCancellationsService.findByKeyword(keyword));
+        }
         return "messCancellations/allMessCancellations";
     }
 

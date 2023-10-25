@@ -7,11 +7,18 @@
 <body>
 
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col">
         <a th:href="@{/mess/add}" class="btn btn-primary btn-sm mb-3"> Add Cancellation</a>
+
+    </div>
+    <div class="col">
+        <form th:action="@{/mess}" method="get">
+            <label for="txtSearch"></label><input id ="txtSearch" type="text" name="keyword">
+            <button type="submit"> Search </button>
+        </form>
     </div>
 
-    <div class="col-7 text-right">
+    <div class="col text-right">
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                 Filters

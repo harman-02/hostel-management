@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,20 @@ public class MessCancellationsRepository {
     public MessCancellations getById(Integer id) {
         String sql = "select * from MessCancellations where entryNo = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
+    }
+
+    public List<AllMessCancellations> findByKeyword(String keyword) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where H.hostel_name like ? or convert(H.hostel_id, char) like ? or convert(rollNo, char) like ?\n" +
+                "or name like ? or date_format(date_, '%d/%m/%Y') like ?";
+        Object[] ar = new Object[5];
+        Arrays.fill(ar, "%" + keyword + "%");
+        return jdbcTemplate.query(sql, ar, rowMapper1);
     }
 
     public void updateMessCancellations(MessCancellations messCancellations) {
