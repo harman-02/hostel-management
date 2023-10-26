@@ -118,15 +118,6 @@ public class DashboardController extends BaseController {
         System.out.println(sessionService.getAllSession());
         return "redirect:/";
     }
-//    @GetMapping("/session")
-//    public String allSession(Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        model.addAttribute("sessions",sessionService.getAllSession());
-//        return "dashboard/allSession";
-//    }
 
     @GetMapping("/hostel/register")
     public String registerHostel(Model model,HttpSession session){
@@ -151,27 +142,7 @@ public class DashboardController extends BaseController {
         return "redirect:/hostel/register";
     }
 
-//    @GetMapping("/hostel/{id}")
-//    public String getHostelById(@PathVariable("id") Integer id,Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//
-//        model.addAttribute("hostel",hostelservice.getHostelById(id));
-//        return "dashboard/hostelDetail";
-//    }
 
-//    @GetMapping("session/{id}")
-//    public String getSessionById(@PathVariable("id") Integer id,Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//
-//        model.addAttribute("session",sessionService.getSessionById(id));
-//        return "dashboard/sessionDetail";
-//    }
 
     @GetMapping("/student/register")
     public String registerStudent(Model model,HttpSession session){
@@ -196,85 +167,25 @@ public class DashboardController extends BaseController {
         return "redirect:/";
     }
 
-//    @GetMapping("/student")
-//    public String StudentDashBoard(Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        model.addAttribute("students",studentService.getAllStudent());
-//        return "dashboard/allStudent";
-//    }
-//
-//    @GetMapping String allStudent(Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        model.addAttribute("students",studentService.getAllStudent());
-//        return "dashboard/allStudent";
-//    }
-//
-//    @GetMapping("/student/{id}")
-//    public String getStudentById(@PathVariable("id") Integer id,Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        model.addAttribute("student",studentService.getStudentById(id));
-//        return "dashboard/studentDetail";
-//    }
-//    @GetMapping("/student/{id}/edit")
-//    public String editStudentById(@PathVariable("id") Integer id,Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        model.addAttribute("student",studentService.getStudentById(id));
-//        return "dashboard/editStudent";
-//    }
-//    @PostMapping("/student/{id}/edit")
-//    public String PosteditStudentById(@PathVariable("id") Integer id,@ModelAttribute("student") Student s,Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        studentService.updateStudent(s);
-//        return "redirect:/student";
-//    }
-//    @DeleteMapping("/student/{id}")
-//    public String deleteStudentById(@PathVariable("id") Integer id,Model model,HttpSession session){
-//        if(!isAuthenticated(session) && !isAdmin(session)){
-//            return "redirect:/";
-//        }
-//        addDefaultAttributes(model,session);
-//        studentService.deleteStudent(id);
-//        return "redirect:/student";
-//    }
-//
-    @GetMapping("student/registerRoom")
-    public String registerRoom(Model model,HttpSession session){
-        if(!isAuthenticated(session) && !isAdmin(session)){
+    @GetMapping("/hostel/addRoom")
+    public String addRoom(Model model,HttpSession session){
+        if(!isAuthenticated(session) && !isAdmin(session) || !isWarden(session)){
             return "redirect:/";
         }
         addDefaultAttributes(model,session);
-
-//        model.addAttribute("students",studentService.getAllStudent());
-//        model.addAttribute("hostels",hostelservice.getAllHostel());
-        return "dashboard/registerRoom";
+        model.addAttribute("hostels",hostelservice.getAllHostel());
+        String roomNos="";
+        model.addAttribute("roomNos",roomNos);
+        String hostelId="";
+        model.addAttribute("hostelId",hostelId);
+        return "dashboard/addRoom";
     }
-    @PostMapping("student/registerRoom")
-    public String PostregisterRoom(@ModelAttribute("student") Student s,Model model,HttpSession session){
-        if(!isAuthenticated(session) && !isAdmin(session)){
+    @PostMapping("/hostel/addRoom")
+    public String PostAddRoom(@ModelAttribute("hostelId")Integer hostelID,@ModelAttribute("roomNos")String roomNos,Model model,HttpSession session){
+        if(!isAuthenticated(session) && !isAdmin(session) || !isWarden(session)){
             return "redirect:/";
         }
-        addDefaultAttributes(model,session);
 
-//        studentService.createStudent(s);
-        return "redirect:/";
+        return "dashboard/addRoom";
     }
-
-
-
-
 }

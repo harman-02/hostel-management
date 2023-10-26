@@ -6,8 +6,8 @@ import org.springframework.data.annotation.Id;
 @Data
 public class Room {
     @Id
-    private Integer hostelRegistrationId;
+    private Integer hostelId;
     @Id
-    private Integer roomId;
+    private Integer roomNo;
 
 }

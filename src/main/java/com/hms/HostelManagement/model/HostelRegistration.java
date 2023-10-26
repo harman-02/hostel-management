@@ -7,8 +7,8 @@ import org.springframework.data.annotation.Id;
 @Data
 public class HostelRegistration {
     @Id
-    private Integer hostelRegistrationId;
     private Integer hostelId;
+    @Id
     private Integer session;
     private String hostelWardenId;
 }

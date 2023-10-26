@@ -27,6 +27,10 @@ abstract class BaseController {
         return true;
 //        return authenticationService.isAdmin(session);
     }
+    public Boolean isWarden(HttpSession session){
+        return true;
+//        return authenticationService.isAdmin(session);
+    }
 
     public void addDefaultAttributes(Model model, HttpSession session) {
         String currentUser = authenticationService.getCurrentUser(session);

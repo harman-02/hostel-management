@@ -19,15 +19,15 @@ CREATE TABLE IF NOT EXISTS Session (
                                      session_name VARCHAR(255),
                                      start_date Date
 );
-
 CREATE TABLE IF NOT EXISTS Hostel_registration (
-                                                   hostel_registration_id INT AUTO_INCREMENT PRIMARY KEY,
-                                                   hostel_id INT,
-                                                   session INT,
+#                                                    hostel_registration_id INT AUTO_INCREMENT PRIMARY KEY,
+                                                   hostel_id INT not null ,
+                                                   session INT not null ,
                                                    hostel_warden_id VARCHAR(255),
                                                    FOREIGN KEY (hostel_id) REFERENCES Hostel(hostel_id) ON DELETE CASCADE ,
-                                                   FOREIGN KEY (hostel_warden_id) REFERENCES User(username) ON DELETE SET NULL,
-                                                   FOREIGN KEY (session) REFERENCES Session(session_id)  ON DELETE SET NULL
+                                                   FOREIGN KEY (hostel_warden_id) REFERENCES User(username) ON DELETE cascade ,
+                                                   FOREIGN KEY (session) REFERENCES Session(session_id)  ON DELETE cascade ,
+                                                    primary key (hostel_id, session)
 );
 
 CREATE TABLE IF NOT EXISTS HostelFacilities (
@@ -52,24 +52,17 @@ CREATE TABLE IF NOT EXISTS Student (
                                        balance INT,
                                        Dob date,
                                        userID varchar(255),
-                                        foreign key (userID) references User(username) on delete set null
+                                       foreign key (userID) references User(username) on delete set null
 );
 CREATE TABLE IF NOT EXISTS StudentUserMapping (
-    username varchar(55) primary key,
-    rollNo int,
-    hostelRegistrationId int,
-    foreign key (hostelRegistrationId) references Hostel_registration(hostel_registration_id) on delete set null,
+    username varchar(255),
+    hostelId int,
+    session INT,
+    roomNo int,
+    foreign key (hostelId,session) references Hostel_registration(hostel_id, session)  on delete cascade ,
     foreign key (username) references User(username) on delete cascade,
-    foreign key (rollNo) references Student(roll) on delete cascade
-);
-
-CREATE TABLE IF NOT EXISTS RoomRegistration (
-                                    hostel_registration_id INT NOT NULL,
-                                    roomNo INT NOT NULL,
-                                    rollNo int,
-                                    PRIMARY KEY (hostel_registration_id, roomNo),
-                                    FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE CASCADE,
-                                    foreign key (rollNo) REFERENCES Student(roll) ON DELETE CASCADE
+    foreign key (hostelId,roomNo) references Room(hostelId, roomNo)  on delete cascade ,
+    primary key (username, hostelId, session)
 );
 
 CREATE TABLE IF NOT EXISTS Complaints (

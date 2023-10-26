@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Add Hostel </h1>
+            <div class = "card-body">
+                <form th:action="@{/hostels}" method="POST">
+                    <div class ="form-group" >
+                        <label>Hostel</label>
+                        <select name="hostel" class="form-control" th:field="*{hostelId}">
+                            <option th:each="hostel : ${hostels}" th:value="${hostel.hostelId}" th:text="${hostel.hostelName}"></option>
+                        </select>
+
+
+                        <label>  Room Nos </label>
+                        <input
+                                type = "text"
+                                name = "Hostel Name"
+                                th:field = "*{roomNos}"
+                                class = "form-control"
+                                placeholder="Enter Room Nos"
+                        />
+                    </div>
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

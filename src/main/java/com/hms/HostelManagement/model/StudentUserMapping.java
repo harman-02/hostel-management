@@ -1,10 +1,15 @@
 package com.hms.HostelManagement.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 @Data
 public class StudentUserMapping {
+    @Id
     private String username;
-    private int rollNo;
-    private int hostelRegistrationId;
+    @Id
+    private int roomNo;
+    @Id
+    private int sessionID;
+    private int hostelId;
 }

@@ -11,9 +11,9 @@ public class StudentUserMappingRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public StudentUserMapping getRollNoFromUsername(String username)
-    {
-        String sql = "Select * from StudentUserMapping where username=?";
-        return jdbcTemplate.queryForObject(sql,new Object[]{username}, new BeanPropertyRowMapper<>(StudentUserMapping.class));
-    }
+//    public StudentUserMapping getRollNoFromUsername(String username)
+//    {
+//        String sql = "Select * from Student where userID=?";
+//        return jdbcTemplate.queryForObject(sql,new Object[]{username}, new BeanPropertyRowMapper<>(StudentUserMapping.class));
+//    }
 }
