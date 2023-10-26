@@ -9,6 +9,6 @@ public class HostelRegistration {
     @Id
     private Integer hostelRegistrationId;
     private Integer hostelId;
-    private Integer session;
-    private Integer hostelWardenId;
+    private Integer sessionId;
+    private Integer roomCount;
 }

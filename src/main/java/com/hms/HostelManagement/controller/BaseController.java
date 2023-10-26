@@ -20,6 +20,7 @@ abstract class BaseController {
     private StudentService studentService;
 
 
+
     public Boolean isAuthenticated(HttpSession session) {
         return authenticationService.isAuthenticated(session);
     }
@@ -37,8 +38,33 @@ abstract class BaseController {
             String currRole=user.getRole();
 
             if (currRole.equals("student")) {
-//                model.addAttribute("student", studentService.getStudentByRollNo(currentUser));
+
             }
         }
+    }
+
+
+
+    public String getRoleInSession(HttpSession session)
+    {
+        String currentUser = authenticationService.getCurrentUser(session);
+        if(currentUser!=null)
+        {
+            User user=userService.getUser(currentUser);
+            return user.getRole();
+        }
+        else
+            return null;
+    }
+    public User getUserInSession(HttpSession session)
+    {
+        String currentUser = authenticationService.getCurrentUser(session);
+        if(currentUser!=null)
+        {
+            User user=userService.getUser(currentUser);
+            return user;
+        }
+        else
+            return null;
     }
 }

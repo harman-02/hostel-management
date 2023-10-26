@@ -33,6 +33,17 @@ public class HostelRepository {
         jdbcTemplate.update(
                 sql,hostel.getHostelName(),hostel.getHostelAddress(),hostel.getHostelId());
     }
+
+    public Hostel getHostelFromName(String hostelName){
+        String sql="select * from Hostel where HostelName=?";
+        return jdbcTemplate.queryForObject(sql,new Object[]{hostelName},new BeanPropertyRowMapper<>(Hostel.class));
+    }
+
+    public Hostel getHostelFromId(int id){
+        String sql="select * from Hostel where hostel_id=?";
+        return jdbcTemplate.queryForObject(sql,new Object[]{id},new BeanPropertyRowMapper<>(Hostel.class));
+    };
+
 }
 
 

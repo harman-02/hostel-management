@@ -28,5 +28,10 @@ public class HostelServiceImpl implements HostelService {
         hostelRepository.createHostel(h);
     }
 
+    @Override
+    public Hostel getHostelFromId(int id) {
+        return hostelRepository.getHostelFromId(id);
+    }
+
 
 }

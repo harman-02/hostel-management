@@ -14,5 +14,5 @@ public class Student{
     private Integer phone;
     private String branch;
     private Integer balance;
-    private String dob;
+    private Date dob;
 }
