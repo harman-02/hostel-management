@@ -3,9 +3,8 @@ package com.hms.HostelManagement.model;
 import lombok.Data;
 
 @Data
-public class User {
+public class StudentUserMapping {
     private String username;
-    private String password;
-    private String role;
-
+    private int rollNo;
+    private int hostelRegistrationId;
 }
