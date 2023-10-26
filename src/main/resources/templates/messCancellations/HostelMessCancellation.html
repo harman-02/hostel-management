@@ -11,12 +11,10 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add required hostel id </h1>
             <div class="card-body">
-                <form th:action="@{/filterByHostel}" th:object="${filter}" method="POST">
-                    <div class="form-group">
-                        <label>
-                            Enter hostel registration id <input type="text" name="hostel registration id" th:field="*{hostelRegistrationId}"/>
-                        </label>
-                    </div>
+                <form th:action="@{/filterByHostel}" th:object="${cancellation}" method="POST">
+                    <label for="hostelid">enter hostel id</label>
+                    <input type="number" name="hostelid" id="hostelid" required>
+
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">
                             Submit

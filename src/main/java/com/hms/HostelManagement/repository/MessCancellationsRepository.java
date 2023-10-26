@@ -8,8 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Arrays;
 import java.util.Date;
@@ -116,9 +114,16 @@ public class MessCancellationsRepository {
         return jdbcTemplate.query(sql, new Object[]{hostelRegistrationid}, rowMapper);
     }
 
-    public List<MessCancellations> filterBySession(int year) {
-        String sql = "select * from MessCancellations where YEAR(date_)= ?";
-        return jdbcTemplate.query(sql, new Object[]{year}, rowMapper);
+    public List<AllMessCancellations> filterBySession(int year) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where year(s2.start_date) = ?";
+//        System.out.println(year);
+        return jdbcTemplate.query(sql, new Object[]{year}, rowMapper1);
     }
 
     public List<MessCancellations> filterBySessionAndhostel(Integer hostelRegistrationid, int year) {
@@ -137,19 +142,52 @@ public class MessCancellationsRepository {
         return jdbcTemplate.query(sql, new Object[]{rollNo}, rowMapper1);
     }
 
-    public List<MessCancellations> filterByDate(Date start, Date end) {
-        String sql = "select * from MessCancellations where date_ >= ? and date_ <= ?";
-        return jdbcTemplate.query(sql, new Object[]{start, end}, rowMapper);
+    public List<AllMessCancellations> filterByDate(Date start, Date end) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id " +
+                "where m.date_ >= ? and m.date_ <= ?";
+        return jdbcTemplate.query(sql, new Object[]{start, end}, rowMapper1);
     }
 
-    public List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
-        String sql = "select * from MessCancellations where rollNo = ? and YEAR(date_) = ?";
-        return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper);
+    public List<AllMessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where m.rollNo = ? and year(s2.start_date) = ?";
+        return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper1);
     }
 
     public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo, Integer year) {
         String sql = "select * from MessCancellations where rollNo = ? and YEAR(date_) = ?";
         return jdbcTemplate.query(sql, new Object[]{rollNo, year}, rowMapper);
     }
+
+    public List<AllMessCancellations> filterByHostelIdAndSessionId(Integer hostelId, Integer sessionId) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where H.hostel_id = ? and S2.session_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{hostelId, sessionId}, rowMapper1);
+    }
+
+    public List<AllMessCancellations> filterByHostel(Integer hostelId) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id\n" +
+                "where H.hostel_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{hostelId}, rowMapper1);
+    }
 }
-//    }

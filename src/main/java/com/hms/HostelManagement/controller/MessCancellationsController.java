@@ -104,7 +104,6 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-//        System.out.println(model);
         List<MessCancellations> mi = messCancellationsService.balanceByRollNoAndSession(m.getRollNo(), year);
         System.out.println(model);
         model.addAttribute("mess", mi);
@@ -135,16 +134,15 @@ public class MessCancellationsController extends BaseController {
         return "messCancellations/updateMessCancellation";
     }
 
-    @GetMapping("/mess/filterByHostel")
+    @GetMapping("/mess/filterByHostelAndSession")
     public String filterMess(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
 
         addDefaultAttributes(model, httpSession);
-        MessCancellations mess = new MessCancellations();
-        model.addAttribute("filter", mess);
-        return "messCancellations/filterMessCancellation";
+        model.addAttribute("filter", new AllMessCancellations());
+        return "messCancellations/HostelAndSessionMessCancellation";
     }
 
     @GetMapping("/mess/filterBySession")
@@ -153,20 +151,18 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        MessCancellations mess = new MessCancellations();
-        model.addAttribute("filter", mess);
+        model.addAttribute("cancellation", new AllMessCancellations());
         return "messCancellations/SessionMessCancellation";
     }
 
-    @GetMapping("/mess/filterBySessionAndHostel")
-    public String filterSessionandHostel(Model model, HttpSession httpSession) {
+    @GetMapping("/mess/filterByHostel")
+    public String filterByHostel(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        MessCancellations mess = new MessCancellations();
-        model.addAttribute("sessionsandhostel", mess);
-        return "messCancellations/SessionAndHostelMessCancellation";
+        model.addAttribute("cancellation", new AllMessCancellations());
+        return "messCancellations/HostelMessCancellation";
     }
 
     @GetMapping("/mess/filterByRollNo")
@@ -175,7 +171,7 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        model.addAttribute("filter", new MessCancellations());
+        model.addAttribute("cancellation", new AllMessCancellations());
         return "messCancellations/RollNoMessCancellation";
     }
 
@@ -212,36 +208,37 @@ public class MessCancellationsController extends BaseController {
         return "redirect:/mess";
     }
 
-    @PostMapping("/filterByHostel")
-    public String PostFilterMess(@ModelAttribute("filter") MessCancellations m, Model model, HttpSession httpSession) {
+    @PostMapping("/filterByHostelAndSession")
+    public String PostFilterMess(@ModelAttribute("filter") AllMessCancellations m, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<MessCancellations> mi = messCancellationsService.filterById(m.getHostelRegistrationId());
-        for (MessCancellations mo : mi) {
-            Date utildate = mo.getDate();
-            java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
-            mo.setDate(sqlDate);
-        }
-        model.addAttribute("filter", mi);
-        return "messCancellations/allHostelFilter";
-    }
-
-    @PostMapping("/mess/postFilterByRollNo")
-    public String PostFilterByRollNo(@ModelAttribute("filter") MessCancellations messCancellations, Model model, HttpSession httpSession) {
-        if (!isAuthenticated(httpSession)) {
-            return "redirect:/";
-        }
-        addDefaultAttributes(model, httpSession);
-        List<AllMessCancellations> mi = messCancellationsService.filterByRollNo(messCancellations.getRollNo());
+        List<AllMessCancellations> mi = messCancellationsService.filterByHostelIdAndSessionId(m.getHostelId(), m.getSessionId());
         for (AllMessCancellations mo : mi) {
             Date utildate = mo.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
             mo.setDate(sqlDate);
         }
-        model.addAttribute("filter", mi);
-        return "messCancellations/allRollNoFilter";
+        model.addAttribute("cancellation", mi);
+        return "messCancellations/allMessCancellations";
+    }
+
+    @PostMapping("/mess/postFilterByRollNo")
+    public String PostFilterByRollNo(@ModelAttribute("cancellation") AllMessCancellations allMessCancellations, Model model, HttpSession httpSession) {
+        if (!isAuthenticated(httpSession)) {
+            return "redirect:/";
+        }
+        addDefaultAttributes(model, httpSession);
+        List<AllMessCancellations> mi = messCancellationsService.filterByRollNo(allMessCancellations.getStudentRollNo());
+//        System.out.println(allMessCancellations.getStudentRollNo());
+        for (AllMessCancellations mo : mi) {
+            Date utildate = mo.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
+            mo.setDate(sqlDate);
+        }
+        model.addAttribute("cancellation", mi);
+        return "messCancellations/allMessCancellations";
     }
 
     @PostMapping("/mess/postFilterByDate")
@@ -250,14 +247,14 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<MessCancellations> mi = messCancellationsService.filterByDate(rangeDateModel.getStart(), rangeDateModel.getEnd());
-        for (MessCancellations mo : mi) {
+        List<AllMessCancellations> mi = messCancellationsService.filterByDate(rangeDateModel.getStart(), rangeDateModel.getEnd());
+        for (AllMessCancellations mo : mi) {
             Date utildate = mo.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
             mo.setDate(sqlDate);
         }
-        model.addAttribute("filter", mi);
-        return "messCancellations/allRollNoFilter";
+        model.addAttribute("cancellation", mi);
+        return "messCancellations/allMessCancellations";
     }
 
     @PostMapping("/mess/postFilterByRollNoAndSession")
@@ -266,36 +263,36 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<MessCancellations> mi = messCancellationsService.filterByRollNoAndSession(sessionAndRollNo.getRollNo(), sessionAndRollNo.getSession());
-        for (MessCancellations mo : mi) {
+        List<AllMessCancellations> mi = messCancellationsService.filterByRollNoAndSession(sessionAndRollNo.getRollNo(), sessionAndRollNo.getSession());
+        for (AllMessCancellations mo : mi) {
             Date utildate = mo.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
             mo.setDate(sqlDate);
         }
-        model.addAttribute("filter", mi);
-        return "messCancellations/allRollNoAndSessionFilter";
+        model.addAttribute("cancellation", mi);
+        return "messCancellations/allMessCancellations";
     }
 
     @PostMapping("/filterBySession")
-    public String PostFilterMessSession(@ModelAttribute("filter") MessCancellations m, @RequestParam("year") int year, Model model, HttpSession httpSession) {
+    public String PostFilterMessSession(@ModelAttribute("cancellation") AllMessCancellations m, @RequestParam("year") int year, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<MessCancellations> mi = messCancellationsService.filterBySession((year));
-        model.addAttribute("filter", mi);
-        return "messCancellations/allSessionFilter";
+        List<AllMessCancellations> mi = messCancellationsService.filterBySession(year);
+        model.addAttribute("cancellation", mi);
+        return "messCancellations/allMessCancellations";
     }
 
-    @PostMapping("/filterBySessionAndHostel")
-    public String PostFilterMessSessionAndHostel(@ModelAttribute("filter") MessCancellations m, @RequestParam("hostelregistrationid") Integer hostelregistrationid, @RequestParam("year") int year, Model model, HttpSession httpSession) {
+    @PostMapping("/filterByHostel")
+    public String PostFilterMessSessionAndHostel(@ModelAttribute("cancellation") AllMessCancellations m, @RequestParam("hostelid") Integer hostelId, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<MessCancellations> mi = messCancellationsService.filterBySessionAndHostel(hostelregistrationid, year);
-        model.addAttribute("filter", mi);
-        return "messCancellations/allHostelAndSessionFilter";
+        List<AllMessCancellations> mi = messCancellationsService.filterByHostel(hostelId);
+        model.addAttribute("cancellation", mi);
+        return "messCancellations/allMessCancellations";
     }
 
     @GetMapping("mess/delete/{id}")

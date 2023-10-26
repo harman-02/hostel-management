@@ -22,15 +22,18 @@ public interface MessCancellationsService {
 
     List<MessCancellations> filterById(Integer hostelRegistrationid);
 
-    List<MessCancellations> filterBySession(int year);
+    List<AllMessCancellations> filterBySession(int year);
 
     List<MessCancellations> filterBySessionAndHostel(Integer hostelRegistrationid, int year);
     List<AllMessCancellations> filterByRollNo(Integer rollNo);
-    List<MessCancellations> filterByDate(Date start, Date end);
-    List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year);
+    List<AllMessCancellations> filterByDate(Date start, Date end);
+    List<AllMessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year);
     List<AllMessCancellations> findByKeyword(String keyword);
     List<AllMessCancellations> findByKeywordAndRollNo(String keyword, Integer rollNo);
      List<MessCancellations> balanceByRollNoAndSession(Integer rollNo, Integer year);
 
 
+    List<AllMessCancellations> filterByHostelIdAndSessionId(Integer hostelId, Integer sessionId);
+
+    List<AllMessCancellations> filterByHostel(Integer hostelId);
 }

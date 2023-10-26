@@ -57,7 +57,7 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public List<MessCancellations> filterBySession(int year) {
+    public List<AllMessCancellations> filterBySession(int year) {
         return messCancellationsRepository.filterBySession(year);
     }
 
@@ -72,12 +72,12 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public List<MessCancellations> filterByDate(Date start, Date end) {
+    public List<AllMessCancellations> filterByDate(Date start, Date end) {
         return messCancellationsRepository.filterByDate(start, end);
     }
 
     @Override
-    public List<MessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
+    public List<AllMessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
         return messCancellationsRepository.filterByRollNoAndSession(rollNo, year);
     }
 
@@ -94,6 +94,16 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     @Override
     public List<MessCancellations> balanceByRollNoAndSession(Integer rollNo,Integer year){
          return messCancellationsRepository.balanceByRollNoAndSession(rollNo,year);
+    }
+
+    @Override
+    public List<AllMessCancellations> filterByHostelIdAndSessionId(Integer hostelId, Integer sessionId) {
+        return messCancellationsRepository.filterByHostelIdAndSessionId(hostelId, sessionId);
+    }
+
+    @Override
+    public List<AllMessCancellations> filterByHostel(Integer hostelId) {
+        return messCancellationsRepository.filterByHostel(hostelId);
     }
 
 }
