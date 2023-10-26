@@ -48,10 +48,9 @@ public class MessCancellationsRepository {
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
         System.out.println("Year: " + year);
-        int hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class, hostelRegistration.getHostelId(), date);
-        System.out.println(hostelRegistrationId);
-        Date utildate = date;
-        java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
+        Integer hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class, hostelRegistration.getHostelId(), date);
+//        System.out.println(hostelRegistrationId);
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         messCancellations.setDate(sqlDate);
         String sql2 = "insert into MessCancellations(hostelRegistrationId, rollno, date_) values (?,?,?)";
         jdbcTemplate.update(sql2, hostelRegistrationId, messCancellations.getRollNo(), messCancellations.getDate());

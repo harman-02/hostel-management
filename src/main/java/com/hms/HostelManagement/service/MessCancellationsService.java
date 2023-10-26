@@ -10,7 +10,7 @@ import java.util.List;
 public interface MessCancellationsService {
     List<AllMessCancellations> getAll();
 
-    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration);
+    void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration);
 
     void updateMessCancellation(MessCancellations messCancellations);
 
