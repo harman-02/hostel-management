@@ -26,9 +26,9 @@ abstract class BaseController {
 
     public void addDefaultAttributes(Model model, HttpSession session) {
         String currentUser = authenticationService.getCurrentUser(session);
+        model.addAttribute("username", currentUser);
         if (currentUser != null) {
 
-            model.addAttribute("username", currentUser);
             model.addAttribute("userImageUrl", "https://ui-avatars.com/api/?name=" + currentUser);
 
             User user= userService.getUser(currentUser);
