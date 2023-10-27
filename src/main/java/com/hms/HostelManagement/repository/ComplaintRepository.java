@@ -2,7 +2,6 @@ package com.hms.HostelManagement.repository;
 
 import com.hms.HostelManagement.model.Complaint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -37,10 +36,10 @@ public class ComplaintRepository {
         return jdbcTemplate.query(sql,new Object[] {studentID},new BeanPropertyRowMapper<>(Complaint.class));
     }
 
-    public void deleteComplaint(int complaintID){
-        String sql = "delete from Complaint where complaint_id=?";
-        jdbcTemplate.update(sql,complaintID);
-    }
+//    public void deleteComplaint(int complaintID){
+//        String sql = "delete from Complaint where complaint_id=?";
+//        jdbcTemplate.update(sql,complaintID);
+//    }
 
     public void updateComplaintStatus(int complaintId) {
         String sql = "UPDATE Complaint SET status = ? WHERE complaint_id = ?";

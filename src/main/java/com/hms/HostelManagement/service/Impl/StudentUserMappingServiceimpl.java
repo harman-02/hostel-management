@@ -13,6 +13,13 @@ public class StudentUserMappingServiceimpl implements StudentUserMappingService 
     private StudentUserMappingRepository studentUserMappingRepository;
     @Override
     public int getRollNofromUsername(String username) {
-        return studentUserMappingRepository.getRollNoFromUsername(username).getRollNo();
+        return studentUserMappingRepository.getStudentFromUsername(username).getRollNo();
     }
+
+    @Override
+    public int getRegistrationIDFromUsername(String username) {
+        return studentUserMappingRepository.getStudentFromUsername(username).getHostelRegistrationId();
+    }
+
+
 }

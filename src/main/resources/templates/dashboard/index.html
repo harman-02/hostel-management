@@ -12,11 +12,14 @@
 		<a class="btn-block" href="/hostels">
 			Hostels
 		</a>
+		<a class="btn-block" href="/complaints">
+			Complaints
+		</a>
 	</p>
 	<p th:case="student">
 		User is a student
-		<a class="btn-block" href="/complaints">
-			Complaints
+		<a class="btn-block" href="/mycomplaints">
+			My Complaints
 		</a>
 	</p>
 	<p th:case="*">User is some other thing</p>
