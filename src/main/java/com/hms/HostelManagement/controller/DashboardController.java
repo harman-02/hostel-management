@@ -2,8 +2,9 @@ package com.hms.HostelManagement.controller;
 
 import com.hms.HostelManagement.model.Complaint;
 import com.hms.HostelManagement.model.Hostel;
-import com.hms.HostelManagement.model.Notice;
 import com.hms.HostelManagement.model.User;
+import com.hms.HostelManagement.repository.HostelRepository;
+import com.hms.HostelManagement.repository.StudentUserMappingRepository;
 import com.hms.HostelManagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentUserMappingServiceimpl implements StudentUserMappingService {
+public class StudentUserMappingServiceImpl implements StudentUserMappingService {
 
     @Autowired
     private StudentUserMappingRepository studentUserMappingRepository;

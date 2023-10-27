@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Add required hostel id </h1>
+            <div class="card-body">
+                <form th:action="@{/filterByHostelAndSession}" th:object="${filter}" method="POST">
+                    <div class="form-group">
+                        <label>
+                            Enter hostel id <input type="number" name="hostel id" th:field="*{hostelId}"/>
+                        </label>
+                        <label>
+                            Enter the session year(id) <input type="number" name="session year" th:field="*{sessionId}"/>
+                        </label>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

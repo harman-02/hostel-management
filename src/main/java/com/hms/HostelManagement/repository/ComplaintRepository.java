@@ -2,6 +2,7 @@ package com.hms.HostelManagement.repository;
 
 import com.hms.HostelManagement.model.Complaint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

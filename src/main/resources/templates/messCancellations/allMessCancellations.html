@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="row">
+    <div class="col">
+        <a th:href="@{/mess/add}" class="btn btn-primary btn-sm mb-3"> Add Cancellation</a>
+        <a th:href="@{/mess/checkBalance}" class="btn btn-primary btn-sm mb-3">Check balance</a>
+
+    </div>
+    <div class="col">
+        <form th:action="@{/mess}" method="get">
+            <label for="txtSearch"></label><input id ="txtSearch" type="text" name="keyword">
+            <button type="submit"> Search </button>
+        </form>
+    </div>
+
+    <div class="col text-right">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Filters
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a th:href="@{/mess/filterByHostelAndSession}" class="dropdown-item">Hostel Id and Session</a>
+                <a th:href="@{/mess/filterBySession}" class="dropdown-item">Session</a>
+                <a th:href="@{/mess/filterByHostel}" class="dropdown-item">Hostel Id</a>
+                <a th:href="@{/mess/filterByRollNo}" class="dropdown-item">Roll No</a>
+                <a th:href="@{/mess/filterByRollNoAndSession}" class="dropdown-item">Roll No and Session</a>
+                <a th:href="@{/mess/filterByDate}" class="dropdown-item">Date</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th>Hostel Id</th>
+        <th>Hostel Name</th>
+        <th>Roll No</th>
+        <th>Student Name</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="entry: ${cancellation}">
+        <td th:text="${entry.hostelId}"></td>
+        <td th:text="${entry.hostelName}"></td>
+        <td th:text="${entry.studentRollNo}"></td>
+        <td th:text="${entry.studentName}"></td>
+        <td><time th:text="${#dates.format(entry.date, 'dd/MM/yyyy')}"></time></td>
+        <td>
+            <a th:href="@{'/mess/update/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Update</a>
+            <a th:href="@{'/mess/delete/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>
