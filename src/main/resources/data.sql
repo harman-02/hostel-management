@@ -67,7 +67,7 @@ from MessCancellations m
          inner join Student S on m.rollNo = S.roll
          inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id
          inner join Hostel H on Hr.hostel_id = H.hostel_id
-         inner join Session S2 on Hr.session = S2.session_id
+         inner join Session S2 on Hr.session_id = S2.session_id
 where H.hostel_name like '%i%'
    or convert(H.hostel_id, char) like '%i%'
    or convert(rollNo, char) like '%i%'
@@ -79,3 +79,4 @@ where hostel_name like '%i%';
 select * from session;
 
 
+truncate complaint;
