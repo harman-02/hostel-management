@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,8 +17,10 @@ public class ComplaintRepository {
     JdbcTemplate jdbcTemplate;
     public void createComplaint(Complaint complaint)
     {
-        String sql = "INSERT INTO COMPLAINT(rollNo, description, date_of_complain, status) values (?,?,current_date(), 'Pending')";
-        jdbcTemplate.update(sql, complaint.getRollNo(), complaint.getDescription());
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+
+        String sql = "INSERT INTO COMPLAINT(rollNo, hostel_registration_id,description, timestamp, status) values (?,?,?,? , 'Pending')";
+        jdbcTemplate.update(sql, complaint.getRollNo(), complaint.getHostelRegistrationId(),complaint.getDescription(),ts);
     }
 
     public List<Complaint> getAllComplaint()
@@ -26,15 +29,15 @@ public class ComplaintRepository {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Complaint.class));
     }
 
-    public List<Complaint> getComplaintByRollNo(int rollNo) {
+    public List<Complaint> getAllComplaintByRollNo(int rollNo) {
         String sql = "SELECT * FROM COMPLAINT WHERE rollNo LIKE ?";
         String rollNoPattern = rollNo + "%";
         return jdbcTemplate.query(sql, new Object[]{rollNoPattern}, new BeanPropertyRowMapper<>(Complaint.class));
     }
-    public List<Complaint> getParticularComplaint(int studentID)
+    public List<Complaint> getStudentComplaint(int roll,int hrId)
     {
-        String sql = "SELECT * FROM COMPLAINT WHERE rollNo = ?";
-        return jdbcTemplate.query(sql,new Object[] {studentID},new BeanPropertyRowMapper<>(Complaint.class));
+        String sql = "SELECT * FROM COMPLAINT WHERE rollNo = ? and hostel_registration_id=?";
+        return jdbcTemplate.query(sql,new Object[] {roll,hrId},new BeanPropertyRowMapper<>(Complaint.class));
     }
 
     public void deleteComplaint(int complaintID){

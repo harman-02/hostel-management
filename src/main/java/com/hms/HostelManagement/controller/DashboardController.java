@@ -80,30 +80,61 @@ public class DashboardController extends BaseController {
         }
         addDefaultAttributes(model, session);
 
-        if (keyword != null) {
-            model.addAttribute("complaints", complaintService.getComplaintByRollNo(keyword));
-        } else {
-            model.addAttribute("complaints", complaintService.getAllComplaint());
+        User u=getUserInSession(session);
+
+        if(u.getRole().equals("admin"))
+        {
+            List<Complaint>cl=new ArrayList<Complaint>();
+            if (keyword != null) {
+                cl=complaintService.getAllComplaintByRoll(keyword);
+            }
+            else
+            {
+                cl=complaintService.getAllComplaint();
+            }
+            List<String>hostelNames=new ArrayList<String >();
+            List<String>sessionNames=new ArrayList<String>();
+            for(Complaint c:cl)
+            {
+                HostelRegistration hr=hostelRegistrationService.getHostelRegFromId(c.getHostelRegistrationId());
+                hostelNames.add(hostelservice.getHostelFromId(hr.getHostelId()).getHostelName());
+                sessionNames.add(sessionService.getSessionFromId(hr.getSessionId()).getSessionName());
+            }
+
+            model.addAttribute("complaints",cl);
+            model.addAttribute("hostelNames",hostelNames);
+            model.addAttribute("sessionNames",sessionNames);
         }
+        else if(u.getRole().equals("student")){
+
+            int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
+            int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
+
+
+            model.addAttribute("complaints",complaintService.getStudentComplaint(roll,hrId));
+        }
+
 
         return "dashboard/allComplaint";
     }
 
-    @GetMapping("/mycomplaints")
-    public String mycomplaint(Model model, HttpSession session) {
-        if (!isAuthenticated(session))
-            return "redirect:/";
-        String username = authenticationService.getCurrentUser(session);
-        User user = userService.getUser(username);
-        String currRole = user.getRole();
-        if (!currRole.equals("student")) {
-            return "redirect:/dashboard";
-        }
-        addDefaultAttributes(model, session);
-        int rollNo = studentUserMappingService.getRollNofromUsername(username);
-        model.addAttribute("complaints", complaintService.getParticularComplaint(rollNo));
-        return "dashboard/myComplaints";
-    }
+
+
+//    @GetMapping("/mycomplaints")
+//    public String mycomplaint(Model model, HttpSession session) {
+//        if (!isAuthenticated(session))
+//            return "redirect:/";
+//        String username = authenticationService.getCurrentUser(session);
+//        User user = userService.getUser(username);
+//        String currRole = user.getRole();
+//        if (!currRole.equals("student")) {
+//            return "redirect:/dashboard";
+//        }
+//        addDefaultAttributes(model, session);
+//        int rollNo = studentUserMappingService.getRollNofromUsername(username);
+//        model.addAttribute("complaints", complaintService.getParticularComplaint(rollNo));
+//        return "dashboard/myComplaints";
+//    }
 
     @PostMapping("/complaints")
     public String PostaddComplaint(@ModelAttribute("complaint") Complaint complaint, Model model, HttpSession session) {
@@ -111,6 +142,12 @@ public class DashboardController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, session);
+
+        User u=getUserInSession(session);
+        int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
+        int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
+        complaint.setRollNo(roll);
+        complaint.setHostelRegistrationId(hrId);
         complaintService.createComplaint(complaint);
         return "redirect:/complaints";
     }
@@ -124,7 +161,6 @@ public class DashboardController extends BaseController {
         Complaint complaint = new Complaint();
         model.addAttribute("complaint", complaint);
         return "dashboard/addComplaint";
-
     }
 
     @GetMapping("/hostels")

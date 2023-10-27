@@ -1,73 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="dashboard/layouts/header :: header"></head>
-<meta charset="UTF-8">
-<title>Title</title>
-<style>
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins',sans-serif;
-    }
-    body{
-        display: flex;
-        height: 100vh;
-        padding: 15px;
-        background: linear-gradient(140deg, #72b7e5, #9c59b7);
-        justify-content: center;
-        align-items: center;
-    }
-    .container{
-        background-color:#b7d7f1;
-        max-width: 450px;
-        border-radius: 4px;
-        width: 100%;
-        padding: 26px 31px;
-        box-shadow: 0 5px 10px rgba(0.01,0.01,0.01,0.15);
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
 
 <div class = "container">
-    <div class = "row">
-        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class = "text-center"> Add Complaint </h1>
-            <div class = "card-body">
-                <form th:action="@{/complaints}" th:object = "${complaint}" method="POST">
-                    <div class ="form-group">
-                        <label>  Roll Number </label>
-                        <input
-                                type = "text"
-                                name = "Hostel Name"
-                                th:field = "*{rollNo}"
-                                class = "form-control"
-                                placeholder="Enter Roll Number"
-                        />
-                    </div>
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Add Hostel </h1>
+				<div class = "card-body">
+					<form th:action="@{/complaints}" th:object = "${complaint}" method="POST">
+						<div class ="form-group">
+							<label> Description  </label>
+							<input
+							type = "text"
+							th:field = "*{description}"
+							class = "form-control"
+							placeholder="Enter Complaint "
+							/>
+						</div>
 
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea
-                                name="Complain Description"
-                                th:field="*{description}"
-                                class="form-control"
-                                placeholder="Enter the description"
-                        ></textarea>
-                    </div>
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
 
-                    <div class = "box-footer">
-                        <button type="submit" class = "btn btn-primary">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
