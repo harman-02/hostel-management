@@ -9,18 +9,19 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center"> Update date of cancellation </h1>
+            <h1 class="text-center"> Add the respective start and end dates </h1>
             <div class="card-body">
-                <form th:action="@{/myMessUpdate}" th:object="${cancellation}" method="POST">
-                    <input type="hidden" th:value="${cancellation.entryNo}" th:attr="name='entryNo'"/>
-                    <input type="hidden" th:value="${cancellation.hostelRegistrationId}"
-                           th:attr="name='hostelRegistrationId'"/>
-                    <input type="hidden" th:value="${cancellation.rollNo}" th:attr="name='RollNo'"/>
-                    <div class="form-group">
-                        <label>
-                            Date of Cancellation: <input type="date" name="date" th:field="*{date}"/>
-                        </label>
+                <form th:action="@{/mymess/postFilterByDate}"  method="POST">
+                    <input type="hidden" th:field="${mess.rollNo}" />
+                    <div class = "form-group">
+                        <label for="start">Enter the start date</label>
+                        <input type="date" name="date" id="start" th:field="*{filter.start}" required>
                     </div>
+                    <div class="form-group">
+                        <label for="end">Enter the end date</label>
+                        <input type="date" name="date" id="end" th:field="*{filter.end}" required>
+                    </div>
+
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">
                             Submit

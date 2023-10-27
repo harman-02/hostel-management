@@ -6,10 +6,9 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 @Data
-public class Notice {
+public class Session {
     @Id
-    private Integer noticeId;
-    private Integer hostelRegistrationId;
-    private String description;
-    private Date date;
+    private int sessionId ;
+    private String sessionName;
+    private Date startDate;
 }

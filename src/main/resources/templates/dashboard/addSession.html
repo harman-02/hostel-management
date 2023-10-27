@@ -11,14 +11,28 @@
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
 				<h1 class = "text-center"> Add Hostel </h1>
 				<div class = "card-body">
-					<form th:action="@{/complaints}" th:object = "${complaint}" method="POST">
+					<form th:action="@{/sessions}" th:object = "${newSession}" method="POST">
 						<div class ="form-group">
-							<label> Description  </label>
+							<label>  Session Name </label>
 							<input
 							type = "text"
-							th:field = "*{description}"
+							name = "session Name"
+							th:field = "*{sessionName}"
 							class = "form-control"
-							placeholder="Enter Complaint "
+							placeholder="Enter Session  Name"
+                            required
+							/>
+						</div>
+
+						<div class ="form-group">
+							<label> Session Start Date  </label>
+							<input
+							type = "date"
+							name = "start Date"
+							th:field = "*{startDate}"
+							class = "form-control"
+							placeholder="Enter Start Date"
+                            required
 							/>
 						</div>
 

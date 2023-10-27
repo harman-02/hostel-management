@@ -20,25 +20,51 @@ abstract class BaseController {
     private StudentService studentService;
 
 
+
     public Boolean isAuthenticated(HttpSession session) {
         return authenticationService.isAuthenticated(session);
     }
 
     public void addDefaultAttributes(Model model, HttpSession session) {
         String currentUser = authenticationService.getCurrentUser(session);
+        model.addAttribute("username", currentUser);
         if (currentUser != null) {
 
-            model.addAttribute("username", currentUser);
             model.addAttribute("userImageUrl", "https://ui-avatars.com/api/?name=" + currentUser);
 
-            User user = userService.getUser(currentUser);
+            User user= userService.getUser(currentUser);
             model.addAttribute("user", user);
 //
-            String currRole = user.getRole();
+            String currRole=user.getRole();
 
-//            if (currRole.equals("student")) {
-//                model.addAttribute("student", studentService.getStudentByRollNo(currentUser));
-//            }
+            if (currRole.equals("student")) {
+
+            }
         }
+    }
+
+
+
+    public String getRoleInSession(HttpSession session)
+    {
+        String currentUser = authenticationService.getCurrentUser(session);
+        if(currentUser!=null)
+        {
+            User user=userService.getUser(currentUser);
+            return user.getRole();
+        }
+        else
+            return null;
+    }
+    public User getUserInSession(HttpSession session)
+    {
+        String currentUser = authenticationService.getCurrentUser(session);
+        if(currentUser!=null)
+        {
+            User user=userService.getUser(currentUser);
+            return user;
+        }
+        else
+            return null;
     }
 }

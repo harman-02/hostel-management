@@ -6,22 +6,34 @@
 </head>
 <body>
 
+
+
 <div class = "container">
 		<div class = "row">
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<h1 class = "text-center"> Add Hostel </h1>
+				<h1 class = "text-center"> Register Student </h1>
 				<div class = "card-body">
-					<form th:action="@{/complaints}" th:object = "${complaint}" method="POST">
+					<form th:action="@{/notices/{id}(id=${notice.noticeId})}" th:object = "${notice}" method="POST">
 						<div class ="form-group">
-							<label> Description  </label>
 							<input
 							type = "text"
 							th:field = "*{description}"
 							class = "form-control"
-							placeholder="Enter Complaint "
+							placeholder="Enter Description"
+							required
 							/>
 						</div>
 
+						<div class ="form-group">
+							<label> Date  </label>
+							<input
+							type = "date"
+							th:field = "*{date}"
+							class = "form-control"
+							placeholder="Enter Date"
+							required
+							/>
+						</div>
 						<div class = "box-footer">
 							<button type="submit" class = "btn btn-primary">
 								Submit

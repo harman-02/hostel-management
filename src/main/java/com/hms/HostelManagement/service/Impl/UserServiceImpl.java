@@ -16,6 +16,12 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+
+    @Override
+    public void createUser(User u) {
+        userRepository.createUser(u);
+    }
+
     @Override
     public User getUser(String username) {
         return userRepository.getUser(username);
@@ -25,5 +31,15 @@ public class UserServiceImpl implements UserService {
     public void changePassword(String username, User user) {
         user.setUsername(username);
         userRepository.update(user);
+    }
+
+    @Override
+    public boolean checkUserNameExists(String username) {
+
+        User user=userRepository.getUser(username);
+        if(user==null)
+            return false;
+        else
+            return true;
     }
 }

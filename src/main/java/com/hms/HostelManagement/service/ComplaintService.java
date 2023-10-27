@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ComplaintService {
     List<Complaint> getAllComplaint();
-    List<Complaint> getParticularComplaint(int studentID);
+    List<Complaint> getStudentComplaint(int roll,int hrId);
     public void createComplaint(Complaint complaint);
 
     public void updateComplaintStatus(int complaintID);
 
-    public List<Complaint> getComplaintByRollNo(int rollNo);
+    public List<Complaint> getAllComplaintByRoll(int rollNo);
 }

@@ -25,8 +25,8 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public List<Complaint> getParticularComplaint(int studentID) {
-        return complaintRepository.getParticularComplaint(studentID);
+    public List<Complaint> getStudentComplaint(int roll,int hrId) {
+        return complaintRepository.getStudentComplaint(roll,hrId);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public List<Complaint> getComplaintByRollNo(int rollNo)
+    public List<Complaint> getAllComplaintByRoll(int rollNo)
     {
-        return complaintRepository.getComplaintByRollNo(rollNo);
+        return complaintRepository.getAllComplaintByRollNo(rollNo);
     }
 }

@@ -75,6 +75,10 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     public List<AllMessCancellations> filterByDate(Date start, Date end) {
         return messCancellationsRepository.filterByDate(start, end);
     }
+    @Override
+    public List<AllMessCancellations> filterByDateAndRoll(Date start, Date end,Integer roll) {
+        return messCancellationsRepository.filterByDateAndRoll(start, end,roll);
+    }
 
     @Override
     public List<AllMessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
