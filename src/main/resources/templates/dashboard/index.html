@@ -7,11 +7,45 @@
 <h1> Landed on Dashboard page</h1>
 
 	<div th:switch="${user.role}">
-	  <p th:case="admin">User is an administrator</p>
-	  <p th:case="student" th:text="${student.username+' '+student.name+' '+student.address}">User is a student</p>
-	  <p th:case="*">User is some other thing</p>
+	  <p th:case="admin">
+		  User is an administrator
+		  <a class="btn-block" href="/hostels">
+			 Hostels
+		  </a>
+		  <a class="btn-block" href="/students">
+			  Students
+		  </a>
+		  <a class="btn-block" href="/sessions">
+			 Sessions
+		  </a>
+		  <a class="btn-block" href="/registeredHostels">
+			 Registered Hostels
+		  </a>
+		  <a class="btn-block" href="/notices">
+			 Notices
+		  </a>
+          <a class="btn btn-primary" href="/mess">
+			All Mess Cancellations
+		</a>
+          <a class="btn btn-primary" href="/complaints">
+                Complaints
+          </a>
+	  </p>
+	  <p th:case="student">
+		  <a class="btn-block" href="/student/myProfile">
+			 My Profile
+		  </a>
+		   <a class="btn-block" href="/notices">
+			 Notices
+		  </a>
+
+		<a class="btn btn-primary" href="/mymess">
+			My Mess Cancellations
+		</a>
+	  </p>
 	</div>
 		<a href="/logout" class="btn btn-primary">Logout</a>
+
 </body>
 
 </html>

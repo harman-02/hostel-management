@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Add the respective start and end dates </h1>
+            <div class="card-body">
+                <form th:action="@{/mess/postFilterByDate}" th:object="${filter}" method="POST">
+                    <div class = "form-group">
+                        <label for="start">Enter the start date</label>
+                        <input type="date" name="date" id="start" th:field="*{start}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end">Enter the end date</label>
+                        <input type="date" name="date" id="end" th:field="*{end}" required>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

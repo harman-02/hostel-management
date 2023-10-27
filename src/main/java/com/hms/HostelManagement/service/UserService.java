@@ -3,22 +3,19 @@ package com.hms.HostelManagement.service;
 import com.hms.HostelManagement.model.User;
 import com.hms.HostelManagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+public interface UserService {
 
-//    @Autowired
-//    private StudentRepository students;
+    public void createUser(User u);
 
-    public User getUser(String username){
-        return userRepository.getUser(username);
-    }
+    public User getUser(String username);
 
-    public void changePassword(String username, User user) {
-        user.setUsername(username);
-        userRepository.update(user);
-    }
+    public void changePassword(String username, User user);
+
+    public boolean checkUserNameExists(String username);
+
+
 }
+
+
+

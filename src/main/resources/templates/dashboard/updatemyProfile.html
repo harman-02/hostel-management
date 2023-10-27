@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class = "container">
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Student Details </h1>
+				<div class = "card-body">
+					<form  th:action="@{/student/myProfile/{id}(id=${thisStudent.roll})}" th:object = "${thisStudent}" method="POST">
+
+						<div class ="form-group">
+							<label>  Student Roll </label>
+							<input
+							type = "text"
+							th:field = "*{roll}"
+							class = "form-control"
+							placeholder="Enter Roll  No"
+                            disabled
+							/>
+						</div>
+
+						<div class ="form-group">
+							<label> Student Name  </label>
+							<input
+							type = "text"
+							th:field = "*{name}"
+							class = "form-control"
+							placeholder="Enter Name"
+							required
+							/>
+						</div>
+
+
+						<div class ="form-group">
+							<label> Email  </label>
+							<input
+							type = "email"
+							th:field = "*{email}"
+							class = "form-control"
+							placeholder="Enter email"
+							required
+							/>
+						</div>
+						<div class ="form-group">
+							<label> Phone  </label>
+							<input
+							type = "text"
+							th:field = "*{phone}"
+							class = "form-control"
+							placeholder="Enter Phone no"
+							required
+							/>
+						</div>
+						<div class ="form-group">
+							<label> Branch  </label>
+							<input
+							type = "text"
+							th:field = "*{branch}"
+							class = "form-control"
+							placeholder="Enter Branch"
+							required
+							/>
+						</div>
+						<div class ="form-group">
+							<label> Balance  </label>
+							<input
+							type = "text"
+							th:field = "*{balance}"
+							class = "form-control"
+							placeholder="Enter balance"
+                            disabled
+							/>
+						</div>
+						<div class ="form-group">
+							<label> Date of Birth  </label>
+							<input
+							type = "date"
+							th:field = "*{dob}"
+							class = "form-control"
+							placeholder="Enter Date of Birth"
+							required
+							/>
+						</div>
+
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Update Details
+							</button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

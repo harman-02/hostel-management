@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="dashboard/layouts/header :: header"></head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class = "row">
+        <a th:href = "@{/registerStudent}" class = "btn btn-primary btn-sm mb-3"> Register Student</a>
+    </div>
+
+    <table class = "table table-striped table-bordered">
+			<thead class = "table-dark">
+
+				<tr>
+                        <th>User Name</th>
+                        <th>Roll No</th>
+                        <th> Hostel Name </th>
+                        <th> Session Name </th>
+                        <th>  Personal Information</th>
+				</tr>
+			</thead>
+
+			<tbody>
+<!--            <tr th:each="emp,iterStat : ${empList}">-->
+<!--    <td th:text="${emp.id}">ID</td>-->
+<!--    <td th:text="${accList[__${iterStat.index}__].field}">Emp Account</td> -->
+<!--</tr>-->
+				<tr th:each = "s,iter: ${studentUsers}">
+                        <td th:text="${s.username}"></td>
+                        <td th:text="${s.roll}"></td>
+                        <td th:text="${hostelNames[__${iter.index}__]}"></td>
+                        <td th:text="${sessionNames[__${iter.index}__]}"></td>
+                        <td>
+                            <a th:href="@{/students/{id}(id=${s.roll})}" class = "btn btn-primary btn-sm mb-3"> View Details</a>
+                        </td>
+				</tr>
+			</tbody>
+
+    </table>
+
+</body>
+</html>
