@@ -7,5 +7,8 @@ public interface StudentService {
 
     public void createStudent(Student s);
 
+    public Student getStudentFromRoll(Integer roll);
+
+    public void updateStudentByRoll(Student s,Integer roll);
 
 }

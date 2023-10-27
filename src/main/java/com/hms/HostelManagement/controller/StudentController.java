@@ -127,7 +127,7 @@ public class StudentController extends BaseController{
             studentUserMappingService.createStudentUserMapping(s);
         }
 
-        return "redirect:/dashboard";
+        return "redirect:/students";
     }
 
 
@@ -138,8 +138,28 @@ public class StudentController extends BaseController{
         {
             model.addAttribute("thisStudent",studentUserMappingService.getStudentFromUsername(getUserInSession(session).getUsername()));
         }
-
+        addDefaultAttributes(model,session);
         return "dashboard/myProfile";
     }
+
+    @GetMapping("/student/myProfile/{id}")
+    public  String updateMyProfile(@PathVariable int id, Model model,HttpSession session){
+
+        model.addAttribute("thisStudent",studentService.getStudentFromRoll(id));
+
+        return "dashboard/updatemyProfile";
+    }
+
+    @PostMapping("/student/myProfile/{id}")
+    public  String postupdateMyProfile(@PathVariable int id,@ModelAttribute("thisStudent") Student s, Model model,HttpSession session){
+
+        System.out.println(s.getName()+" "+s.getEmail());
+        studentService.updateStudentByRoll(s,id);
+
+        return "redirect:/student/myProfile";
+    }
+
+
+
 
 }

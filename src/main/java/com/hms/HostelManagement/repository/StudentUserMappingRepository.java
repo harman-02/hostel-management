@@ -7,11 +7,18 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class StudentUserMappingRepository {
     @Autowired
     JdbcTemplate template;
 
+    public List<StudentUserMapping> getAllStudentUserMapping()
+    {
+        String sql = "Select * from StudentUserMapping";
+        return template.query(sql,new BeanPropertyRowMapper<>(StudentUserMapping.class));
+    }
     public StudentUserMapping getStudentUserMappingFromUsername(String username)
     {
         String sql = "Select * from StudentUserMapping where username=?";

@@ -11,7 +11,7 @@ public class Student{
     private Integer roll ;
     private String Name;
     private String email;
-    private Integer phone;
+    private String phone;
     private String branch;
     private Integer balance;
     private Date dob;

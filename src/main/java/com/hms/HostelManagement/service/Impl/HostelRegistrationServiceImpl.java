@@ -26,4 +26,9 @@ public class HostelRegistrationServiceImpl implements HostelRegistrationService 
     public void createHostelRegistration(HostelRegistration hr) {
         hostelRegistrationRepository.createHostelRegistration(hr);
     }
+
+    @Override
+    public HostelRegistration getHostelRegFromId(int id) {
+        return hostelRegistrationRepository.getHostelRegFromId(id);
+    }
 }

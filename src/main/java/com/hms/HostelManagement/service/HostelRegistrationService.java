@@ -8,4 +8,6 @@ public interface HostelRegistrationService {
     List<HostelRegistration>getAllRegisteredHostel();
 
     public void createHostelRegistration(HostelRegistration hr);
+
+    public HostelRegistration getHostelRegFromId(int id);
 }

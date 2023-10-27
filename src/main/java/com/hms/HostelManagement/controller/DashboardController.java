@@ -40,6 +40,9 @@ public class DashboardController extends BaseController {
     @Autowired
     private StudentUserMappingService studentUserMappingService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     // Needed to automatically convert String date in form to Date object.
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -198,7 +201,176 @@ public class DashboardController extends BaseController {
     }
 
 
+    @GetMapping("/notices")
+    public String ShowAllNotice(Model model,HttpSession session) {
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        String role=getRoleInSession(session);
+        if(role.equals("admin"))
+        {
+            List<Notice>notices=noticeService.getAllNotices();
+            model.addAttribute("notices",notices);
+
+            List<String>hostels=new ArrayList<String >();
+            List<String>sessions=new ArrayList<String>();
+            for(Notice i:notices)
+            {
+                HostelRegistration hr=hostelRegistrationService.getHostelRegFromId(i.getHostelRegistrationId());
+                hostels.add(hostelservice.getHostelFromId(hr.getHostelId()).getHostelName());
+                sessions.add(sessionService.getSessionFromId(hr.getSessionId()).getSessionName());
+            }
+//            System.out.println("debug");
+//            System.out.println(hostels);
+//            System.out.println(sessions);
+
+            model.addAttribute("hostels",hostels);
+            model.addAttribute("sessions",sessions);
+        }
+        else if(role.equals("student")){
+
+            User u=getUserInSession(session);
+            int hid= studentUserMappingService.getHostelRegIdFromUsername(u.getUsername());
+            model.addAttribute("notices",noticeService.getAllNoticesFromHostelReg(hid));
+        }
+        addDefaultAttributes(model,session);
+        return "dashboard/notices";
+    }
 
 
+    @GetMapping("notice/add")
+    public String addNotice(Model model,HttpSession session){
+
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        Notice notice=new Notice();
+
+        model.addAttribute("notice",notice);
+
+        List<HostelRegistration>hr=hostelRegistrationService.getAllRegisteredHostel();
+
+        List<HelperHostelSessionName> registeredHostels = new ArrayList<HelperHostelSessionName>();
+
+        for(HostelRegistration s:hr)
+        {
+            HelperHostelSessionName curr=new HelperHostelSessionName();
+            curr.setHostelName(hostelservice.getHostelFromId(s.getHostelId()).getHostelName());
+            curr.setSessionName(sessionService.getSessionFromId(s.getSessionId()).getSessionName());
+            curr.setUint(s.getHostelRegistrationId());
+            registeredHostels.add(curr);
+        }
+
+        model.addAttribute("registeredhostels",registeredHostels);
+
+
+        return "dashboard/addNotice";
+    }
+
+    @PostMapping("/notices")
+    public String PostaddNotice(@ModelAttribute("notice") Notice i, Model model,HttpSession session) {
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        noticeService.createNotice(i);
+
+
+        return "redirect:/notices";
+    }
+
+
+    @GetMapping("notices/{id}")
+    public String updateNotice(@PathVariable int id,Model model,HttpSession session){
+
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        Notice currNotice=noticeService.getNoticeFromId(id);
+
+        model.addAttribute("notice",currNotice);
+
+        return "dashboard/updateNotice";
+    }
+    @PostMapping("notices/{id}")
+    public String postupdateNotice(@PathVariable int id,@ModelAttribute ("notice") Notice i,Model model,HttpSession session){
+
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        noticeService.updateNoticeDetails(i,id);
+
+        return "redirect:/notices";
+    }
+
+    @GetMapping("/students")
+    public String showAllStudents(Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        List<StudentUserMapping>stu=studentUserMappingService.getAllStudentUserMapping();
+        List<String>hostelNames=new ArrayList<String >();
+        List<String>sessionNames=new ArrayList<String>();
+        for(StudentUserMapping s:stu)
+        {
+            HostelRegistration hr=hostelRegistrationService.getHostelRegFromId(s.getHostelRegistrationId());
+            hostelNames.add(hostelservice.getHostelFromId(hr.getHostelId()).getHostelName());
+            sessionNames.add(sessionService.getSessionFromId(hr.getSessionId()).getSessionName());
+        }
+
+        model.addAttribute("hostelNames",hostelNames);
+        model.addAttribute("sessionNames",sessionNames);
+        model.addAttribute("studentUsers",stu);
+        return "dashboard/allStudents";
+    }
+    @GetMapping("/students/{id}")
+    public String viewStudentDetails(@PathVariable int id, Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+        addDefaultAttributes(model,session);
+        Student s=studentService.getStudentFromRoll(id);
+        model.addAttribute("thisStudent",s);
+        return "dashboard/myProfile";
+    }
 
 }

@@ -14,3 +14,8 @@ select * from User;
 select * from hostel_registration;
 select * from student;
 select * from studentusermapping;
+select * from notice;
+ALTER TABLE student
+MODIFY COLUMN phone VARCHAR(15);
+
+drop table notice;

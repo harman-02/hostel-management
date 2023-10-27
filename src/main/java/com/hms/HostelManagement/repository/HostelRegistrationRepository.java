@@ -22,4 +22,9 @@ public class HostelRegistrationRepository {
     public void createHostelRegistration(HostelRegistration hr){
         String sql = "insert into hostel_registration(hostel_id,session_id,room_count) values (?, ?, ?)";
         template.update(sql,hr.getHostelId(),hr.getSessionId(),hr.getRoomCount());
-    }}
+    }
+    public HostelRegistration getHostelRegFromId(int id){
+    String sql="select * from hostel_registration where hostel_registration_id=?";
+    return template.queryForObject(sql,new Object[]{id},new BeanPropertyRowMapper<>(HostelRegistration.class));
+    };
+}

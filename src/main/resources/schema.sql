@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Student
     roll    INT AUTO_INCREMENT PRIMARY KEY,
     name    VARCHAR(255),
     email   VARCHAR(255),
-    phone   INT,
+    phone   VARCHAR(15),
     branch  VARCHAR(255),
     balance INT,
     dob     date
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS Notice
 (
     notice_id              INT AUTO_INCREMENT PRIMARY KEY,
     hostel_registration_id INT,
-    Description            VARCHAR(255),
+    description            VARCHAR(10000),
     date                   DATETIME,
     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
 );

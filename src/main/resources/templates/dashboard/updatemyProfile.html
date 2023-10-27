@@ -11,7 +11,7 @@
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
 				<h1 class = "text-center"> Student Details </h1>
 				<div class = "card-body">
-					<form  th:object = "${thisStudent}" method="POST">
+					<form  th:action="@{/student/myProfile/{id}(id=${thisStudent.roll})}" th:object = "${thisStudent}" method="POST">
 
 						<div class ="form-group">
 							<label>  Student Roll </label>
@@ -31,7 +31,7 @@
 							th:field = "*{name}"
 							class = "form-control"
 							placeholder="Enter Name"
-							disabled
+							required
 							/>
 						</div>
 
@@ -43,17 +43,17 @@
 							th:field = "*{email}"
 							class = "form-control"
 							placeholder="Enter email"
-                            disabled
+							required
 							/>
 						</div>
 						<div class ="form-group">
 							<label> Phone  </label>
 							<input
-							type = "number"
+							type = "text"
 							th:field = "*{phone}"
 							class = "form-control"
 							placeholder="Enter Phone no"
-                            disabled
+							required
 							/>
 						</div>
 						<div class ="form-group">
@@ -63,7 +63,7 @@
 							th:field = "*{branch}"
 							class = "form-control"
 							placeholder="Enter Branch"
-                            disabled
+							required
 							/>
 						</div>
 						<div class ="form-group">
@@ -83,20 +83,16 @@
 							th:field = "*{dob}"
 							class = "form-control"
 							placeholder="Enter Date of Birth"
-                            disabled
+							required
 							/>
 						</div>
 
-
-						<div class = "box-footer" th:switch="${user.role}">
-
-							<span th:case="student">
-								<a th:href="@{/student/myProfile/{id}(id=${thisStudent.roll}) }" class = "btn btn-primary">
-									Edit Details
-								</a>
-							</span>
-
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Update Details
+							</button>
 						</div>
+
 					</form>
 
 				</div>
