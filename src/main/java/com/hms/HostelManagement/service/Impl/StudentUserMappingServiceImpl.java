@@ -1,5 +1,6 @@
 package com.hms.HostelManagement.service.Impl;
 
+import com.hms.HostelManagement.model.Student;
 import com.hms.HostelManagement.model.StudentUserMapping;
 import com.hms.HostelManagement.repository.StudentUserMappingRepository;
 import com.hms.HostelManagement.service.StudentUserMappingService;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentUserMappingServiceimpl implements StudentUserMappingService {
+public class StudentUserMappingServiceImpl implements StudentUserMappingService {
 
     @Autowired
     private StudentUserMappingRepository studentUserMappingRepository;
@@ -28,6 +29,7 @@ public class StudentUserMappingServiceimpl implements StudentUserMappingService 
     public Student getStudentFromUsername(String username) {
         return studentUserMappingRepository.getStudentFromUsername(username);
     }
+
 
     @Override
     public int getHostelRegIdFromUsername(String username) {

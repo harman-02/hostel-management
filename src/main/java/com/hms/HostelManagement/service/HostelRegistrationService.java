@@ -1,3 +1,4 @@
+package com.hms.HostelManagement.service;
 
 import com.hms.HostelManagement.model.HostelRegistration;
 

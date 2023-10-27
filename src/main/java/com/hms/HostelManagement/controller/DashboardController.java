@@ -46,7 +46,6 @@ public class DashboardController extends BaseController {
     private SessionService sessionService;
     @Autowired
     private HostelRegistrationService hostelRegistrationService;
-
     @Autowired
     private NoticeService noticeService;
 
