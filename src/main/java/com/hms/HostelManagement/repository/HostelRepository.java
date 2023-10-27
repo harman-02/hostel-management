@@ -1,6 +1,8 @@
 package com.hms.HostelManagement.repository;
 
 import com.hms.HostelManagement.model.Hostel;
+import com.hms.HostelManagement.model.HostelRegistration;
+import com.hms.HostelManagement.model.StudentUserMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,6 +35,7 @@ public class HostelRepository {
         jdbcTemplate.update(
                 sql,hostel.getHostelName(),hostel.getHostelAddress(),hostel.getHostelId());
     }
+
 }
 
 

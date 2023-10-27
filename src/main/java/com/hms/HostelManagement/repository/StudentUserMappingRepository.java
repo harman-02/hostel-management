@@ -16,4 +16,9 @@ public class StudentUserMappingRepository {
         String sql = "Select * from StudentUserMapping where username=?";
         return jdbcTemplate.queryForObject(sql,new Object[]{username}, new BeanPropertyRowMapper<>(StudentUserMapping.class));
     }
+    public StudentUserMapping getHostelRegistrationIdFromUsername(String username)
+    {
+        String sql = "Select * from StudentUserMapping where username=?";
+        return jdbcTemplate.queryForObject(sql,new Object[]{username}, new BeanPropertyRowMapper<>(StudentUserMapping.class));
+    }
 }

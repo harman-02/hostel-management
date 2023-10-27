@@ -43,11 +43,11 @@ public class MessCancellationsRepository {
         String sql1 = "SELECT hostel_registration_id FROM Hostel_registration\n" +
                 "WHERE hostel_id = ? AND session = ?";
         Date date = messCancellations.getDate();
-        System.out.println(date);
+//        System.out.println(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
-        System.out.println("Year: " + year);
+//        System.out.println("Year: " + year);
         Integer hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class, hostelRegistration.getHostelId(), date);
 //        System.out.println(hostelRegistrationId);
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
@@ -55,7 +55,6 @@ public class MessCancellationsRepository {
         String sql2 = "insert into MessCancellations(hostelRegistrationId, rollno, date_) values (?,?,?)";
         jdbcTemplate.update(sql2, hostelRegistrationId, messCancellations.getRollNo(), messCancellations.getDate());
     }
-
     public List<AllMessCancellations> getAll() {
         String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
                 "from MessCancellations m\n" +
@@ -65,7 +64,6 @@ public class MessCancellationsRepository {
                 "inner join Session S2 on Hr.session = S2.session_id";
         return jdbcTemplate.query(sql, rowMapper1);
     }
-
     public MessCancellations getById(Integer id) {
         String sql = "select * from MessCancellations where entryNo = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
@@ -84,7 +82,6 @@ public class MessCancellationsRepository {
         Arrays.fill(ar, "%" + keyword + "%");
         return jdbcTemplate.query(sql, ar, rowMapper1);
     }
-
     public List<AllMessCancellations> findByRollNoAndKeyword(String keyword, Integer rollNo) {
         String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
                 "from MessCancellations m\n" +
@@ -97,7 +94,6 @@ public class MessCancellationsRepository {
         String key = "%" + keyword + "%";
         return jdbcTemplate.query(sql, new Object[]{key, key, key, key, key, rollNo}, rowMapper1);
     }
-
     public void updateMessCancellations(MessCancellations messCancellations) {
         String sql = "update MessCancellations set date_ = ? where entryNo = ?";
         jdbcTemplate.update(sql, messCancellations.getDate(), messCancellations.getEntryNo());
@@ -150,6 +146,16 @@ public class MessCancellationsRepository {
                 "inner join Session S2 on Hr.session = S2.session_id " +
                 "where m.date_ >= ? and m.date_ <= ?";
         return jdbcTemplate.query(sql, new Object[]{start, end}, rowMapper1);
+    }
+    public List<AllMessCancellations> filterByDateAndRoll(Date start, Date end,Integer Roll) {
+        String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +
+                "from MessCancellations m\n" +
+                "inner join Student S on m.rollNo = S.roll\n" +
+                "inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id\n" +
+                "inner join Hostel H on Hr.hostel_id = H.hostel_id\n" +
+                "inner join Session S2 on Hr.session = S2.session_id " +
+                "where m.date_ >= ? and m.date_ <= ? and m.rollNo=?";
+        return jdbcTemplate.query(sql, new Object[]{start, end,Roll}, rowMapper1);
     }
 
     public List<AllMessCancellations> filterByRollNoAndSession(Integer rollNo, Integer year) {
