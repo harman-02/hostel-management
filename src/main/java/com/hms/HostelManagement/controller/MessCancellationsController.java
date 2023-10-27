@@ -265,7 +265,7 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        MessCancellations mi=new MessCancellations();
+//        MessCancellations mi=new MessCancellations();
         model.addAttribute("filter", new RangeDateModel());
         model.addAttribute("mess", new MessCancellations());
         return "messCancellations/DateMessCancellation";
