@@ -25,7 +25,6 @@ public class MessCancellationsController extends BaseController {
     private StudentUserMappingService studentUserMappingService;
     @Autowired
     private HostelRegistrationService hostelRegistrationService;
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));

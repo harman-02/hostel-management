@@ -31,8 +31,6 @@ CREATE TABLE IF NOT EXISTS Hostel_registration
     FOREIGN KEY (session) REFERENCES Session (session_id) ON DELETE SET NULL
 );
 
-
-
 # CREATE TABLE IF NOT EXISTS HostelFacilities
 # (
 #     facility_id            INT AUTO_INCREMENT PRIMARY KEY,
