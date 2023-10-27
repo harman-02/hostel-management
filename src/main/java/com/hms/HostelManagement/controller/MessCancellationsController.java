@@ -152,6 +152,7 @@ public class MessCancellationsController extends BaseController {
         int hostelRegistrationId = studentUserMappingService.getHostelRegistrationIdFromUsername(username);
         int sess=hostelRegistrationService.getSessionFromHostelRegistrationId(hostelRegistrationId);
         model.addAttribute("mess", messCancellationsService.filterByRollNoAndSession(rollNo,sess));
+        System.out.println(messCancellationsService.filterByRollNoAndSession(rollNo,sess).size());
         return "messCancellations/myBalance";
     }
     @PostMapping("/myBalance")
