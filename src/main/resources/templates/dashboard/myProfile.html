@@ -1,10 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<head th:replace="dashboard/layouts/header :: header"></head>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+<div class = "container">
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Student Details </h1>
+				<div class = "card-body">
+					<form th:action="@{/dashboard}" th:object = "${thisStudent}" method="POST">
+						<div class ="form-group">
+							<label>  Student Roll </label>
+							<input
+							type = "text"
+							th:field = "*{roll}"
+							class = "form-control"
+							placeholder="Enter Roll  No"
+                            disabled
+							/>
+						</div>
+
+						<div class ="form-group">
+							<label> Student Name  </label>
+							<input
+							type = "text"
+							th:field = "*{name}"
+							class = "form-control"
+							placeholder="Enter Name"
+							/>
+						</div>
+						<div class ="form-group">
+							<label> Balance  </label>
+							<input
+							type = "text"
+							th:field = "*{balance}"
+							class = "form-control"
+							placeholder="Enter balance"
+                            disabled
+							/>
+						</div>
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

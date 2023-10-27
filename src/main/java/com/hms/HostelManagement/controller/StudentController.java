@@ -130,4 +130,16 @@ public class StudentController extends BaseController{
         return "redirect:/dashboard";
     }
 
+
+    @GetMapping("/student/myProfile")
+    public String myProfile(Model model,HttpSession session){
+
+        if(getRoleInSession(session).equals("student"))
+        {
+            model.addAttribute("thisStudent",studentUserMappingService.getStudentFromUsername(getUserInSession(session).getUsername()));
+        }
+
+        return "dashboard/myProfile";
+    }
+
 }

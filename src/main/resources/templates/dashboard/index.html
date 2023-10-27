@@ -23,8 +23,11 @@
 		  </a>
 
 	  </p>
-	  <p th:case="student" th:text="${thisStudent.roll}"></p>
-		<p th:case="*">User is some other thing</p>
+	  <p th:case="student">
+		  <a class="btn-block" href="/student/myProfile">
+			 My Profile
+		  </a>
+	  </p>
 	</div>
 		<a href="/logout" class="btn btn-primary">Logout</a>
 
