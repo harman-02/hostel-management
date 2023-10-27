@@ -1,6 +1,5 @@
 package com.hms.HostelManagement.service.Impl;
 
-import com.hms.HostelManagement.model.Student;
 import com.hms.HostelManagement.model.StudentUserMapping;
 import com.hms.HostelManagement.repository.StudentUserMappingRepository;
 import com.hms.HostelManagement.service.StudentUserMappingService;
@@ -32,6 +31,16 @@ public class StudentUserMappingServiceimpl implements StudentUserMappingService 
 
     @Override
     public int getHostelRegIdFromUsername(String username) {
+        return studentUserMappingRepository.getStudentUserMappingFromUsername(username).getHostelRegistrationId();
+    }
+
+    @Override
+    public int getRollNofromUsername(String username) {
+        return studentUserMappingRepository.getStudentUserMappingFromUsername(username).getRoll();
+    }
+
+    @Override
+    public int getHostelRegistrationIdFromUsername(String username){
         return studentUserMappingRepository.getStudentUserMappingFromUsername(username).getHostelRegistrationId();
     }
 

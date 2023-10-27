@@ -36,6 +36,6 @@ public class StudentUserMappingRepository {
         template.update(sql,s.getUsername(),s.getRoll(),s.getHostelRegistrationId());
     }
 
-
+    // getRollNoFromUsername,getHostelRegistrationIdFromUsername
 
 }

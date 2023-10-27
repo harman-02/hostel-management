@@ -1,4 +1,4 @@
-use hms;
+use ${MYSQL_DATABASE};
 
 show tables;
 
@@ -33,15 +33,13 @@ CREATE TABLE IF NOT EXISTS hostel_registration
     FOREIGN KEY (session_id) REFERENCES Session (session_id) ON DELETE SET NULL
 );
 
-
-
-# CREATE TABLE IF NOT EXISTS HostelFacilities (
-#                                                 facility_id INT AUTO_INCREMENT PRIMARY KEY,
-#                                                 hostel_registration_id INT,
-#                                                 Description VARCHAR(255),
-#                                                 Condition_status INT,
-#                                                 FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE SET NULL
-# );
+CREATE TABLE IF NOT EXISTS HostelFacilities (
+                                                facility_id INT AUTO_INCREMENT PRIMARY KEY,
+                                                hostel_registration_id INT,
+                                                Description VARCHAR(255),
+                                                Condition_status INT,
+                                                FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE SET NULL
+);
 
 CREATE TABLE IF NOT EXISTS Room
 (
@@ -78,17 +76,16 @@ CREATE TABLE IF NOT EXISTS RoomRegistration
     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE CASCADE,
     foreign key (rollNo) REFERENCES Student (roll) ON DELETE CASCADE
 );
-
-CREATE TABLE IF NOT EXISTS Complaints
+CREATE TABLE IF NOT EXISTS Complaint
 (
     complaint_id           INT AUTO_INCREMENT PRIMARY KEY,
     hostel_registration_id INT NOT NULL,
-    Roll                   INT,
+    RollNo                 INT,
     Description            VARCHAR(255),
     TimeStamp              TIMESTAMP,
     Status                 VARCHAR(255),
     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE CASCADE,
-    FOREIGN KEY (Roll) REFERENCES Student (Roll) ON DELETE SET NULL
+    FOREIGN KEY (RollNo) REFERENCES Student (Roll) ON DELETE SET NULL
 
 );
 
@@ -129,11 +126,11 @@ CREATE TABLE IF NOT EXISTS EmployeeUserMapping
 
 CREATE TABLE IF NOT EXISTS MessCancellations
 (
-    entry_no             INT AUTO_INCREMENT PRIMARY KEY,
+    entryNo              INT AUTO_INCREMENT PRIMARY KEY,
     hostelRegistrationId int,
-    roll                 int,
+    rollNo               int,
     date_                date,
-    foreign key (roll) references Student (roll) on delete set null,
+    foreign key (rollNo) references Student (roll) on delete set null,
     FOREIGN KEY (hostelRegistrationId) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
 );
 
@@ -147,13 +144,14 @@ CREATE TABLE IF NOT EXISTS Transaction
     FOREIGN KEY (Roll) REFERENCES Student (Roll) ON DELETE SET NULL
 );
 
-# CREATE TABLE IF NOT EXISTS Visitor (
-#                                        visitor_id INT AUTO_INCREMENT PRIMARY KEY,
-#                                        hostel_registration_id INT,
-#                                        visitor_name VARCHAR(255),
-#                                        visitor_purpose VARCHAR(255),
-#                                        entry_time INT,
-#                                        exit_time INT,
-#                                        FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE CASCADE
+# CREATE TABLE IF NOT EXISTS Visitor
+# (
+#     visitor_id             INT AUTO_INCREMENT PRIMARY KEY,
+#     hostel_registration_id INT,
+#     visitor_name           VARCHAR(255),
+#     visitor_purpose        VARCHAR(255),
+#     entry_time             INT,
+#     exit_time              INT,
+#     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE CASCADE
 # );
 

@@ -15,4 +15,8 @@ public interface StudentUserMappingService {
     public int getHostelRegIdFromUsername(String username);
 
     public List<StudentUserMapping> getAllStudentUserMapping();
+    public int getRollNofromUsername(String username);
+    public int getHostelRegistrationIdFromUsername(String username);
+
+
 }

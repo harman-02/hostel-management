@@ -1,7 +1,11 @@
 package com.hms.HostelManagement.controller;
 
 import com.hms.HostelManagement.model.*;
+import com.hms.HostelManagement.model.Complaint;
+import com.hms.HostelManagement.model.Hostel;
+import com.hms.HostelManagement.model.User;
 import com.hms.HostelManagement.repository.HostelRepository;
+import com.hms.HostelManagement.repository.StudentUserMappingRepository;
 import com.hms.HostelManagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,27 +22,30 @@ import java.util.List;
 
 @Controller
 public class DashboardController extends BaseController {
-
     @Autowired
     private ToastService toastService;
 
     @Autowired
     private StudentService studentService;
-
-
     @Autowired
-    private UserService userService;
+    private AuthenticationService authenticationService;
 
     @Autowired
     private HostelService hostelservice;
 
     @Autowired
-    private SessionService sessionService;
+    private ComplaintService complaintService;
+
     @Autowired
-    private HostelRegistrationService hostelRegistrationService;
+    private UserService userService;
 
     @Autowired
     private StudentUserMappingService studentUserMappingService;
+
+    @Autowired
+    private SessionService sessionService;
+    @Autowired
+    private HostelRegistrationService hostelRegistrationService;
 
     @Autowired
     private NoticeService noticeService;
@@ -67,7 +74,59 @@ public class DashboardController extends BaseController {
         return "dashboard/index";
     }
 
+    @GetMapping("/complaints")
+    public String allcomplaint(Model model, HttpSession session, Integer keyword) {
+        if (!isAuthenticated(session)) {
+            return "redirect:/";
+        }
+        addDefaultAttributes(model, session);
 
+        if (keyword != null) {
+            model.addAttribute("complaints", complaintService.getComplaintByRollNo(keyword));
+        } else {
+            model.addAttribute("complaints", complaintService.getAllComplaint());
+        }
+
+        return "dashboard/allComplaint";
+    }
+
+    @GetMapping("/mycomplaints")
+    public String mycomplaint(Model model, HttpSession session) {
+        if (!isAuthenticated(session))
+            return "redirect:/";
+        String username = authenticationService.getCurrentUser(session);
+        User user = userService.getUser(username);
+        String currRole = user.getRole();
+        if (!currRole.equals("student")) {
+            return "redirect:/dashboard";
+        }
+        addDefaultAttributes(model, session);
+        int rollNo = studentUserMappingService.getRollNofromUsername(username);
+        model.addAttribute("complaints", complaintService.getParticularComplaint(rollNo));
+        return "dashboard/myComplaints";
+    }
+
+    @PostMapping("/complaints")
+    public String PostaddComplaint(@ModelAttribute("complaint") Complaint complaint, Model model, HttpSession session) {
+        if (!isAuthenticated(session)) {
+            return "redirect:/";
+        }
+        addDefaultAttributes(model, session);
+        complaintService.createComplaint(complaint);
+        return "redirect:/complaints";
+    }
+
+    @GetMapping("/complaints/add")
+    public String addComplaint(Model model, HttpSession session) {
+        if (!isAuthenticated(session)) {
+            return "redirect:/";
+        }
+        addDefaultAttributes(model, session);
+        Complaint complaint = new Complaint();
+        model.addAttribute("complaint", complaint);
+        return "dashboard/addComplaint";
+
+    }
 
     @GetMapping("/hostels")
     public String allHostel(Model model,HttpSession session){
@@ -89,7 +148,7 @@ public class DashboardController extends BaseController {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
-        addDefaultAttributes(model,session);
+        addDefaultAttributes(model, session);
 
         Hostel hostel=new Hostel();
 

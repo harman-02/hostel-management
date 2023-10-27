@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 import java.security.Timestamp;
+import java.util.Date;
 
 @Data
 public class Complaint {
@@ -11,6 +12,6 @@ public class Complaint {
     private Integer complaintId;
     private Integer rollNo;
     private String description;
-    private Timestamp timeStamp;
+    private Date date_of_complain;
     private String status;
 }
