@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class StudentRepository {
     @Autowired
@@ -42,4 +44,8 @@ public class StudentRepository {
 //                student.getDob(), student.getBio(), student.getAddress(),
 //                student.getRollNo());
 //    }
+    public List<Student> getAll() {
+        String sql ="select * from student";
+        return template.query(sql, new BeanPropertyRowMapper<>(Student.class));
+    }
 }

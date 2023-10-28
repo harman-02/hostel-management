@@ -12,8 +12,11 @@
             <h1 class="text-center"> Add required hostel id </h1>
             <div class="card-body">
                 <form th:action="@{/filterByHostel}" th:object="${cancellation}" method="POST">
-                    <label for="hostelid">enter hostel id</label>
-                    <input type="number" name="hostelid" id="hostelid" required>
+                    <label for="hostelid">Enter hostel id</label>
+                        <select id = "hostelid" th:field="*{hostelId}" required>
+                            <option value=""> Select a hostel </option>
+                            <option th:each="hostel : ${hostels}" th:value="${hostel.hostelId}" th:text="${hostel.hostelName}"></option>
+                        </select>
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">

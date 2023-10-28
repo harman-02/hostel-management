@@ -12,19 +12,32 @@
         <a th:href="@{/mess/checkBalance}" class="btn btn-primary btn-sm mb-3">Check balance</a>
     </div>
 
+    <div class="col">
+        <form th:action="@{/mess}" method="get">
+            <label for="txtSearch"></label><input id ="txtSearch" type="text" name="keyword">
+            <button type="submit"> Search </button>
+        </form>
+    </div>
+
     <div class="col text-right">
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                 Filters
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a th:href="@{/mess/filterByHostel}" class="dropdown-item">hostel registration id</a>
-                <a th:href="@{/mess/filterBySession}" class="dropdown-item">session</a>
-                <a th:href="@{/mess/filterBySessionAndHostel}" class="dropdown-item">Session and hostel
-                    registration id</a>
+                <a th:href="@{/mess/filterByHostelAndSession}" class="dropdown-item">Hostel Id and Session</a>
+                <a th:href="@{/mess/filterBySession}" class="dropdown-item">Session</a>
+                <a th:href="@{/mess/filterByHostel}" class="dropdown-item">Hostel Id</a>
                 <a th:href="@{/mess/filterByRollNo}" class="dropdown-item">Roll No</a>
                 <a th:href="@{/mess/filterByRollNoAndSession}" class="dropdown-item">Roll No and Session</a>
                 <a th:href="@{/mess/filterByDate}" class="dropdown-item">Date</a>
+<!--                <a th:href="@{/mess/filterByHostel}" class="dropdown-item">hostel registration id</a>-->
+<!--                <a th:href="@{/mess/filterBySession}" class="dropdown-item">session</a>-->
+<!--                <a th:href="@{/mess/filterBySessionAndHostel}" class="dropdown-item">Session and hostel-->
+<!--                    registration id</a>-->
+<!--                <a th:href="@{/mess/filterByRollNo}" class="dropdown-item">Roll No</a>-->
+<!--                <a th:href="@{/mess/filterByRollNoAndSession}" class="dropdown-item">Roll No and Session</a>-->
+<!--                <a th:href="@{/mess/filterByDate}" class="dropdown-item">Date</a>-->
             </div>
         </div>
     </div>

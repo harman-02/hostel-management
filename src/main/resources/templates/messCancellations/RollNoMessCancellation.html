@@ -11,17 +11,18 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add required Roll No </h1>
             <div class="card-body">
-                <form th:action="@{/mess/postFilterByRollNo}" th:object="${cancellation}" method="POST">
-                    <label for="rollNo">enter the roll No</label>
-                    <input type="number" name="rollNo" id="rollNo" th:field="*{studentRollNo}" required>
-
+                <form th:action="@{/mess/postFilterByRollNo}" th:object="${student}" method="POST">
+                    <label for="rollNo">Enter roll No</label>
+                    <select id = "rollNo" th:field="*{roll}" required>
+                        <option value=""> Select a Student </option>
+                        <option th:each="s : ${students}" th:value="${s.roll}" th:text="${s.roll} + ' : ' + ${s.name}"></option>
+                    </select>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">
                             Submit
                         </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

@@ -2,8 +2,7 @@ use ${MYSQL_DATABASE};
 
 show tables;
 
-CREATE TABLE IF NOT EXISTS User
-(
+CREATE TABLE IF NOT EXISTS User (
     username varchar(55) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     role     VARCHAR(255)
@@ -16,9 +15,11 @@ CREATE TABLE IF NOT EXISTS Hostel
     hostel_address VARCHAR(255)
 );
 
+
 CREATE TABLE IF NOT EXISTS Session
 (
     session_id INT AUTO_INCREMENT PRIMARY KEY,
+    session_name VARCHAR(255),
     start_date Date
 );
 

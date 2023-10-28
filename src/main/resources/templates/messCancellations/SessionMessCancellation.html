@@ -11,8 +11,13 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add required hostel id </h1>
             <div class="card-body">
-                <form th:action="@{/filterBySession}" th:object="${cancellation}" method="POST">
-                    <label for="year">Enter a year:</label><input type="number" name="year" id="year" required>
+                <form th:action="@{/filterBySession}" th:object="${sId}" method="POST">
+                    <label for="sessionId">Enter session id</label>
+                    <select id = "sessionId" th:field="*{sessionId}" required>
+                        <option value=""> Select a session </option>
+                        <option th:each="s : ${sessions}" th:value="${s.sessionId}" th:text="${s.sessionName}"></option>
+                    </select>
+<!--                    <label for="year">Enter a year:</label><input type="number" name="year" id="year" required>-->
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">
                             Submit
