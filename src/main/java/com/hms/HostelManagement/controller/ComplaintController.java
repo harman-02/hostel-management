@@ -19,4 +19,14 @@ public class ComplaintController {
             complaintService.updateComplaintStatus(complaintID);
             return "redirect:/complaints";
         }
+    @PostMapping("/updateStatusDel")
+    public String updateComplaintStatusDel(@RequestParam int complaintID) {
+        complaintService.updateComplaintStatusDel(complaintID);
+        return "redirect:/complaints";
+    }
+        @PostMapping("/updateStatusAll")
+        public String updateComplaintStatusAll() {
+            complaintService.updateComplaintStatusAll();
+            return "redirect:/complaints";
+        }
     }

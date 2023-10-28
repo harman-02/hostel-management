@@ -40,6 +40,14 @@ public class ComplaintServiceImpl implements ComplaintService {
     {
         complaintRepository.updateComplaintStatus(complaintID);
     }
+    public void updateComplaintStatusDel(int complaintID)
+    {
+        complaintRepository.updateComplaintStatusDel(complaintID);
+    }
+    public void updateComplaintStatusAll()
+    {
+        complaintRepository.updateComplaintStatusAll();
+    }
 
     @Override
     public List<Complaint> getAllComplaintByRoll(int rollNo)

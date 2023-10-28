@@ -49,5 +49,14 @@ public class ComplaintRepository {
         String sql = "UPDATE Complaint SET status = ? WHERE complaint_id = ?";
         jdbcTemplate.update(sql, "Completed", complaintId);
     }
+    public void updateComplaintStatusDel(int complaintId) {
+        String sql = "DELETE FROM Complaint WHERE complaint_id = ?";
+        jdbcTemplate.update(sql, complaintId);
+    }
+    public void updateComplaintStatusAll() {
+        String sql = "UPDATE Complaint SET status = ?";
+        jdbcTemplate.update(sql, "Completed");
+    }
+
 
 }
