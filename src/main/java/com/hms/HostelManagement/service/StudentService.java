@@ -10,5 +10,6 @@ public interface StudentService {
     public Student getStudentFromRoll(Integer roll);
 
     public void updateStudentByRoll(Student s,Integer roll);
+    public void updateStudentBalanceByRoll(int val,int roll);
 
 }

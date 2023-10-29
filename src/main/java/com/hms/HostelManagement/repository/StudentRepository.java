@@ -3,6 +3,7 @@ package com.hms.HostelManagement.repository;
 import com.hms.HostelManagement.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,8 +30,11 @@ public class StudentRepository {
     }
 
     public void updateStudentFromRoll(Student s,Integer roll){
-        String sql="UPDATE student SET name=?,email=?,phone=?,branch=?,dob=? where roll=?";
+        String sql="UPDATE student SET name=?,email=?,phone=?,balance=?,branch=?,dob=? where roll=?";
         template.update(sql,s.getName(),s.getEmail(),s.getPhone(),s.getBranch(),s.getDob(),roll);
     }
-
+    public void updateStudentBalanceFromRoll(int val, int roll){
+        String sql="UPDATE student SET balance=? where roll=?";
+        template.update(sql,val,roll);
+    }
 }

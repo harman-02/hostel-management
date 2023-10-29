@@ -150,12 +150,15 @@ CREATE TABLE IF NOT EXISTS MessCancellations
 
 CREATE TABLE IF NOT EXISTS Transaction
 (
-    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
-    Roll           INT,
-    amount         INT,
-    date           DATETIME,
-    description    VARCHAR(255),
-    FOREIGN KEY (Roll) REFERENCES Student (Roll) ON DELETE SET NULL
+    roll int,
+    hostel_registration_id int,
+    payment_id VARCHAR(1000) ,
+    signature VARCHAR(1000),
+    amount int,
+    currency VARCHAR(255),
+    description VARCHAR(2000),
+    foreign key (roll) references Student (roll) on delete set null,
+    FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
 );
 
 # CREATE TABLE IF NOT EXISTS Visitor

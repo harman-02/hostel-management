@@ -55,8 +55,9 @@ select * from employee;
 select * from notice;
 select * from job;
 select * from complaint;
+select * from transaction;
 
-
+truncate  transaction;
 ALTER TABLE student
 MODIFY COLUMN phone VARCHAR(15);
 

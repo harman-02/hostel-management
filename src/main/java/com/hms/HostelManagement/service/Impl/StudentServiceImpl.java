@@ -37,6 +37,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public void updateStudentBalanceByRoll(int val, int roll) {
+        studentRepository.updateStudentBalanceFromRoll(val,roll);
+    }
+
+    @Override
     public void updateStudentByRoll(Student s, Integer roll) {
         studentRepository.updateStudentFromRoll(s,roll);
     }

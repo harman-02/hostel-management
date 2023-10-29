@@ -4,8 +4,12 @@ import lombok.Data;
 import java.util.Date;
 @Data
 public class Transaction {
-    private Integer transaction_id;
-    private Integer roll;
-    private Integer amount;
-    private Date  Date;
+
+    private int roll;
+    private int hostelRegistrationId;
+    private String paymentId;
+    private String signature;
+    private int amount;
+    private String currency;
+    private String description;
 }
