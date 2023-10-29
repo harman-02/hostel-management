@@ -12,7 +12,7 @@
     <link id="pagestyle" href="/css/material-dashboard.min.css?v=3.1.0" rel="stylesheet" />
 </head>
 <body class="g-sidenav-show  bg-gray-200">
-<div th:switch="${user.role}">
+<div >
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -60,7 +60,7 @@
                         <span class="nav-link-text ms-1">Log Out</span>
                     </a>
                 </li>
-                <li class="nav-item" th:case="student">
+                <li class="nav-item" th:unless="${user.role=='admin'}">
                     <a class="nav-link text-white " href="/myProfile">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10"></i>
@@ -92,24 +92,22 @@
                         <ul class="navbar-nav  justify-content-end">
                             <li class="nav-item d-flex align-items-center">
                                 <div>
-                                    <form th:action="@{/updateStatusAll}" method="post" th:case="admin">
+                                    <form th:action="@{/updateStatusAll}" method="post" th:unless="${user.role=='student'}">
                                         <button type="submit" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Mark All as Complete</button>
                                     </form>
                                 </div>
                             </li>
                             <li>
-                                <div th:switch="${user.role}">
-                                    <span th:case="admin">
+                                <div th:unless="${user.role=='student'}">
                                         <form th:action="@{/complaints}" method="get">
                                             <label for="txtsearch"></label><input id="txtsearch" placeholder="Search by Roll number" type="text" name="keyword">
                                             <button type="submit" class="btn btn-sm mb-0 me-1 bg-gradient-dark"> Search</button>
                                         </form>
-                                    </span>
                                 </div>
                             </li>
                             <li class="nav-item d-flex align-items-center" th:if="${user.role == 'student'}">
                                 <div>
-                                    <a th:href="@{/complaints/add}" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Add Complaint</a>
+                                    <a th:href="@{/complaints/add}" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Lodge Complaint</a>
                                 </div>
                             </li>
                         </ul>
@@ -141,10 +139,17 @@
                                                 <th class="text-uppercase text-normal font-weight-bolder ps-4"> Status</th>
                                                 <th class="text-uppercase text-normal font-weight-bolder ps-4"> Action</th>
                                             </span>
-                                                <span th:case="student">
+                                            <span th:case="student">
                                                 <th class="text-uppercase text-sm font-weight-bolder ps-4"> Complaint Description</th>
                                                 <th class="text-uppercase text-sm font-weight-bolder ps-4"> Complaint Time</th>
                                                 <th class="text-uppercase text-sm font-weight-bolder ps-4"> Status</th>
+                                            </span>
+                                            <span th:case="employee">
+                                                <th class="text-uppercase text-normal font-weight-bolder ps-4"> Roll Number</th>
+                                                <th class="text-uppercase text-normal font-weight-bolder ps-4"> Complaint Description</th>
+                                                <th class="text-uppercase text-normal font-weight-bolder ps-4"> Complaint Time</th>
+                                                <th class="text-uppercase text-normal font-weight-bolder ps-4"> Status</th>
+                                                <th class="text-uppercase text-normal font-weight-bolder ps-4"> Action</th>
                                             </span>
                                             </tr>
                                             </thead>
@@ -191,6 +196,44 @@
 											        </div>
                                                 </div>
                                                 </td>
+                                            <td>
+                                            <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center ps-2">
+												        <p class="text-lg" th:text="${complaint.description}"></p>
+											        </div>
+                                                </div>
+                                            <td>
+                                            <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center ">
+												        <p class="text-normal" th:text="${complaint.timestamp}"></p>
+											        </div>
+                                                </div>
+                                            </td>
+                                            </td>
+                                            <td class="align-middle text-center text-sm" th:switch="${complaint.status}">
+                                                <span th:case="Completed" class="badge badge-sm bg-gradient-success">Resolved</span>
+                                                <span th:case="Pending" class="badge badge-sm bg-gradient-warning">Pending</span>
+                                            </td>
+                                            <td class="align-middle text-center text-sm" th:switch="${complaint.status}">
+                                                    <form th:action="@{/updateStatus}" method="post">
+                                                        <input type="hidden" th:name="complaintID" th:value="${complaint.complaintId}"/>
+                                                        <button type="submit" th:case="Pending" class="badge badge-sm bg-gradient-secondary">Mark Complete</button>
+                                                    </form>
+                                                    <form th:action="@{/updateStatusDel}" method="post">
+                                                        <input type="hidden" th:name="complaintID" th:value="${complaint.complaintId}"/>
+                                                        <button type="submit" th:case="Completed" class="badge badge-sm bg-gradient-danger">Delete</button>
+                                                    </form>
+                                            </td>
+                                            </span>
+                                         <span th:case="employee">
+                                                <td>
+										        <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center ps-3 ">
+												        <p class="text-lg" th:text="${complaint.rollNo}"></p>
+											        </div>
+                                                </div>
+									            </td>
+
                                             <td>
                                             <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center ps-2">

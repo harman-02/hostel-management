@@ -50,7 +50,13 @@ select * from User;
 select * from hostel_registration;
 select * from student;
 select * from studentusermapping;
+select * from employeeusermapping;
+select * from employee;
 select * from notice;
+select * from job;
+select * from complaint;
+
+
 ALTER TABLE student
 MODIFY COLUMN phone VARCHAR(15);
 

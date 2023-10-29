@@ -49,12 +49,21 @@ public class DashboardController extends BaseController {
     @Autowired
     private NoticeService noticeService;
 
+    @Autowired
+    private JobService jobService;
+
+    @Autowired
+    private EmployeeUserMappingService employeeUserMappingService;
     // Needed to automatically convert String date in form to Date object.
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 
+    @GetMapping("")
+    public String baseHome(Model model,HttpSession session){
+        return "redirect:/dashboard";
+    }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
@@ -109,12 +118,15 @@ public class DashboardController extends BaseController {
 
             int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
             int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
-
-
             model.addAttribute("complaints",complaintService.getStudentComplaint(roll,hrId));
         }
-
-
+        else if(u.getRole().equals("employee"))
+        {
+            int hrId=employeeUserMappingService.getEmployeeUserMappingFromUsername(u.getUsername()).getHostelRegistrationId();
+            System.out.println(hrId);
+            model.addAttribute("complaints",complaintService.getEmployeeComplaint(hrId));
+            model.addAttribute("job",employeeUserMappingService.getJobFromEmployeeUsername(u.getUsername()));
+        }
         return "dashboard/allComplaint";
     }
 
@@ -212,8 +224,8 @@ public class DashboardController extends BaseController {
 
 
         List<Session> st=sessionService.getAllSession();
-        for(Session s:st)
-            System.out.println(s.getSessionName()+" "+s.getStartDate());
+//        for(Session s:st)
+//            System.out.println(s.getSessionName()+" "+s.getStartDate());
 
         model.addAttribute("sessions",sessionService.getAllSession());
 
@@ -464,7 +476,113 @@ public class DashboardController extends BaseController {
         addDefaultAttributes(model,session);
         Student s=studentService.getStudentFromRoll(id);
         model.addAttribute("thisStudent",s);
-        return "dashboard/myProfile";
+        return "dashboard/viewStudentFromAdmin";
+    }
+
+    @GetMapping("/jobs")
+    public String viewAllJobs(Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+
+        addDefaultAttributes(model, session);
+        model.addAttribute("jobs",jobService.getAllJobs());
+
+        return "dashboard/allJobs";
+    }
+    @GetMapping("/jobs/add")
+    public String addJob(Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+
+        addDefaultAttributes(model, session);
+
+        Job job = new Job();
+
+        model.addAttribute("job",job);
+
+        return "dashboard/addJob";
+    }
+
+    @PostMapping("/jobs")
+    public String postaddJob(@ModelAttribute("job") Job j,Model model,HttpSession session){
+         if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        jobService.createJob(j);
+
+        return "redirect:/jobs";
+    }
+
+    @GetMapping("/jobs/{id}")
+    public String updateJob(@PathVariable String id,Model model,HttpSession session){
+         if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        addDefaultAttributes(model,session);
+        Job j=jobService.getJobFromType(id);
+        model.addAttribute("job",j);
+        return "dashboard/updateJob";
+    }
+    @PostMapping("/jobs/{id}")
+    public String postupdateJob(@PathVariable String id,@ModelAttribute("job") Job j, Model model,HttpSession session){
+         if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+//        System.out.println(j.getJobType());
+
+        jobService.updateJobFromType(j,id);
+
+        addDefaultAttributes(model,session);
+        return "redirect:/jobs";
+    }
+
+
+    @GetMapping("/aboutUs")
+    public String aboutUsPage(Model model,HttpSession session){
+
+        return "dashboard/aboutUs";
+    }
+    @GetMapping("/contactUs")
+    public String contactUsPage(Model model,HttpSession session){
+
+        return "dashboard/contactUs";
     }
 
 }

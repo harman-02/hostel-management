@@ -98,21 +98,35 @@ CREATE TABLE IF NOT EXISTS Notice
     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
 );
 
+
+CREATE TABLE IF NOT EXISTS Job
+(
+    job_type VARCHAR(255) PRIMARY KEY ,
+    job_salary int,
+    job_details VARCHAR(255)
+);
+
 CREATE TABLE IF NOT EXISTS Employee
 (
     employee_id      INT AUTO_INCREMENT PRIMARY KEY,
     employee_name    CHAR(255),
-    employee_type    VARCHAR(255),
+    employee_address VARCHAR(255),
     employee_details VARCHAR(255)
 );
+
+
+
 CREATE TABLE IF NOT EXISTS EmployeeUserMapping
 (
+
     username             varchar(55) primary key,
     employee_id          int,
-    hostelRegistrationId int,
-    foreign key (hostelRegistrationId) references Hostel_registration (hostel_registration_id) on delete set null,
+    job_type VARCHAR(255),
+    hostel_registration_id int,
+    foreign key (hostel_registration_id) references Hostel_registration (hostel_registration_id) on delete set null,
     foreign key (username) references User (username) on delete cascade,
-    foreign key (employee_id) references Employee (employee_id) on delete cascade
+    foreign key (employee_id) references Employee (employee_id) on delete cascade,
+    foreign key (job_type) references Job (job_type) on delete cascade
 );
 # CREATE TABLE IF NOT EXISTS Mess (
 #                                     entry_no INT AUTO_INCREMENT PRIMARY KEY,

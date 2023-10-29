@@ -29,7 +29,6 @@ public class StudentRepository {
     }
 
     public void updateStudentFromRoll(Student s,Integer roll){
-        System.out.println(s.getRoll()+" "+s.getName()+" "+s.getEmail()+" "+s.getBranch()+" "+s.getDob()+s.getBalance());
         String sql="UPDATE student SET name=?,email=?,phone=?,branch=?,dob=? where roll=?";
         template.update(sql,s.getName(),s.getEmail(),s.getPhone(),s.getBranch(),s.getDob(),roll);
     }

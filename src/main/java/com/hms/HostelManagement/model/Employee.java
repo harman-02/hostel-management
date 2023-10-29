@@ -1,8 +1,13 @@
 package com.hms.HostelManagement.model;
 
+
+import lombok.Data;
+
+@Data
 public class Employee {
-    private Integer employee_id;
-    private String name;
-    private String type;
-    private Integer hostel_registration_id;
+    private Integer employeeId;
+    private String employeeName ;
+    private String employeeAddress ;
+    private String employeeDetails ;
 }
+

@@ -57,6 +57,9 @@ public class ComplaintRepository {
         String sql = "UPDATE Complaint SET status = ?";
         jdbcTemplate.update(sql, "Completed");
     }
-
+    public List<Complaint> getAllComplaintByHostelRegId(int hrId) {
+        String sql = "SELECT * FROM COMPLAINT WHERE hostel_registration_id= ?";
+        return jdbcTemplate.query(sql, new Object[]{hrId}, new BeanPropertyRowMapper<>(Complaint.class));
+    }
 
 }
