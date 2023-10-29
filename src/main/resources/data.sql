@@ -15,7 +15,10 @@ insert into student(name, email, phone, branch, balance, Dob)
 values ('harman', 'harman@gmail.com', 90239, 'CSE', '15000', 20 / 02 / 2002);
 
 insert into student(name, email, phone, branch, balance, Dob)
-values ('hardik', 'hardik@gmail.com', 902398, 'CSE', '15000', 2003);
+values ('sachin', 'sachin@gmail.com', 90239223, 'CSE', '15000', 20 / 02 / 2002);
+
+insert into student(name, email, phone, branch, balance, Dob)
+values ('hardik', 'hardik@gmail.com', 902398, 'CSE', '15000', 20/02/2003);
 select *
 from student;
 insert into session(start_date)
@@ -40,9 +43,11 @@ set date_ = '2014-03-16 00:00:00.000'
 where entryNo = 2;
 
 
+
 Insert into User values("admin1","1234","admin");
-
-
+Insert into User values("student","1234","student");
+select * from student;
+select * from user;
 show tables;
 select * from session;
 select * from hostel;
@@ -77,6 +82,17 @@ select *
 from Hostel
 where hostel_name like '%i%';
 select * from session;
+describe student;
 
 
 truncate complaint;
+insert into User(username, password, role) values('sachin','1234','student');
+
+select * from studentusermapping;
+select * from student;
+insert into studentusermapping(username,roll,hostelRegistrationId) values('sachin','3','1');
+select * from hostel_registration;
+insert into hostel_registration values('1','1','1','10');
+select * from hostel;
+select * from user;
+select * from session;
