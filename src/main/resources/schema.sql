@@ -2,8 +2,7 @@ use ${MYSQL_DATABASE};
 
 show tables;
 
-CREATE TABLE IF NOT EXISTS User
-(
+CREATE TABLE IF NOT EXISTS User (
     username varchar(55) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     role     VARCHAR(255)
@@ -15,6 +14,7 @@ CREATE TABLE IF NOT EXISTS Hostel
     hostel_name    VARCHAR(255),
     hostel_address VARCHAR(255)
 );
+
 
 CREATE TABLE IF NOT EXISTS Session
 (

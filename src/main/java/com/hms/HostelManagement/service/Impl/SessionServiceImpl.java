@@ -10,27 +10,11 @@ import java.util.List;
 
 @Service
 public class SessionServiceImpl implements SessionService {
-
     @Autowired
-    private SessionRepository sessionRepository;
-
-    public SessionServiceImpl(SessionRepository sessionRepository) {
-        super();
-        this.sessionRepository = sessionRepository;
-    }
+    SessionRepository sessionRepository;
 
     @Override
-    public void createSession(Session s) {
-        sessionRepository.createSession(s);
-    }
-
-    @Override
-    public List<Session> getAllSession() {
-        return sessionRepository.getAllSession();
-    }
-
-    @Override
-    public Session getSessionFromId(int id) {
-        return sessionRepository.getSessionFromId(id);
+    public List<Session> getAll() {
+        return sessionRepository.getAll();
     }
 }
