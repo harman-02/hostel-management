@@ -42,7 +42,7 @@ where entryNo = 2;
 
 Insert into User values("admin1","1234","admin");
 
-
+use hms;
 show tables;
 select * from session;
 select * from hostel;

@@ -153,7 +153,7 @@ public class StudentController extends BaseController{
     @PostMapping("/student/myProfile/{id}")
     public  String postupdateMyProfile(@PathVariable int id,@ModelAttribute("thisStudent") Student s, Model model,HttpSession session){
 
-        System.out.println(s.getName()+" "+s.getEmail());
+//        System.out.println(s.getName()+" "+s.getEmail());
         studentService.updateStudentByRoll(s,id);
 
         return "redirect:/student/myProfile";
