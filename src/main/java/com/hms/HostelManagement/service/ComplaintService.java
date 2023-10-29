@@ -10,6 +10,8 @@ public interface ComplaintService {
     public void createComplaint(Complaint complaint);
 
     public void updateComplaintStatus(int complaintID);
+    public void updateComplaintStatusDel(int complaintID);
+    public void updateComplaintStatusAll();
 
     public List<Complaint> getAllComplaintByRoll(int rollNo);
 }

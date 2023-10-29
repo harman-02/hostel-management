@@ -40,14 +40,23 @@ public class ComplaintRepository {
         return jdbcTemplate.query(sql,new Object[] {roll,hrId},new BeanPropertyRowMapper<>(Complaint.class));
     }
 
-    public void deleteComplaint(int complaintID){
-        String sql = "delete from Complaint where complaint_id=?";
-        jdbcTemplate.update(sql, complaintID);
-    }
+//    public void deleteComplaint(int complaintID){
+//        String sql = "delete from Complaint where complaint_id=?";
+//        jdbcTemplate.update(sql,complaintID);
+//    }
 
     public void updateComplaintStatus(int complaintId) {
         String sql = "UPDATE Complaint SET status = ? WHERE complaint_id = ?";
         jdbcTemplate.update(sql, "Completed", complaintId);
     }
+    public void updateComplaintStatusDel(int complaintId) {
+        String sql = "DELETE FROM Complaint WHERE complaint_id = ?";
+        jdbcTemplate.update(sql, complaintId);
+    }
+    public void updateComplaintStatusAll() {
+        String sql = "UPDATE Complaint SET status = ?";
+        jdbcTemplate.update(sql, "Completed");
+    }
+
 
 }
