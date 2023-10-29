@@ -616,30 +616,30 @@ public class DashboardController extends BaseController {
     }
 
 
-    @GetMapping("/setRechargeValue")
-    public  String setRechargePage(Model model,HttpSession session){
-        if(!isAuthenticated(session))
-            return "redirect:/";
-        User u=getUserInSession(session);
-        if(u.getRole().equals("student"))
-        {
-
-        }
-        else
-            return "redirect:/";
-
-        Transaction transaction = new Transaction();
-
-        model.addAttribute("transaction",transaction);
-
-        return "dashboard/setRechargeValue";
-    }
+//    @GetMapping("/setRechargeValue")
+//    public  String setRechargePage(Model model,HttpSession session){
+//        if(!isAuthenticated(session))
+//            return "redirect:/";
+//        User u=getUserInSession(session);
+//        if(u.getRole().equals("student"))
+//        {
+//
+//        }
+//        else
+//            return "redirect:/";
+//
+//        Transaction transaction = new Transaction();
+//
+//        model.addAttribute("transaction",transaction);
+//
+//        return "dashboard/setRechargeValue";
+//    }
 
 
 
 //    @RequestMapping(value = {"/payment"}, method = RequestMethod.GET)
-    @PostMapping("/payment")
-    public String payment(@ModelAttribute("transaction") Transaction t,  Model model,HttpSession session){
+    @GetMapping("/payment")
+    public String payment(  Model model,HttpSession session){
         if(!isAuthenticated(session))
             return "redirect:/";
         User u=getUserInSession(session);
@@ -649,16 +649,16 @@ public class DashboardController extends BaseController {
         }
         else
             return "redirect:/";
-        if(t==null)
-            return "redirect:/";
+//        if(t==null)
+//            return "redirect:/";
 
         model.addAttribute("rzp_key_id", env.getProperty("rzp_key_id"));
         model.addAttribute("rzp_currency", env.getProperty("rzp_currency"));
         model.addAttribute("rzp_company_name", env.getProperty("rzp_company_name"));
-        Transaction tnew= new Transaction();
-        tnew.setAmount(t.getAmount());
-        tnew.setDescription(t.getDescription());
-        model.addAttribute("tnew",tnew);
+//        Transaction tnew= new Transaction();
+//        tnew.setAmount(t.getAmount());
+//        tnew.setDescription(t.getDescription());
+//        model.addAttribute("tnew",tnew);
         return "dashboard/payment";
     }
     @GetMapping("/payment/createOrderId/{amount}")
@@ -718,7 +718,7 @@ public class DashboardController extends BaseController {
         val+=oldStudent.getBalance();
         studentService.updateStudentBalanceByRoll(val,oldStudent.getRoll());
         transactionService.createTransaction(t);
-        System.out.println(razorpayPaymentId+" "+razorpayOrderId+" "+razorpaySignature+" "+amount+" "+currency+" "+description);
+//        System.out.println(razorpayPaymentId+" "+razorpayOrderId+" "+razorpaySignature+" "+amount+" "+currency+" "+description);
 //        System.out.println("Save all data, which on success we get!");
         return "redirect:/myBalance";
     }

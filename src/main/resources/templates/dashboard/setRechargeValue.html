@@ -98,15 +98,19 @@
 						</div>
 						<div class="card-body">
 
-							<form th:action="@{/payment}" th:object = "${transaction}" method="POST">
+
+
+
+
+							<form >
 								<div class="input-group input-group-outline mb-3">
 
 									<input
-											type = "text"
+											type = "number"
 											name = "amount"
-											th:field = "*{amount}"
 											class = "form-control"
 											placeholder="Enter amount "
+											id="amount"
 											required
 									/>
 								</div>
@@ -117,15 +121,15 @@
 											required
 											type = "text"
 											name = "Description"
-											th:field = "*{description}"
 											class = "form-control"
 											placeholder="Enter Description"
+											id="description"
 									/>
 								</div>
 
 								<div class="text-center">
-									<button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
-										Submit
+									<button onclick="add()" type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
+										Pay
 									</button>
 								</div>
 							</form>
@@ -158,3 +162,13 @@
 
 </body>
 </html>
+
+
+<script>
+  function add() {
+    var a = document.getElementById('a').value;
+    var b = document.getElementById('b').value;
+    var sum = a + b;
+    alert(sum);
+  }
+</script>
