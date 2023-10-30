@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class StudentRepository {
     @Autowired
@@ -30,8 +32,13 @@ public class StudentRepository {
     }
 
     public void updateStudentFromRoll(Student s,Integer roll){
-        String sql="UPDATE student SET name=?,email=?,phone=?,balance=?,branch=?,dob=? where roll=?";
+//        System.out.println(s.getRoll()+" "+s.getName()+" "+s.getEmail()+" "+s.getBranch()+" "+s.getDob()+s.getBalance());
+        String sql="UPDATE student SET name=?,email=?,phone=?,branch=?,dob=? where roll=?";
         template.update(sql,s.getName(),s.getEmail(),s.getPhone(),s.getBranch(),s.getDob(),roll);
+    }
+    public List<Student> getAll() {
+        String sql ="select * from student";
+        return template.query(sql, new BeanPropertyRowMapper<>(Student.class));
     }
     public void updateStudentBalanceFromRoll(int val, int roll){
         String sql="UPDATE student SET balance=? where roll=?";
