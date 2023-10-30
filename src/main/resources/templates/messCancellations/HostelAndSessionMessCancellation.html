@@ -11,10 +11,10 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add required hostel id </h1>
             <div class="card-body">
-                <form th:action="@{/filterByHostelAndSession}" th:object="${filter}" method="POST">
+                <form th:action="@{/filterByHostelAndSession}" method="POST">
                     <div class="form-group">
                         <label>Select a Hostel:
-                            <select th:field="*{hostelId}">
+                            <select th:field="*{filter.hostelId}">
                                 <option value="">-- Select a Hostel --</option>
                                 <option th:each="hostel : ${hostels}" th:value="${hostel.hostelId}" th:text="${hostel.hostelName}"></option>
                             </select>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label>Select a Session Year:
-                            <select th:field="*{sessionId}">
+                            <select th:field="*{filter.sessionId}">
                                 <option value="">-- Select a Session Year --</option>
                                 <option th:each="year : ${sessions}" th:value="${year.sessionId}" th:text="${year.sessionName}"></option>
                             </select>

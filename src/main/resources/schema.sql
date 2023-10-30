@@ -42,12 +42,13 @@ CREATE TABLE IF NOT EXISTS Hostel_registration
 #     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
 # );
 
-CREATE TABLE IF NOT EXISTS Room
-(
-    hostelId int,
-    roomNo   int,
-    primary key (hostelId, roomNo)
-);
+# CREATE TABLE IF NOT EXISTS Room
+# (
+#     hostelId int,
+#     roomNo   int,
+#     primary key (hostelId, roomNo),
+#     foreign key (hostelId) references Hostel (hostel_id) on delete set null
+# );
 CREATE TABLE IF NOT EXISTS Student
 (
     roll    INT AUTO_INCREMENT PRIMARY KEY,
