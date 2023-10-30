@@ -6,6 +6,7 @@ import com.hms.HostelManagement.service.HostelRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,5 +43,10 @@ public class HostelRegistrationServiceImpl implements HostelRegistrationService 
     @Override
     public int getSessionFromHostelRegistrationId(Integer id) {
         return hostelRegistrationRepository.getHostelRegFromId(id).getSessionId();
+    }
+
+    @Override
+    public Date getStartDateFromHrId(int hrId) {
+        return hostelRegistrationRepository.getSessionFromHrId(hrId).getStartDate();
     }
 }

@@ -1,7 +1,10 @@
 package com.hms.HostelManagement.controller;
 
+import com.hms.HostelManagement.model.Employee;
+import com.hms.HostelManagement.model.EmployeeUserMapping;
 import com.hms.HostelManagement.model.User;
 import com.hms.HostelManagement.service.AuthenticationService;
+import com.hms.HostelManagement.service.EmployeeUserMappingService;
 import com.hms.HostelManagement.service.StudentService;
 import com.hms.HostelManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ abstract class BaseController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private EmployeeUserMappingService employeeUserMappingService;
 
 
     public Boolean isAuthenticated(HttpSession session) {
@@ -37,8 +42,9 @@ abstract class BaseController {
 //
             String currRole=user.getRole();
 
-            if (currRole.equals("student")) {
-
+            if (currRole.equals("employee")) {
+                EmployeeUserMapping emu=employeeUserMappingService.getEmployeeUserMappingFromUsername(user.getUsername());
+                model.addAttribute("emu",emu);
             }
         }
     }

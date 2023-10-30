@@ -86,9 +86,9 @@
 	</div>
 
 	<div class="container-fluid py-4">
-		<div class="row" th:switch="${user.role}">
+		<div class="row" >
 
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" th:if="${emu.jobType=='Notice'}">
 				<div class="card">
 					<div class="card-header p-3 pt-2">
 						<div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
@@ -108,28 +108,10 @@
 				</div>
 			</div>
 
-			<div th:if="${user.role=='student'}" class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-							<i class="material-icons opacity-10"></i>
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/myBalance">
-							<h4 class="mb-0">My Balance</h4>
-							</a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder"> We value your feedback and concerns.</span> If you have any issues, suggestions, or complaints, please use the provided form to submit your feedback. We will work to address and resolve your concerns promptly.</p>
-					</div>
-				</div>
-			</div>
 
 
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+
+			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" th:if="${emu.jobType=='Complaint'}">
 				<div class="card">
 					<div class="card-header p-3 pt-2">
 						<div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
@@ -148,7 +130,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-3 col-sm-6" th:unless="${user.role=='admin'}">
+			<div class="col-xl-3 col-sm-6">
 
 				<div class="card">
 					<div class="card-header p-3 pt-2">
@@ -186,7 +168,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" >
+			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" th:if="${emu.jobType=='Mess'}" >
 				<div class="card">
 					<div class="card-header p-3 pt-2">
 						<div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
@@ -194,8 +176,8 @@
 						</div>
 						<div class="text-end pt-1">
 							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" th:href="${user.role == 'admin' ? '/mess' : '/mymess'}">
-								<h4 class="mb-0" th:text="${user.role=='student'? 'Mess Cancellations':'Hostel Mess'}">Hostel Mess</h4>
+							<a class="btn-block" href="/mess">
+								<h4 class="mb-0" >Mess Cancellations</h4>
 							</a>
 						</div>
 					</div>
@@ -206,131 +188,9 @@
 				</div>
 			</div>
 
-
-
-
-			<div class="col-xl-3 col-sm-6" th:case="admin">
-
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-							<i class="material-icons opacity-10"></i>
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/sessions">
-								<h4 class="mb-0">Session</h4> </a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder">Your gateway to session details </span> We believe in transparent communication, and this section is your source for all session-related information. It's essential to keep track of session details and important dates.</p>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
-	<div class="container-fluid py-4" th:switch="${user.role}">
-		<div class="row" th:case="admin">
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
 
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/students">
-								<h4 class="mb-0">Students</h4>
-							</a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder"> Cool Kids!  </span>Get to know the vibrant community of students at IIT BHU. Our diverse and talented student body comes from various backgrounds, bringing a wealth of experiences and perspectives to our community.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-							<i class="material-icons opacity-10"></i>
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/hostels">
-								<h4 class="mb-0">All Hostels</h4>
-							</a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder"> Explore Our Hostels.</span> Welcome to the 'Explore Our Hostels' section, your gateway to discovering the diverse and welcoming hostels within the IIT BHU. Our hostels offer a variety of accommodations to cater to different preferences and needs.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-							<i class="material-icons opacity-10"></i>
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/registeredHostels">
-								<h4 class="mb-0">Registered Hostels</h4>
-							</a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder"> Discover the list of registered hostels for the current session at IIT BHU.</span> We understand the importance of finding the right accommodation for students' stay, and we've a selection of quality hostels that are available for this session. </p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" >
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-							<i class="material-icons opacity-10"></i>
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/jobs">
-								<h4 class="mb-0">Jobs</h4>
-							</a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder"> Discover the list of registered hostels for the current session at IIT BHU.</span> We understand the importance of finding the right accommodation for students' stay, and we've a selection of quality hostels that are available for this session. </p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
-				<div class="card">
-					<div class="card-header p-3 pt-2">
-						<div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-
-						</div>
-						<div class="text-end pt-1">
-							<p class="text-sm mb-0 text-capitalize"></p>
-							<a class="btn-block" href="/employees">
-								<h4 class="mb-0">Employees</h4>
-							</a>
-						</div>
-					</div>
-					<hr class="dark horizontal my-0">
-					<div class="card-footer p-3">
-						<p class="mb-0"><span class="text-success text-sm font-weight-bolder"> Cool Employees!  </span>Welcome to the Employee Dashboard! This is your hub for all things related to your work and tasks within the company. Click the "Employee" button below to access your personal workspace and take control of your daily responsibilities.</p>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-	</div>
 
 	<div>
 		<footer class="footer py-4 ">

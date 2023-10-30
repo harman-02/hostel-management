@@ -192,4 +192,10 @@ public class MessCancellationsRepository {
                 "where H.hostel_id = ?";
         return jdbcTemplate.query(sql, new Object[]{hostelId}, rowMapper1);
     }
+
+    public Integer getEntryCount(int hrId,int roll,Date d){
+        String sql="select count(*) from messcancellations where hostelRegistrationId = ? and rollNo = ? and date_<=?";
+        return jdbcTemplate.queryForObject(sql,new Object[]{hrId,roll,d},Integer.class);
+    }
+
 }
