@@ -3,6 +3,7 @@ package com.hms.HostelManagement.repository;
 import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.MessCancellations;
+import com.hms.HostelManagement.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -39,22 +40,17 @@ public class MessCancellationsRepository {
         return allMessCancellations;
     };
 
-    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration) {
-        String sql1 = "SELECT hostel_registration_id FROM Hostel_registration\n" +
-                "WHERE hostel_id = ? AND session_id = ?";
+    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration, User user) {
         Date date = messCancellations.getDate();
-//        System.out.println(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
-//        System.out.println("Year: " + year);
-
-        Integer hostelRegistrationId = jdbcTemplate.queryForObject(sql1, Integer.class, hostelRegistration.getHostelId(), date);
-//        System.out.println(hostelRegistrationId);
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         messCancellations.setDate(sqlDate);
+        System.out.println(hostelRegistration.getHostelRegistrationId());
+        System.out.println(messCancellations.getHostelRegistrationId());
         String sql2 = "insert into MessCancellations(hostelRegistrationId, rollno, date_) values (?,?,?)";
-        jdbcTemplate.update(sql2, hostelRegistrationId, messCancellations.getRollNo(), messCancellations.getDate());
+        jdbcTemplate.update(sql2, hostelRegistration.getHostelRegistrationId(), messCancellations.getRollNo(), messCancellations.getDate());
     }
     public List<AllMessCancellations> getAll() {
         String sql = "select m.entryNo, H.hostel_id, H.hostel_name, m.rollNo, S.name, m.date_, s2.session_id , s2.start_date\n" +

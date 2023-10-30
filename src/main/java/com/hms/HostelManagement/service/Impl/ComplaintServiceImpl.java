@@ -30,6 +30,11 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
+    public List<Complaint> getEmployeeComplaint(int hrId) {
+        return complaintRepository.getAllComplaintByHostelRegId(hrId);
+    }
+
+    @Override
     public void createComplaint(Complaint complaint)
     {
         complaintRepository.createComplaint(complaint);
@@ -40,10 +45,12 @@ public class ComplaintServiceImpl implements ComplaintService {
     {
         complaintRepository.updateComplaintStatus(complaintID);
     }
+    @Override
     public void updateComplaintStatusDel(int complaintID)
     {
         complaintRepository.updateComplaintStatusDel(complaintID);
     }
+    @Override
     public void updateComplaintStatusAll()
     {
         complaintRepository.updateComplaintStatusAll();

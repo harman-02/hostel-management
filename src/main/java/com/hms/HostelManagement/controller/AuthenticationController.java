@@ -39,10 +39,11 @@ public class AuthenticationController {
 
         String username = credentials.getUsername();
         String password = credentials.getPassword();
+        String role = credentials.getRole();
         String errorMessage = null;
-
+//        System.out.println(role);
         try {
-            if (authenticationService.checkCredentials(username, password)) {
+            if (authenticationService.checkCredentials(username, password,role)) {
                 authenticationService.loginUser(session, username);
 
                 toastService.redirectWithSuccessToast(redirectAttributes, "Successfully logged in.");

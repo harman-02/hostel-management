@@ -70,6 +70,19 @@
                   <label class="form-label">Password </label>
                   <input type="password" id="password" name="password" class="form-control" required maxlength="255" th:field="*{password}">
                 </div>
+                <div class="input-group input-group-outline mb-3">
+                  <select type="text" id="role" name="role" class="form-control" required maxlength="255" th:field="*{role}">
+                    <option value="admin">
+                        admin
+                    </option>
+                    <option value="student">
+                        student
+                    </option>
+                    <option value="employee">
+                      employee
+                    </option>
+                  </select>
+                </div>
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
                     Submit

@@ -1,7 +1,16 @@
 Insert into hostel
-values ('1', 'Visweswaraya', 'IIT BHU HG');
+values (1, 'Visweswaraya', 'IIT BHU HG');
 Insert into hostel
-values ('2', 'SC DEY', 'IIT BHU Lanka');
+values (2, 'SC DEY', 'IIT BHU Lanka');
+select * from hostel;
+insert into user values('user2', '1234', 'student');
+insert into user values('user3', '1234', 'student');
+insert into user values('user4', '1234', 'student');
+insert into user values('user5', '1234', 'student');
+insert into user values('user6', '1234', 'student');
+insert into user values('user7', '1234', 'student');
+insert into user values('user8', '1234', 'student');
+insert into user values('user9', '1234', 'student');
 
 select *
 from hostel;
@@ -9,16 +18,35 @@ select *
 from User;
 select *
 from studentusermapping;
-insert into studentusermapping(username, rollNo, hostelRegistrationId)
-values ('user1', 2, 2);
+insert into session values (2020, '2020 Even','2020-01-01');
+insert into session values (2021, '2021 Even','2021-01-01');
+insert into session values (2022, '2022 Even','2022-01-01');
+insert into session values (2023, '2023 Even','2023-01-01');
+insert into hostel_registration values (1, 1,2020, 50);
+insert into hostel_registration values (2, 1,2021, 50);
+insert into hostel_registration values (3, 1,2022, 50);
+insert into hostel_registration values (4, 1,2023, 50);
+insert into hostel_registration values (5, 2,2020, 50);
+insert into hostel_registration values (6, 2,2021, 50);
+insert into hostel_registration values (7, 2,2022, 50);
+insert into hostel_registration values (8, 2,2023, 50);
+
 insert into student(name, email, phone, branch, balance, Dob)
 values ('harman', 'harman@gmail.com', 90239, 'CSE', '15000', 20 / 02 / 2002);
 
 insert into student(name, email, phone, branch, balance, Dob)
-values ('sachin', 'sachin@gmail.com', 90239223, 'CSE', '15000', 20 / 02 / 2002);
+values ('hardik', 'hardik@gmail.com', 90232198, 'CSE', 15000, '2003-07-07');
 
-insert into student(name, email, phone, branch, balance, Dob)
-values ('hardik', 'hardik@gmail.com', 902398, 'CSE', '15000', 20/02/2003);
+insert into studentusermapping values ('user2', 1, 1);
+insert into studentusermapping values ('user3', 1, 2);
+insert into studentusermapping values ('user4', 1, 3);
+insert into studentusermapping values ('user5', 1, 4);
+insert into studentusermapping values ('user6', 2, 1);
+insert into studentusermapping values ('user7', 2, 2);
+insert into studentusermapping values ('user8', 2, 3);
+insert into studentusermapping values ('user9', 2, 4);
+
+
 select *
 from student;
 insert into session(start_date)
@@ -43,11 +71,9 @@ set date_ = '2014-03-16 00:00:00.000'
 where entryNo = 2;
 
 
-
 Insert into User values("admin1","1234","admin");
-Insert into User values("student","1234","student");
-select * from student;
-select * from user;
+
+
 show tables;
 select * from session;
 select * from hostel;
@@ -81,18 +107,16 @@ where H.hostel_name like '%i%'
 select *
 from Hostel
 where hostel_name like '%i%';
+select *
+from session;
+insert into session
+values (2023, '2023-01-01');
+select *
+from hostel_registration;
+select * from user;
+select * from messcancellations;
+insert into messcancellations values(1,1,1,'2020-03-02');
 select * from session;
-describe student;
 
 
 truncate complaint;
-insert into User(username, password, role) values('sachin','1234','student');
-
-select * from studentusermapping;
-select * from student;
-insert into studentusermapping(username,roll,hostelRegistrationId) values('sachin','3','1');
-select * from hostel_registration;
-insert into hostel_registration values('1','1','1','10');
-select * from hostel;
-select * from user;
-select * from session;

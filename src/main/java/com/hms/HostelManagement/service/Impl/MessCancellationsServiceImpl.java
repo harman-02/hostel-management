@@ -3,6 +3,7 @@ package com.hms.HostelManagement.service.Impl;
 import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.MessCancellations;
+import com.hms.HostelManagement.model.User;
 import com.hms.HostelManagement.repository.MessCancellationsRepository;
 import com.hms.HostelManagement.service.MessCancellationsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     }
 
     @Override
-    public void createMessCancellation(MessCancellations messCancellations,HostelRegistration hostelRegistration){
-          messCancellationsRepository.createMessCancellation(messCancellations,hostelRegistration);
+    public void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration, User user){
+        messCancellationsRepository.createMessCancellation(messCancellations,hostelRegistration,user);
     }
     @Override
     public void updateMessCancellation(MessCancellations messCancellations) {

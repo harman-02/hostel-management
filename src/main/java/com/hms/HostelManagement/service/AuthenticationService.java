@@ -13,9 +13,9 @@ public class AuthenticationService {
     private UserRepository users;
     private String SESSION_AUTH_KEY = "AUTH_USER";
 
-    public Boolean checkCredentials(String username, String password) {
+    public Boolean checkCredentials(String username, String password,String role) {
         User user = users.getUser(username);
-        return user.getPassword().equals(password);
+        return (user.getPassword().equals(password) && user.getRole().equals(role));
     }
 
     public void loginUser(HttpSession session, String username) {

@@ -7,6 +7,7 @@ import java.util.List;
 public interface ComplaintService {
     List<Complaint> getAllComplaint();
     List<Complaint> getStudentComplaint(int roll,int hrId);
+    List<Complaint> getEmployeeComplaint(int hrId);
     public void createComplaint(Complaint complaint);
 
     public void updateComplaintStatus(int complaintID);
@@ -14,4 +15,6 @@ public interface ComplaintService {
     public void updateComplaintStatusAll();
 
     public List<Complaint> getAllComplaintByRoll(int rollNo);
+
+
 }

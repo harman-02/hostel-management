@@ -20,15 +20,10 @@ public class StudentUserMappingServiceImpl implements StudentUserMappingService 
         studentUserMappingRepository.createStudentUserMapping(s);
     }
 
-    @Override
-    public int getRollNoFromUsername(String username) {
-        return studentUserMappingRepository.getStudentUserMappingFromUsername(username).getRoll();
-    }
-
-    @Override
-    public Student getStudentFromUsername(String username) {
-        return studentUserMappingRepository.getStudentFromUsername(username);
-    }
+//    @Override
+//    public Integer getRollNofromUsername(String username) {
+//        return studentUserMappingRepository.getRollNoFromUsername(username);
+//    }
 
 
     @Override
@@ -36,10 +31,7 @@ public class StudentUserMappingServiceImpl implements StudentUserMappingService 
         return studentUserMappingRepository.getStudentUserMappingFromUsername(username).getHostelRegistrationId();
     }
 
-    @Override
-    public int getRollNofromUsername(String username) {
-        return studentUserMappingRepository.getStudentUserMappingFromUsername(username).getRoll();
-    }
+
 
     @Override
     public int getHostelRegistrationIdFromUsername(String username){
@@ -50,5 +42,19 @@ public class StudentUserMappingServiceImpl implements StudentUserMappingService 
     public List<StudentUserMapping> getAllStudentUserMapping() {
         return studentUserMappingRepository.getAllStudentUserMapping();
     }
+
+    @Override
+    public StudentUserMapping getRollNoFromUsername(String username){
+        return studentUserMappingRepository.getRollNoFromUsername(username);
+    }
+
+    @Override
+    public Student getStudentFromUsername(String username) {
+        return studentUserMappingRepository.getStudentFromUsername(username);
+    }
+//    @Override
+//    public int getRollNoFromUsername(String username) {
+//        return -1;
+//    }
 
 }

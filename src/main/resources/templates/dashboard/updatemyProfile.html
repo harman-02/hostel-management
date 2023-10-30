@@ -97,73 +97,136 @@
 							</div>
 						</div>
 						<div class="card-body">
+							<span th:switch="${user.role}">
 
-							<form  th:action="@{/student/myProfile/{id}(id=${thisStudent.roll})}" th:object = "${thisStudent}" method="POST">
+								<form th:case="student" th:action="@{/myProfile/{id}(id=${thisStudent.roll})}" th:object = "${thisStudent}" method="POST">
 
-								<div class="input-group input-group-outline mb-3">
-									<input
-											type = "text"
-											th:field = "*{roll}"
-											class = "form-control"
-											placeholder="Enter Roll Number"
-											disabled
-									/>
-								</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{roll}"
+												class = "form-control"
+												placeholder="Enter Roll Number"
+												disabled
+										/>
+									</div>
 
-								<div class="input-group input-group-outline mb-3">
-									<input
-											type = "text"
-											th:field = "*{name}"
-											class = "form-control"
-											placeholder="Enter Name"
-											required
-									/>
-								</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{name}"
+												class = "form-control"
+												placeholder="Enter Name"
+												required
+										/>
+									</div>
 
 
-								<div class="input-group input-group-outline mb-3">
-									<input
-											type = "email"
-											th:field = "*{email}"
-											class = "form-control"
-											placeholder="Enter email"
-											required
-									/>
-								</div>
-								<div class="input-group input-group-outline mb-3">
-									<input
-											type = "text"
-											th:field = "*{phone}"
-											class = "form-control"
-											placeholder="Enter Phone number"
-											required
-									/>
-								</div>
-								<div class="input-group input-group-outline mb-3">
-									<input
-											type = "text"
-											th:field = "*{branch}"
-											class = "form-control"
-											placeholder="Enter Branch"
-											required
-									/>
-								</div>
-								<div class="input-group input-group-outline mb-3">
-									<span>Enter Date of Birth :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-									<input
-											type = "date"
-											th:field = "*{dob}"
-											required
-									/>
-								</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "email"
+												th:field = "*{email}"
+												class = "form-control"
+												placeholder="Enter email"
+												required
+										/>
+									</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{phone}"
+												class = "form-control"
+												placeholder="Enter Phone number"
+												required
+										/>
+									</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{branch}"
+												class = "form-control"
+												placeholder="Enter Branch"
+												required
+										/>
+									</div>
+									<div class="input-group input-group-outline mb-3">
+										<span>Enter Date of Birth :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+										<input
+												type = "date"
+												th:field = "*{dob}"
+												required
+										/>
+									</div>
 
-								<div class="text-center">
-									<button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
-										Submit
-									</button>
-								</div>
+									<div class="text-center">
+										<button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
+											Update
+										</button>
+									</div>
 
-							</form>
+								</form>
+
+								<form th:case="employee" th:action="@{/myProfile/{id}(id=${thisEmployee.employeeId})}" th:object = "${thisEmployee}" method="POST">
+
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{employeeId}"
+												class = "form-control"
+												placeholder="Enter Employee Id"
+												disabled
+										/>
+									</div>
+									<div class="input-group input-group-outline mb-3" th:object="${emu}">
+										<input
+												type = "text"
+												th:field = "*{jobType}"
+												class = "form-control"
+												placeholder="Enter Job Type"
+												required
+												disabled
+										/>
+									</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{employeeName}"
+												class = "form-control"
+												placeholder="Enter Name"
+												required
+										/>
+									</div>
+
+
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{employeeAddress}"
+												class = "form-control"
+												placeholder="Enter Address"
+												required
+										/>
+									</div>
+									<div class="input-group input-group-outline mb-3">
+										<input
+												type = "text"
+												th:field = "*{employeeDetails}"
+												class = "form-control"
+												placeholder="Enter Personal Details"
+												required
+										/>
+									</div>
+
+
+
+									<div class="text-center">
+										<button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
+											Update
+										</button>
+									</div>
+
+								</form>
+							</span>
 						</div>
 					</div>
 				</div>

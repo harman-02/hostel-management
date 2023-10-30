@@ -7,8 +7,14 @@ import com.hms.HostelManagement.model.User;
 import com.hms.HostelManagement.repository.HostelRepository;
 import com.hms.HostelManagement.repository.StudentUserMappingRepository;
 import com.hms.HostelManagement.service.*;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class DashboardController extends BaseController {
@@ -49,12 +56,27 @@ public class DashboardController extends BaseController {
     @Autowired
     private NoticeService noticeService;
 
+    @Autowired
+    private JobService jobService;
+
+    @Autowired
+    private EmployeeUserMappingService employeeUserMappingService;
     // Needed to automatically convert String date in form to Date object.
+
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private TransactionService transactionService;
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 
+    @GetMapping("")
+    public String baseHome(Model model,HttpSession session){
+        return "redirect:/dashboard";
+    }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
@@ -108,13 +130,16 @@ public class DashboardController extends BaseController {
         else if(u.getRole().equals("student")){
 
             int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
-            int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
-
-
+            int roll=studentUserMappingService.getRollNoFromUsername(u.getUsername()).getRoll();
             model.addAttribute("complaints",complaintService.getStudentComplaint(roll,hrId));
         }
-
-
+        else if(u.getRole().equals("employee"))
+        {
+            int hrId=employeeUserMappingService.getEmployeeUserMappingFromUsername(u.getUsername()).getHostelRegistrationId();
+            System.out.println(hrId);
+            model.addAttribute("complaints",complaintService.getEmployeeComplaint(hrId));
+            model.addAttribute("job",employeeUserMappingService.getJobFromEmployeeUsername(u.getUsername()));
+        }
         return "dashboard/allComplaint";
     }
 
@@ -145,7 +170,7 @@ public class DashboardController extends BaseController {
 
         User u=getUserInSession(session);
         int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
-        int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
+        int roll=studentUserMappingService.getRollNoFromUsername(u.getUsername()).getRoll();
         complaint.setRollNo(roll);
         complaint.setHostelRegistrationId(hrId);
         complaintService.createComplaint(complaint);
@@ -212,8 +237,8 @@ public class DashboardController extends BaseController {
 
 
         List<Session> st=sessionService.getAllSession();
-        for(Session s:st)
-            System.out.println(s.getSessionName()+" "+s.getStartDate());
+//        for(Session s:st)
+//            System.out.println(s.getSessionName()+" "+s.getStartDate());
 
         model.addAttribute("sessions",sessionService.getAllSession());
 
@@ -464,7 +489,238 @@ public class DashboardController extends BaseController {
         addDefaultAttributes(model,session);
         Student s=studentService.getStudentFromRoll(id);
         model.addAttribute("thisStudent",s);
-        return "dashboard/myProfile";
+        return "dashboard/viewStudentFromAdmin";
+    }
+
+    @GetMapping("/jobs")
+    public String viewAllJobs(Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+
+        addDefaultAttributes(model, session);
+        model.addAttribute("jobs",jobService.getAllJobs());
+
+        return "dashboard/allJobs";
+    }
+    @GetMapping("/jobs/add")
+    public String addJob(Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+
+        addDefaultAttributes(model, session);
+
+        Job job = new Job();
+
+        model.addAttribute("job",job);
+
+        return "dashboard/addJob";
+    }
+
+    @PostMapping("/jobs")
+    public String postaddJob(@ModelAttribute("job") Job j,Model model,HttpSession session){
+         if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        jobService.createJob(j);
+
+        return "redirect:/jobs";
+    }
+
+    @GetMapping("/jobs/{id}")
+    public String updateJob(@PathVariable String id,Model model,HttpSession session){
+         if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        addDefaultAttributes(model,session);
+        Job j=jobService.getJobFromType(id);
+        model.addAttribute("job",j);
+        return "dashboard/updateJob";
+    }
+    @PostMapping("/jobs/{id}")
+    public String postupdateJob(@PathVariable String id,@ModelAttribute("job") Job j, Model model,HttpSession session){
+         if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("admin"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+//        System.out.println(j.getJobType());
+
+        jobService.updateJobFromType(j,id);
+
+        addDefaultAttributes(model,session);
+        return "redirect:/jobs";
+    }
+
+
+    @GetMapping("/aboutUs")
+    public String aboutUsPage(Model model,HttpSession session){
+
+        return "dashboard/aboutUs";
+    }
+    @GetMapping("/contactUs")
+    public String contactUsPage(Model model,HttpSession session){
+
+        return "dashboard/contactUs";
+    }
+
+    @GetMapping("/myBalance")
+    public  String myBalancePage(Model model,HttpSession session){
+          if(!isAuthenticated(session))
+            return "redirect:/";
+          User u=getUserInSession(session);
+          if(u.getRole().equals("student"))
+          {
+
+          }
+          else
+            return "redirect:/";
+
+        Student s=studentUserMappingService.getStudentFromUsername(u.getUsername());
+        model.addAttribute("student",s);
+        return "dashboard/myBalance";
+    }
+
+
+//    @GetMapping("/setRechargeValue")
+//    public  String setRechargePage(Model model,HttpSession session){
+//        if(!isAuthenticated(session))
+//            return "redirect:/";
+//        User u=getUserInSession(session);
+//        if(u.getRole().equals("student"))
+//        {
+//
+//        }
+//        else
+//            return "redirect:/";
+//
+//        Transaction transaction = new Transaction();
+//
+//        model.addAttribute("transaction",transaction);
+//
+//        return "dashboard/setRechargeValue";
+//    }
+
+
+
+//    @RequestMapping(value = {"/payment"}, method = RequestMethod.GET)
+    @GetMapping("/payment")
+    public String payment(  Model model,HttpSession session){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("student"))
+        {
+
+        }
+        else
+            return "redirect:/";
+//        if(t==null)
+//            return "redirect:/";
+
+        model.addAttribute("rzp_key_id", env.getProperty("rzp_key_id"));
+        model.addAttribute("rzp_currency", env.getProperty("rzp_currency"));
+        model.addAttribute("rzp_company_name", env.getProperty("rzp_company_name"));
+//        Transaction tnew= new Transaction();
+//        tnew.setAmount(t.getAmount());
+//        tnew.setDescription(t.getDescription());
+//        model.addAttribute("tnew",tnew);
+        return "dashboard/payment";
+    }
+    @GetMapping("/payment/createOrderId/{amount}")
+    @ResponseBody
+    public String createPaymentOrderId(@PathVariable String amount,HttpSession session) {
+        String orderId=null;
+        try {
+            RazorpayClient razorpay = new RazorpayClient(env.getProperty("rzp_key_id"), env.getProperty("rzp_key_secret"));
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", amount); // amount in the smallest currency unit
+            orderRequest.put("currency", env.getProperty("rzp_currency"));
+            orderRequest.put("receipt", "order_rcptid_11");
+
+            Order order = razorpay.orders.create(orderRequest);
+            orderId = order.get("id");
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        }
+        return orderId;
+    }
+    @RequestMapping(value = {"/payment/success/{amount}/{contactCount}/{companyName}/{currency}/{description}"}, method = RequestMethod.POST)
+    public String paymentSuccess(Model model,HttpSession session,
+                                 Authentication authentication,
+                                 @RequestParam("razorpay_payment_id") String razorpayPaymentId,
+                                 @RequestParam("razorpay_order_id") String razorpayOrderId,
+                                 @RequestParam("razorpay_signature") String razorpaySignature,
+                                 @PathVariable Float amount,
+                                 @PathVariable Integer contactCount,
+                                 @PathVariable String companyName,
+                                 @PathVariable String currency,
+                                 @PathVariable String description,
+                                 RedirectAttributes redirectAttributes
+    ){
+        if(!isAuthenticated(session))
+            return "redirect:/";
+        User u=getUserInSession(session);
+        if(u.getRole().equals("student"))
+        {
+
+        }
+        else
+            return "redirect:/";
+
+        Transaction t= new Transaction();
+        t.setRoll(studentUserMappingService.getRollNoFromUsername(u.getUsername()).getRoll());
+        t.setHostelRegistrationId(studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername()));
+
+        t.setPaymentId(razorpayPaymentId);
+        t.setSignature(razorpaySignature);
+        t.setDescription(description);
+        t.setCurrency(currency);
+        int val=Math.round(amount);
+        t.setAmount(val);
+
+        Student oldStudent = studentUserMappingService.getStudentFromUsername(u.getUsername());
+        val+=oldStudent.getBalance();
+        studentService.updateStudentBalanceByRoll(val,oldStudent.getRoll());
+        transactionService.createTransaction(t);
+//        System.out.println(razorpayPaymentId+" "+razorpayOrderId+" "+razorpaySignature+" "+amount+" "+currency+" "+description);
+//        System.out.println("Save all data, which on success we get!");
+        return "redirect:/myBalance";
     }
 
 }

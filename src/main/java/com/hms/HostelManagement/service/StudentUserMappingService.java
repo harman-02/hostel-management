@@ -8,15 +8,13 @@ import java.util.List;
 public interface StudentUserMappingService {
 
     public void createStudentUserMapping(StudentUserMapping s);
-    public int getRollNoFromUsername(String username);
+    public int getHostelRegIdFromUsername(String username);
+    public List<StudentUserMapping> getAllStudentUserMapping();
+//    public StudentUserMapping getRollNoFromUsername(String username);
+    public StudentUserMapping getRollNoFromUsername(String username);
+    public int getHostelRegistrationIdFromUsername(String username);
 
     public Student getStudentFromUsername(String Username);
-
-    public int getHostelRegIdFromUsername(String username);
-
-    public List<StudentUserMapping> getAllStudentUserMapping();
-    public int getRollNofromUsername(String username);
-    public int getHostelRegistrationIdFromUsername(String username);
 
 
 }

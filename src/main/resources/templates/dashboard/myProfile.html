@@ -82,9 +82,14 @@
 
 	<nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-2 end-2 mx-4">
 		<div class="container-fluid ps-2 pe-0">
-			<a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/student/myProfile">
-				Student's Profile
-			</a>
+			<span th:switch="${user.role}">
+				<a th:case="student" class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/myProfile">
+					Student's Profile
+				</a>
+				<a th:case="employee" class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/myProfile">
+					Employee's Profile
+				</a>
+			</span>
 			<button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
 			</button>
 			<ul class="navbar-nav mx-auto">
@@ -109,8 +114,15 @@
 					</div>
 				</div>
 				<div class="col-auto my-auto">
-						<p class="mb-0 font-weight-normal text-sm">
-							Student</p>
+					<span th:switch="${user.role}">
+						<p th:case="student" class="mb-0 font-weight-normal text-sm">
+							Student
+						</p>
+						<p th:case="employee" class="mb-0 font-weight-normal text-sm">
+							Employee
+						</p>
+					</span>
+
 				</div>
 			</div>
 			<div class="row">
@@ -124,7 +136,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="card-body p-3">
+							<div class="card-body p-3" th:if="${user.role}=='student'">
 								<hr class="horizontal gray-light my-4">
 								<ul class="list-group">
 									<li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Roll Number :&nbsp;&nbsp;</strong> &nbsp;
@@ -145,7 +157,40 @@
 									<div class = "box-footer" th:switch="${user.role}">
 									<br>
 									<span th:case="student">
-										<a th:href="@{/student/myProfile/{id}(id=${thisStudent.roll}) }" class = "btn btn-primary">
+										<a th:href="@{/myProfile/{id}(id=${thisStudent.roll}) }" class = "btn btn-primary">
+											Edit / Fill Details
+										</a>
+									</span>
+									</div>
+								</ul>
+							</div>
+							<div class="card-body p-3" th:if="${user.role}=='employee'">
+								<hr class="horizontal gray-light my-4">
+								<ul class="list-group">
+									<li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Employee Id :&nbsp;&nbsp;</strong> &nbsp;
+										<p th:text="${thisEmployee.employeeId}"></p>
+									</li>
+									<li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Name :&nbsp;&nbsp;</strong> &nbsp;
+										<p th:text="${thisEmployee.employeeName}"></p>
+									</li>
+									<li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Address :&nbsp;&nbsp;</strong> &nbsp;
+										<p th:text="${thisEmployee.employeeAddress}"></p>
+									</li>
+									<li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Personal Details :&nbsp;&nbsp;</strong> &nbsp;
+										<p th:text="${thisEmployee.employeeDetails}"></p>
+									</li>
+									<li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">Job Type :&nbsp;&nbsp;</strong> &nbsp;
+										<p th:text="${emu.jobType}"></p>
+									</li>
+									<div class = "box-footer" th:switch="${user.role}">
+									<br>
+									<span th:case="student">
+										<a th:href="@{/myProfile/{id}(id=${thisStudent.roll}) }" class = "btn btn-primary">
+											Edit / Fill Details
+										</a>
+									</span>
+									<span th:case="employee">
+										<a th:href="@{/myProfile/{id}(id=${thisEmployee.employeeId}) }" class = "btn btn-primary">
 											Edit / Fill Details
 										</a>
 									</span>
