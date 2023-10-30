@@ -18,6 +18,12 @@ public class SessionServiceImpl implements SessionService {
     public List<Session> getAll() {
         return sessionRepository.getAll();
     }
+
+    @Override
+    public List<Session> getAllSession() {
+        return sessionRepository.getAllSession();
+    }
+
     @Override
     public Session getSessionFromId(int id){
         return sessionRepository.getSessionFromId(id);

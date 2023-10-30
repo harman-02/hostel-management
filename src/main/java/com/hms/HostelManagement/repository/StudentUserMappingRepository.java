@@ -17,7 +17,7 @@ public class StudentUserMappingRepository {
     JdbcTemplate template;
     RowMapper<StudentUserMapping> rowMapper = (rs, rowNum) -> {
         StudentUserMapping studentUserMapping = new StudentUserMapping();
-        studentUserMapping.setRoll(rs.getInt("rollNo"));
+        studentUserMapping.setRoll(rs.getInt("roll"));
         studentUserMapping.setUsername(rs.getString("username"));
         studentUserMapping.setHostelRegistrationId(rs.getInt("hostelRegistrationId"));
         return studentUserMapping;
@@ -33,15 +33,11 @@ public class StudentUserMappingRepository {
         String sql = "Select * from StudentUserMapping where username=?";
         return template.queryForObject(sql,new Object[]{username}, new BeanPropertyRowMapper<>(StudentUserMapping.class));
     }
-    public StudentUserMapping getRollNofromUsername(String username)
-    {
-        String sql = "Select * from StudentUserMapping where username=?";
-        return template.queryForObject(sql,new Object[]{username}, new BeanPropertyRowMapper<>(StudentUserMapping.class));
-    }
+
 
     public Student getStudentFromUsername(String username){
         int roll=getStudentUserMappingFromUsername(username).getRoll();
-        System.out.println(roll + 4);
+//        System.out.println(roll + 4);
         String sql = "SELECT * FROM student WHERE roll = ?";
         return template.queryForObject(sql, new Object[]{roll},new BeanPropertyRowMapper<>(Student.class));
     }

@@ -3,7 +3,6 @@ values (1, 'Visweswaraya', 'IIT BHU HG');
 Insert into hostel
 values (2, 'SC DEY', 'IIT BHU Lanka');
 select * from hostel;
-insert into user values('user1', '1234', 'admin');
 insert into user values('user2', '1234', 'student');
 insert into user values('user3', '1234', 'student');
 insert into user values('user4', '1234', 'student');

@@ -48,7 +48,10 @@ public class StudentUserMappingServiceImpl implements StudentUserMappingService 
         return studentUserMappingRepository.getRollNoFromUsername(username);
     }
 
-
+    @Override
+    public Student getStudentFromUsername(String username) {
+        return studentUserMappingRepository.getStudentFromUsername(username);
+    }
 //    @Override
 //    public int getRollNoFromUsername(String username) {
 //        return -1;

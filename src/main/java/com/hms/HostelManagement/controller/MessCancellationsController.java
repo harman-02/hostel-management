@@ -103,7 +103,7 @@ public class MessCancellationsController extends BaseController {
         messCancellationsService.createMessCancellation(m, h, u);
         System.out.println("reached");
         model.addAttribute("cancellation", messCancellationsService.filterByRollNo(m.getRollNo()));
-        return "messCancellations/myMessCancellations";
+        return "redirect:/mymess";
     }
 
     @GetMapping("/mess/add")
@@ -151,7 +151,7 @@ public class MessCancellationsController extends BaseController {
         u.setUsername(username);
         Calendar calendar = Calendar.getInstance();
         Calendar calendar1 = Calendar.getInstance();
-        calendar1.setTime(startdate);
+//        calendar1.setTime();
         calendar.setTime(startdate);
         calendar.add(Calendar.YEAR, 1);
         model.addAttribute("mess", mess);

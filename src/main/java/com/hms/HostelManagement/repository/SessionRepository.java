@@ -15,6 +15,10 @@ public class SessionRepository {
         String sql = "select * from Session";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Session.class));
     }
+     public List<Session> getAllSession() {
+        String sql = "select * from Session";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Session.class));
+    }
     public void createSession(Session session){
         String sql = "insert into Session(session_name, start_date) values (?, ?)";
         jdbcTemplate.update(sql, session.getSessionName(), session.getStartDate());

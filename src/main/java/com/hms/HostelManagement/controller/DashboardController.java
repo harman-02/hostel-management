@@ -130,7 +130,7 @@ public class DashboardController extends BaseController {
         else if(u.getRole().equals("student")){
 
             int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
-            int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
+            int roll=studentUserMappingService.getRollNoFromUsername(u.getUsername()).getRoll();
             model.addAttribute("complaints",complaintService.getStudentComplaint(roll,hrId));
         }
         else if(u.getRole().equals("employee"))
@@ -170,7 +170,7 @@ public class DashboardController extends BaseController {
 
         User u=getUserInSession(session);
         int hrId=studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername());
-        int roll=studentUserMappingService.getRollNofromUsername(u.getUsername());
+        int roll=studentUserMappingService.getRollNoFromUsername(u.getUsername()).getRoll();
         complaint.setRollNo(roll);
         complaint.setHostelRegistrationId(hrId);
         complaintService.createComplaint(complaint);
@@ -704,7 +704,7 @@ public class DashboardController extends BaseController {
             return "redirect:/";
 
         Transaction t= new Transaction();
-        t.setRoll(studentUserMappingService.getRollNoFromUsername(u.getUsername()));
+        t.setRoll(studentUserMappingService.getRollNoFromUsername(u.getUsername()).getRoll());
         t.setHostelRegistrationId(studentUserMappingService.getHostelRegistrationIdFromUsername(u.getUsername()));
 
         t.setPaymentId(razorpayPaymentId);

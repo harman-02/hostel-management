@@ -2,6 +2,10 @@ use ${MYSQL_DATABASE};
 
 show tables;
 
+Create DATABASE hms2;
+
+use hms2;
+
 CREATE TABLE IF NOT EXISTS User
 (
     username varchar(55) PRIMARY KEY,
