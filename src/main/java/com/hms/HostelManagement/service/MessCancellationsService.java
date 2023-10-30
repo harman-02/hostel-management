@@ -37,4 +37,6 @@ public interface MessCancellationsService {
     List<AllMessCancellations> filterByHostelIdAndSessionId(Integer hostelId, Integer sessionId);
 
     List<AllMessCancellations> filterByHostel(Integer hostelId);
+
+    public Integer getEntryCount(int hrId,int roll,Date d);
 }

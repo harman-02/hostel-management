@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 @Controller
 public class DashboardController extends BaseController {
     @Autowired
@@ -68,6 +69,8 @@ public class DashboardController extends BaseController {
 
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private MessCancellationsService messCancellationsService;
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
@@ -91,6 +94,8 @@ public class DashboardController extends BaseController {
         {
             model.addAttribute("thisStudent",studentUserMappingService.getStudentFromUsername(getUserInSession(session).getUsername()));
         }
+        if(getRoleInSession(session).equals("employee"))
+            return "dashboard/employeeIndex";
 
         return "dashboard/index";
     }
@@ -611,6 +616,32 @@ public class DashboardController extends BaseController {
             return "redirect:/";
 
         Student s=studentUserMappingService.getStudentFromUsername(u.getUsername());
+
+        int hrId=studentUserMappingService.getHostelRegIdFromUsername(u.getUsername());
+        int roll=s.getRoll();
+        Date d=new Date();
+        int entry= messCancellationsService.getEntryCount(hrId,roll,d);
+
+        int oneday=100;
+
+        Student ns=new Student();
+
+        Date sd=hostelRegistrationService.getStartDateFromHrId(hrId);
+        Date date1 = new Date(); // Replace with your first Date
+        date1=sd;
+        // Convert Date objects to LocalDate
+        LocalDate localDate1 = date1.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate2 = LocalDate.now();
+        System.out.println(localDate1);
+        System.out.println(localDate2);
+        // Calculate the difference in days
+        int daysBetween = (int)ChronoUnit.DAYS.between(localDate1, localDate2);
+        int addbal=-daysBetween*oneday+entry*oneday;
+        System.out.println(daysBetween);
+        System.out.println(entry);
+        ns.setBalance(addbal);
+        System.out.println(addbal);
+        model.addAttribute("nstudent",ns);
         model.addAttribute("student",s);
         return "dashboard/myBalance";
     }

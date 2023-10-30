@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 @Repository
 public class SessionRepository {
@@ -27,5 +28,7 @@ public class SessionRepository {
         String sql="select * from session where session_id=?";
         return jdbcTemplate.queryForObject(sql,new Object[]{id},new BeanPropertyRowMapper<>(Session.class));
     };
+
+
 
 }

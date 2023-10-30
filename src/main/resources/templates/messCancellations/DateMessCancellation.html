@@ -98,22 +98,23 @@
                         </div>
                         <div class="card-body">
 
-                            <form th:action="@{/mess/postFilterByDate}" th:object="${filter}" method="POST">
-                                <div class="input-group input-group-outline mb-3">
-                                    Enter the Start Date:
+                            <form th:action="@{/mymess/postFilterByDate}"  method="POST">
+                                <input type="hidden" th:field="${mess.rollNo}" />
+                                <div class = "form-group">
+                                    <label for="start">Enter the start date</label>
+                                    <input type="date" name="date" id="start" th:field="*{filter.start}">
+                                    <!--                        th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')},-->
+                                    <!--                        max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"-->
+                                    <!--                        required />-->
                                 </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <input class = "form-control" type="date" name="date" id="start" th:field="*{start}" required>
-                                </div>
-                                <div class="input-group input-group-outline mb-3 p-1">
-                                    Enter the End Date:
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <input class = "form-control"  type="date" name="date" id="end" th:field="*{end}" required>
+                                <div class="form-group">
+                                    <label for="end">Enter the end date</label>
+                                    <input type="date" name="date" id="end" th:field="*{filter.end}" required>
+
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">
                                         Submit
                                     </button>
                                 </div>

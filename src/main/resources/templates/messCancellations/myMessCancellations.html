@@ -88,38 +88,28 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <ul class="navbar-nav  justify-content-end">
-                            <!--                            <li class="nav-item d-flex align-items-center">-->
-                            <!--                                <div>-->
-                            <!--                                    <form th:action="@{/updateStatusAll}" method="post" th:case="admin">-->
-                            <!--                                        <button type="submit" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Mark All as Complete</button>-->
-                            <!--                                    </form>-->
-                            <!--                                </div>-->
-                            <!--                            </li>-->
-                            <!--                            <div th:switch="${user.role}">-->
-                            <!--                                <form th:action="@{/complaints}" method="get" th:case="admin">-->
-
-                            <!--                                    <div class="input-group input-group-outline">-->
-
-                            <!--                                        <label for="txtsearch"></label><input id="txtsearch" placeholder="Search By Roll Number" type="text" class="form-control">-->
-                            <!--                                        <button type="submit" class="btn btn-sm mb-0 me-1 bg-gradient-dark"> Search</button>-->
-
-                            <!--                                    </div>-->
-                            <!--                                </form>-->
-                            <!--                                </span>-->
-                            <!--                            </div>-->
-                           <div class="container">
-                                <div class="row">
-                                    <div class="col text-right">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                Filters
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a th:href="@{/mymess/filterByDate}" class="dropdown-item">Date</a>                                            </div>
-                                        </div>
+                            <li class="nav-item d-flex align-items-center">
+                                <form th:action="@{/mymess}" method="get">
+                                    <div>
+                                        <label for="txtSearch"></label><input id="txtSearch" type="text"
+                                                                              name="keyword" style="border-radius: 10px" placeholder="Enter your keyword">
+                                        <button type="submit" class="btn btn-sm mb-0 me-1 bg-gradient-dark">
+                                            Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm mb-0 me-1 bg-gradient-dark dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown">
+                                        Filters
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a th:href="@{/mymess/filterByDate}" class="dropdown-item">Date</a>
                                     </div>
                                 </div>
-                            </div>
+                            </li>
                             <li class="nav-item d-flex align-items-center" th:case="student">
                                 <div>
                                     <!--                                    <a th:href = "@{/mymess/checkBalance}" class="btn btn-sm mb-0 me-1 bg-gradient-dark"> Check Balance</a>-->
@@ -166,9 +156,11 @@
                                             <time th:text="${#dates.format(entry.date, 'dd/MM/yyyy')}"></time>
                                         </td>
                                         <td>
-                                            <a th:href="@{'/mymess/update/'+ ${entry.entryNo}}"
+                                            <a th:if="${entry.date gt #dates.createNow()}"
+                                               th:href="@{'/mymess/update/'+ ${entry.entryNo}}"
                                                class="btn btn-primary btn-sm mb-3">Update</a>
-                                            <a th:href="@{'/mymess/delete/'+ ${entry.entryNo}}"
+                                            <a th:if="${entry.date gt #dates.createNow()}"
+                                               th:href="@{'/mymess/delete/'+ ${entry.entryNo}}"
                                                class="btn btn-primary btn-sm mb-3">Delete</a>
                                         </td>
                                     </tr>

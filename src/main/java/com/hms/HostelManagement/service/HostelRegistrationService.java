@@ -2,6 +2,7 @@ package com.hms.HostelManagement.service;
 
 import com.hms.HostelManagement.model.HostelRegistration;
 
+import java.util.Date;
 import java.util.List;
 
 public interface HostelRegistrationService {
@@ -15,4 +16,5 @@ public interface HostelRegistrationService {
 
     public int getSessionFromHostelRegistrationId(Integer HostelRegistrationId);
 
+    public Date getStartDateFromHrId(int hrId);
 }

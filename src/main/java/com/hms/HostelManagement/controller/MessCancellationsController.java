@@ -52,7 +52,7 @@ public class MessCancellationsController extends BaseController {
         String username = authenticationService.getCurrentUser(httpSession);
         User user = userService.getUser(username);
         String currRole = user.getRole();
-        if (!Objects.equals(currRole, "admin")) {
+        if (Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
         }
         if (keyword == null) {
@@ -243,7 +243,6 @@ public class MessCancellationsController extends BaseController {
         model.addAttribute("cancellation", messCancellations);
         return "messCancellations/updateMessCancellation";
     }
-
     @GetMapping("/mess/filterByHostelAndSession")
     public String filterMess(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {

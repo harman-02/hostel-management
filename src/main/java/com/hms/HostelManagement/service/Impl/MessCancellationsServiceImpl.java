@@ -111,4 +111,9 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
         return messCancellationsRepository.filterByHostel(hostelId);
     }
 
+    @Override
+    public Integer getEntryCount(int hrId, int roll,Date d) {
+        return messCancellationsRepository.getEntryCount(hrId,roll,d);
+    }
+
 }
