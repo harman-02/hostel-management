@@ -15,11 +15,15 @@
                     <input type="hidden" th:field="${mess.rollNo}" />
                     <div class = "form-group">
                         <label for="start">Enter the start date</label>
-                        <input type="date" name="date" id="start" th:field="*{filter.start}" required>
+                        <input type="date" name="date" id="start" th:field="*{filter.start}">
+<!--                        th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')},-->
+<!--                        max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"-->
+<!--                        required />-->
                     </div>
                     <div class="form-group">
                         <label for="end">Enter the end date</label>
                         <input type="date" name="date" id="end" th:field="*{filter.end}" required>
+
                     </div>
 
                     <div class="box-footer">

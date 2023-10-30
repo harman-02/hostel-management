@@ -10,13 +10,17 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Add Mess Cancellation </h1>
             <div class="card-body">
-                <form th:action="@{/mymess}"  method="POST">
+                <form th:action="@{/mymess}" method="POST">
                     <div class="form-group">
-                        <input type="hidden" th:field="${hostel.hostelId}" />
+                        <input type="hidden" th:field="${hostel.hostelId}"/>
                     </div>
                     <div class="form-group">
-                        <input type="hidden" th:field="${mess.rollNo}" />
+                        <input type="hidden" th:field="${mess.hostelRegistrationId}"/>
                     </div>
+                    <div class="form-group">
+                        <input type="hidden" th:field="${mess.rollNo}"/>
+                    </div>
+
                     <div class="form-group">
                         <label>
                             Date of Cancellation:
@@ -25,6 +29,7 @@
                                     name="date"
                                     th:field="*{mess.date}"
                                     placeholder="Enter Mess cancellation Date"
+                                    th:attr="min=${#calendars.format(mindate.getTime(), 'yyyy-MM-dd')}, max = ${#calendars.format(maxdate.getTime(), 'yyyy-MM-dd')}"
                             />
                         </label>
                     </div>

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Session
     start_date Date
 );
 
-CREATE TABLE IF NOT EXISTS hostel_registration
+CREATE TABLE IF NOT EXISTS Hostel_registration
 (
     hostel_registration_id INT AUTO_INCREMENT PRIMARY KEY,
     hostel_id              INT,
@@ -33,13 +33,14 @@ CREATE TABLE IF NOT EXISTS hostel_registration
     FOREIGN KEY (session_id) REFERENCES Session (session_id) ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS HostelFacilities (
-                                                facility_id INT AUTO_INCREMENT PRIMARY KEY,
-                                                hostel_registration_id INT,
-                                                Description VARCHAR(255),
-                                                Condition_status INT,
-                                                FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration(hostel_registration_id) ON DELETE SET NULL
-);
+# CREATE TABLE IF NOT EXISTS HostelFacilities
+# (
+#     facility_id            INT AUTO_INCREMENT PRIMARY KEY,
+#     hostel_registration_id INT,
+#     Description            VARCHAR(255),
+#     Condition_status       INT,
+#     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
+# );
 
 CREATE TABLE IF NOT EXISTS Room
 (
@@ -60,11 +61,11 @@ CREATE TABLE IF NOT EXISTS Student
 CREATE TABLE IF NOT EXISTS StudentUserMapping
 (
     username             varchar(55) primary key,
-    roll               int,
+    rollNo               int,
     hostelRegistrationId int,
     foreign key (hostelRegistrationId) references Hostel_registration (hostel_registration_id) on delete set null,
     foreign key (username) references User (username) on delete cascade,
-    foreign key (roll) references Student (roll) on delete cascade
+    foreign key (rollNo) references Student (roll) on delete cascade
 );
 
 CREATE TABLE IF NOT EXISTS RoomRegistration
@@ -93,7 +94,7 @@ CREATE TABLE IF NOT EXISTS Notice
 (
     notice_id              INT AUTO_INCREMENT PRIMARY KEY,
     hostel_registration_id INT,
-    description            VARCHAR(10000),
+    Description            VARCHAR(255),
     date                   DATETIME,
     FOREIGN KEY (hostel_registration_id) REFERENCES Hostel_registration (hostel_registration_id) ON DELETE SET NULL
 );
@@ -105,6 +106,7 @@ CREATE TABLE IF NOT EXISTS Employee
     employee_type    VARCHAR(255),
     employee_details VARCHAR(255)
 );
+
 CREATE TABLE IF NOT EXISTS EmployeeUserMapping
 (
     username             varchar(55) primary key,
@@ -114,13 +116,22 @@ CREATE TABLE IF NOT EXISTS EmployeeUserMapping
     foreign key (username) references User (username) on delete cascade,
     foreign key (employee_id) references Employee (employee_id) on delete cascade
 );
-# CREATE TABLE IF NOT EXISTS Mess (
-#                                     entry_no INT AUTO_INCREMENT PRIMARY KEY,
-#                                     Roll INT,
-#                                     Date DATETIME,
-#                                     Slot INT,
-#                                     Cost INT,
-#                                     FOREIGN KEY (Roll) REFERENCES Student(Roll) ON DELETE SET NULL
+
+CREATE TABLE IF NOT EXISTS EmployeeTypeSalary
+(
+    employeeType int,
+    salary       int,
+    foreign key (employeeType) references Employee (employee_type) on delete set null
+);
+
+# CREATE TABLE IF NOT EXISTS Mess
+# (
+#     entry_no INT AUTO_INCREMENT PRIMARY KEY,
+#     Roll     INT,
+#     Date     DATETIME,
+#     Slot     INT,
+#     Cost     INT,
+#     FOREIGN KEY (Roll) REFERENCES Student (Roll) ON DELETE SET NULL
 # );
 
 

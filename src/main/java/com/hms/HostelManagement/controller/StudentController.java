@@ -131,16 +131,16 @@ public class StudentController extends BaseController{
     }
 
 
-    @GetMapping("/student/myProfile")
-    public String myProfile(Model model,HttpSession session){
-
-        if(getRoleInSession(session).equals("student"))
-        {
-            model.addAttribute("thisStudent",studentUserMappingService.getStudentFromUsername(getUserInSession(session).getUsername()));
-        }
-        addDefaultAttributes(model,session);
-        return "dashboard/myProfile";
-    }
+//    @GetMapping("/student/myProfile")
+//    public String myProfile(Model model,HttpSession session){
+//
+//        if(getRoleInSession(session).equals("student"))
+//        {
+//            model.addAttribute("thisStudent",studentUserMappingService.getStudentFromUsername(getUserInSession(session).getUsername()));
+//        }
+//        addDefaultAttributes(model,session);
+//        return "dashboard/myProfile";
+//    }
 
     @GetMapping("/student/myProfile/{id}")
     public  String updateMyProfile(@PathVariable int id, Model model,HttpSession session){

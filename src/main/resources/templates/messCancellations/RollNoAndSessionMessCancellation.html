@@ -9,18 +9,25 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center"> Filter using Roll No and Session </h1>
+            <h1 class="text-center"> Add required hostel id </h1>
             <div class="card-body">
-                <form th:action="@{/mess/postFilterByRollNoAndSession}" th:object="${filter}" method="POST">
-                    <div class = "form-group">
-                        <label for="start">Enter the roll No</label>
-                        <input type="number" name="date" id="start" th:field="*{rollNo}" required>
+                <form th:action="@{/mess/postFilterByRollNoAndSession}"   method="POST">
+                    <div class="form-group">
+                        <label for = "rollnum"> Select a Roll No: </label>
+                           <select id = "rollnum" th:field="*{filter.studentRollNo}" required>
+                                <option value="">-- Select a Roll No --</option>
+                            <option th:each=" s : ${studstudents}" th:value="${s.roll}" th:text="${s.roll + ' : ' + s.name}"></option>
+                            </select>
                     </div>
                     <div class="form-group">
-                        <label for="end">Enter the session</label>
-                        <input type="number" name="date" id="end" th:field="*{session}" required>
+                        <label for="sess"> Select a Session Year:</label>
+                            <select id = "sess" th:field="*{filter.sessionId}">
+                                <option value="">-- Select a Session Year --</option>
+                                <option th:each="year : ${sessions}"
+                                        th:value="${year.sessionId}"
+                                        th:text="${year.sessionName}"></option>
+                            </select>
                     </div>
-
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">
                             Submit

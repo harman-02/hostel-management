@@ -22,14 +22,14 @@ insert into session values (2020, '2020 Even','2020-01-01');
 insert into session values (2021, '2021 Even','2021-01-01');
 insert into session values (2022, '2022 Even','2022-01-01');
 insert into session values (2023, '2023 Even','2023-01-01');
-insert into hostel_registration values (1, 1,2020);
-insert into hostel_registration values (2, 1,2021);
-insert into hostel_registration values (3, 1,2022);
-insert into hostel_registration values (4, 1,2023);
-insert into hostel_registration values (5, 2,2020);
-insert into hostel_registration values (6, 2,2021);
-insert into hostel_registration values (7, 2,2022);
-insert into hostel_registration values (8, 2,2023);
+insert into hostel_registration values (1, 1,2020, 50);
+insert into hostel_registration values (2, 1,2021, 50);
+insert into hostel_registration values (3, 1,2022, 50);
+insert into hostel_registration values (4, 1,2023, 50);
+insert into hostel_registration values (5, 2,2020, 50);
+insert into hostel_registration values (6, 2,2021, 50);
+insert into hostel_registration values (7, 2,2022, 50);
+insert into hostel_registration values (8, 2,2023, 50);
 
 insert into student(name, email, phone, branch, balance, Dob)
 values ('harman', 'harman@gmail.com', 9023934, 'CSE', 15000, '2002-02-20');
@@ -65,7 +65,7 @@ from MessCancellations m
          inner join Student S on m.rollNo = S.roll
          inner join Hostel_registration Hr on m.hostelRegistrationId = Hr.hostel_registration_id
          inner join Hostel H on Hr.hostel_id = H.hostel_id
-         inner join Session S2 on Hr.session = S2.session_id
+         inner join Session S2 on Hr.session_id = S2.session_id
 where H.hostel_name like '%i%'
    or convert(H.hostel_id, char) like '%i%'
    or convert(rollNo, char) like '%i%'
@@ -81,3 +81,7 @@ values (2023, '2023-01-01');
 select *
 from hostel_registration;
 select * from user;
+select * from messcancellations;
+insert into messcancellations values(1,1,1,'2020-03-02');
+select * from session;
+select * from studentusermapping;

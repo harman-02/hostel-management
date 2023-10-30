@@ -11,4 +11,11 @@ public interface StudentService {
 //
 //    public void updateStudent(Student student) ;
     List<Student> getAll();
+    public boolean checkRollNoExists(Integer roll);
+
+    public void createStudent(Student s);
+
+    public Student getStudentFromRoll(Integer roll);
+
+    public void updateStudentByRoll(Student s,Integer roll);
 }

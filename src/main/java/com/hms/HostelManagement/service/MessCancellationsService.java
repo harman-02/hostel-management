@@ -3,6 +3,7 @@ package com.hms.HostelManagement.service;
 import com.hms.HostelManagement.model.AllMessCancellations;
 import com.hms.HostelManagement.model.HostelRegistration;
 import com.hms.HostelManagement.model.MessCancellations;
+import com.hms.HostelManagement.model.User;
 
 import java.util.Date;
 import java.util.List;
@@ -10,8 +11,7 @@ import java.util.List;
 public interface MessCancellationsService {
     List<AllMessCancellations> getAll();
 
-    void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration);
-
+    void createMessCancellation(MessCancellations messCancellations, HostelRegistration hostelRegistration, User user);
     void updateMessCancellation(MessCancellations messCancellations);
 
     MessCancellations getById(Integer id);

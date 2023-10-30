@@ -40,4 +40,27 @@ public class StudentServiceImpl implements StudentService {
 //    public void updateStudent(Student student) {
 //        studentRepository.update(student);
 //    }
+    @Override
+    public boolean checkRollNoExists(Integer roll) {
+        Student s=studentRepository.getStudentFromRoll(roll);
+        if(s==null)
+            return false;
+        else
+            return true;
+    }
+
+    @Override
+    public void createStudent(Student s) {
+        studentRepository.createStudent(s);
+    }
+
+    @Override
+    public Student getStudentFromRoll(Integer roll) {
+        return studentRepository.getStudentFromRoll(roll);
+    }
+
+    @Override
+    public void updateStudentByRoll(Student s, Integer roll) {
+        studentRepository.updateStudentFromRoll(s,roll);
+    }
 }

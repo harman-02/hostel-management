@@ -1,6 +1,7 @@
 package com.hms.HostelManagement.controller;
 
 import com.hms.HostelManagement.model.*;
+import com.hms.HostelManagement.repository.StudentRepository;
 import com.hms.HostelManagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -67,11 +71,13 @@ public class MessCancellationsController extends BaseController {
         String username = authenticationService.getCurrentUser(httpSession);
         User user = userService.getUser(username);
         String currRole = user.getRole();
+        System.out.println(currRole);
         if (!Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
         }
         addDefaultAttributes(model, httpSession);
-        int rollNo = studentUserMappingService.getRollNofromUsername(username);
+        System.out.println(username);
+        int rollNo = studentUserMappingService.getRollNoFromUsername(username).getRoll();
         System.out.println(rollNo);
         if (keyword == null) {
             model.addAttribute("cancellation", messCancellationsService.filterByRollNo(rollNo));
@@ -82,7 +88,7 @@ public class MessCancellationsController extends BaseController {
     }
 
     @PostMapping("/mymess")
-    public String postMyCancellations(@ModelAttribute("hostel") HostelRegistration h, @ModelAttribute("mess") MessCancellations m, Model model, HttpSession httpSession) {
+    public String postMyCancellations(@ModelAttribute("hostel") HostelRegistration h, @ModelAttribute("mess") MessCancellations m, @ModelAttribute("user") User u, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
@@ -90,8 +96,12 @@ public class MessCancellationsController extends BaseController {
         Date utildate = m.getDate();
         java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
         m.setDate(sqlDate);
+        System.out.println(h.getHostelId());
         System.out.println(m.getRollNo());
-        messCancellationsService.createMessCancellation(m, h);
+        System.out.println("reached");
+//        StudentUserMapping sum=new StudentUserMapping();
+        messCancellationsService.createMessCancellation(m, h, u);
+        System.out.println("reached");
         model.addAttribute("cancellation", messCancellationsService.filterByRollNo(m.getRollNo()));
         return "messCancellations/myMessCancellations";
     }
@@ -111,27 +121,45 @@ public class MessCancellationsController extends BaseController {
     }
 
     @GetMapping("/mymess/add")
-    public String addMessStudent(Model model, HttpSession session) {
+    public String addMessStudent(Model model, HttpSession session) throws ParseException {
         if (!isAuthenticated(session)) {
             return "redirect:/";
         }
-        System.out.println(model);
+//        System.out.println(model);
         String username = authenticationService.getCurrentUser(session);
+        System.out.println(username);
         User user = userService.getUser(username);
         addDefaultAttributes(model, session);
         String currRole = user.getRole();
         if (!Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
         }
-        Integer rollNo = studentUserMappingService.getRollNofromUsername(username);
+        int rollNo = studentUserMappingService.getRollNoFromUsername(username).getRoll();
+//        System.out.println(rollNo);
         int hostelRegistrationId = studentUserMappingService.getHostelRegistrationIdFromUsername(username);
         int hostelId = hostelRegistrationService.getHostelIDFromHostelRegistrationId(hostelRegistrationId);
+        int sessionId = hostelRegistrationService.getSessionFromHostelRegistrationId(hostelRegistrationId);
+        Date startdate = sessionService.getStartDateFromSession(sessionId);
         MessCancellations mess = new MessCancellations();
         HostelRegistration hostelRegistration = new HostelRegistration();
         mess.setRollNo(rollNo);
+        mess.setHostelRegistrationId(hostelRegistrationId);
         hostelRegistration.setHostelId(hostelId);
+        User u = new User();
+        Session ss = new Session();
+        ss.setStartDate(startdate);
+        u.setUsername(username);
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(startdate);
+        calendar.setTime(startdate);
+        calendar.add(Calendar.YEAR, 1);
         model.addAttribute("mess", mess);
         model.addAttribute("hostel", hostelRegistration);
+        model.addAttribute("user", u);
+        model.addAttribute("sessions", ss);
+        model.addAttribute("maxdate", calendar);
+        model.addAttribute("mindate", calendar1);
         return "messCancellations/addMyMessCancellations";
     }
 
@@ -161,7 +189,7 @@ public class MessCancellationsController extends BaseController {
         if (!Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
         }
-        Integer rollNo = studentUserMappingService.getRollNofromUsername(username);
+        Integer rollNo = studentUserMappingService.getRollNoFromUsername(username).getRoll();
         int hostelRegistrationId = studentUserMappingService.getHostelRegistrationIdFromUsername(username);
         int sess = hostelRegistrationService.getSessionFromHostelRegistrationId(hostelRegistrationId);
         model.addAttribute("mess", messCancellationsService.filterByRollNoAndSession(rollNo, sess));
@@ -190,7 +218,7 @@ public class MessCancellationsController extends BaseController {
         Date utildate = m.getDate();
         java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
         m.setDate(sqlDate);
-        messCancellationsService.createMessCancellation(m, h);
+//        messCancellationsService.createMessCancellation(m, h);
         return "redirect:/mess";
     }
 
@@ -276,7 +304,7 @@ public class MessCancellationsController extends BaseController {
             return "redirect:/dashboard";
         }
         addDefaultAttributes(model, httpSession);
-        int rollNo = studentUserMappingService.getRollNofromUsername(username);
+        int rollNo = studentUserMappingService.getRollNoFromUsername(username).getRoll();
         addDefaultAttributes(model, httpSession);
         if (keyword == null) {
             model.addAttribute("cancellation", messCancellationsService.filterByRollNo(rollNo));
@@ -311,11 +339,17 @@ public class MessCancellationsController extends BaseController {
         if (!Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
         }
-        int rollNo = studentUserMappingService.getRollNofromUsername(username);
+        int rollNo = studentUserMappingService.getRollNoFromUsername(username).getRoll();
+        int hostelRegistrationId = studentUserMappingService.getHostelRegistrationIdFromUsername(username);
+        int session = hostelRegistrationService.getSessionFromHostelRegistrationId(hostelRegistrationId);
         MessCancellations mi = new MessCancellations();
         mi.setRollNo(rollNo);
+        SessionAndRollNo s=new SessionAndRollNo();
+        s.setSession(session);
+        System.out.println(session);
         model.addAttribute("filter", new RangeDateModel());
         model.addAttribute("mess", mi);
+        model.addAttribute("sessions", s);
         return "messCancellations/myMessDateCancellations";
     }
 
@@ -324,8 +358,14 @@ public class MessCancellationsController extends BaseController {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
+        List<Student>allStudents=studentService.getAll();
+        List<Session>allSessions=sessionService.getAll();
+        System.out.println(allStudents);
+        System.out.println(allSessions);
         addDefaultAttributes(model, httpSession);
-        model.addAttribute("filter", new SessionAndRollNo());
+        model.addAttribute("filter", new AllMessCancellations());
+        model.addAttribute("studstudents",allStudents);
+        model.addAttribute("sessions",allSessions);
         return "messCancellations/RollNoAndSessionMessCancellation";
     }
 
@@ -341,7 +381,7 @@ public class MessCancellationsController extends BaseController {
         if (!Objects.equals(currRole, "student")) {
             return "redirect:/dashboard";
         }
-        Integer rollNo = studentUserMappingService.getRollNofromUsername(username);
+        Integer rollNo = studentUserMappingService.getRollNoFromUsername(username).getRoll();
         int hostelRegistrationId = studentUserMappingService.getHostelRegistrationIdFromUsername(username);
         int session = hostelRegistrationService.getSessionFromHostelRegistrationId(hostelRegistrationId);
         model.addAttribute("cancellation", messCancellationsService.filterByRollNoAndSession(rollNo, session));
@@ -442,12 +482,12 @@ public class MessCancellationsController extends BaseController {
     }
 
     @PostMapping("/mess/postFilterByRollNoAndSession")
-    public String PostFilterByDate(@ModelAttribute("filter") SessionAndRollNo sessionAndRollNo, Model model, HttpSession httpSession) {
+    public String PostFilterByRollNoAndSession(@ModelAttribute("filter") AllMessCancellations allMessCancellations, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
             return "redirect:/";
         }
         addDefaultAttributes(model, httpSession);
-        List<AllMessCancellations> mi = messCancellationsService.filterByRollNoAndSession(sessionAndRollNo.getRollNo(), sessionAndRollNo.getSession());
+        List<AllMessCancellations> mi = messCancellationsService.filterByRollNoAndSession(allMessCancellations.getStudentRollNo(), allMessCancellations.getSessionId());
         for (AllMessCancellations mo : mi) {
             Date utildate = mo.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
@@ -456,7 +496,6 @@ public class MessCancellationsController extends BaseController {
         model.addAttribute("cancellation", mi);
         return "messCancellations/allMessCancellations";
     }
-
     @PostMapping("/filterBySession")
     public String PostFilterMessSession(@ModelAttribute("sId") Session s, Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
