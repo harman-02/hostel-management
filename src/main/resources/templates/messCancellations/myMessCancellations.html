@@ -54,7 +54,7 @@
         <td><time th:text="${#dates.format(entry.date, 'dd/MM/yyyy')}"></time></td>
         <td>
             <a th:href="@{'/mymess/update/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Update</a>
-            <a th:href="@{'/mymess/delete/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Delete</a>
+            <a th:if="${entry.date gt #dates.createNow()}" th:href="@{'/mymess/delete/'+ ${entry.entryNo}}" class="btn btn-primary btn-sm mb-3">Delete</a>
         </td>
     </tr>
     </tbody>
