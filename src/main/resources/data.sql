@@ -85,3 +85,4 @@ select * from messcancellations;
 insert into messcancellations values(1,1,1,'2020-03-02');
 select * from session;
 select * from studentusermapping;
+select count(*) from messcancellations where hostelRegistrationId = ? and rollNo = ?;
