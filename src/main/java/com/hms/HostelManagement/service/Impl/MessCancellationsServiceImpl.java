@@ -110,5 +110,9 @@ public class MessCancellationsServiceImpl implements MessCancellationsService {
     public List<AllMessCancellations> filterByHostel(Integer hostelId) {
         return messCancellationsRepository.filterByHostel(hostelId);
     }
+    @Override
+    public List<MessCancellations> getDateFromId(Integer id){
+        return messCancellationsRepository.getDateFromId(id);
+    }
 
 }

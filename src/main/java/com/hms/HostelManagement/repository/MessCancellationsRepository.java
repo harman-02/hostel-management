@@ -192,4 +192,11 @@ public class MessCancellationsRepository {
                 "where H.hostel_id = ?";
         return jdbcTemplate.query(sql, new Object[]{hostelId}, rowMapper1);
     }
+
+
+
+    public List<MessCancellations> getDateFromId(Integer id){
+        String sql="select * from messcancellations where entryNo=?";
+        return jdbcTemplate.query(sql, new Object[]{id}, rowMapper);
+    }
 }

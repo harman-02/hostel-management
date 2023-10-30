@@ -11,15 +11,15 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Update date of cancellation </h1>
             <div class="card-body">
-                <form th:action="@{/myMessUpdate}" th:object="${cancellation}" method="POST">
+                <form th:action="@{/myMessUpdate}"  method="POST">
                     <input type="hidden" th:value="${cancellation.entryNo}" th:attr="name='entryNo'"/>
                     <input type="hidden" th:value="${cancellation.hostelRegistrationId}"
                            th:attr="name='hostelRegistrationId'"/>
                     <input type="hidden" th:value="${cancellation.rollNo}" th:attr="name='RollNo'"/>
                     <div class="form-group">
                         <label>
-                            Date of Cancellation: <input type="date" name="date" th:field="*{date}"/>
-
+                            Date of Cancellation: <input type="date" name="date" th:field="*{cancellation.date}"
+                            th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">/
                         </label>
                     </div>
                     <div class="box-footer">

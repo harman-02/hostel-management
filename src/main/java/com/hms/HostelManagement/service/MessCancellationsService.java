@@ -37,4 +37,5 @@ public interface MessCancellationsService {
     List<AllMessCancellations> filterByHostelIdAndSessionId(Integer hostelId, Integer sessionId);
 
     List<AllMessCancellations> filterByHostel(Integer hostelId);
+    public List<MessCancellations> getDateFromId(Integer id);
 }

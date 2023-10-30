@@ -230,6 +230,7 @@ public class MessCancellationsController extends BaseController {
         addDefaultAttributes(model, httpSession);
         MessCancellations messCancellations = messCancellationsService.getById(id);
         model.addAttribute("cancellation", messCancellations);
+
         return "messCancellations/updateMessCancellation";
     }
 
@@ -240,10 +241,18 @@ public class MessCancellationsController extends BaseController {
         }
         addDefaultAttributes(model, httpSession);
         MessCancellations messCancellations = messCancellationsService.getById(id);
+        List<MessCancellations>m=messCancellationsService.getDateFromId(id);
+        MessCancellations messnew=new MessCancellations();
+
+        Date prev;
+        for(MessCancellations mo:m){
+             prev=mo.getDate();
+             messnew.setDate(prev);
+        }
+        model.addAttribute("mess",messnew);
         model.addAttribute("cancellation", messCancellations);
         return "messCancellations/updateMessCancellation";
     }
-
     @GetMapping("/mess/filterByHostelAndSession")
     public String filterMess(Model model, HttpSession httpSession) {
         if (!isAuthenticated(httpSession)) {
